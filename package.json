@@ -2,25 +2,55 @@
   "name": "intentum",
   "version": "0.1.0",
   "private": true,
+  "author": "Nikola Ganchev",
+  "build": {
+    "appId": "com.gmail.nikolaganchevdevelopment.intentum",
+    "productName": "Intentum",
+    "copyright": "Copyright © 2021 Nikola Ganchev",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "assets/app.ico"
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
+    "@types/node": "^15.12.4",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^13.1.4",
+    "electron-builder": "^22.11.7",
+    "electron-is-dev": "^2.0.0",
+    "nodemon": "^2.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
+    "wait-on": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:web": "react-scripts start",
+    "build:web": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start:desktop": "concurrently \"tsc ./electron/src/electron.ts -w --outDir ./electron/build \" \"cross-env NODE_ENV=dev nodemon --exec \"\"wait-on http://localhost:3000 && electron electron/build/electron.js\"\"",
+    "build:desktop": "npm run react-prebuild && npm run react-build && npm run electron-build",
+    "eject": "react-scripts eject",
+    "react-prebuild": "cross-env cp ./electron/build/*.js public/",
+    "electron-build": "electron-builder",
+    "release": "npm run react-prebuild && npm run react-build && electron-builder --publish=always",
+    "start": "concurrently \"npm run start:web\" \"npm run start:desktop\""
   },
   "eslintConfig": {
     "extends": [
