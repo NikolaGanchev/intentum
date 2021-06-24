@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Loader from './components/Loader';
 
 function App() {
+  const [t] = useTranslation("common");
+  const [showLoader, setShowLoader] = useState(true);
+  const hide = () => {
+    setShowLoader(false);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>{(showLoader) ?
+      (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} />) :
+      (<div></div>)
+
+    }</div>
+
   );
 }
 

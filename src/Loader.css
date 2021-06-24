@@ -1,0 +1,46 @@
+#loader {
+    overflow: visible;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 17rem;
+    height: 17rem;
+    opacity: 100%;
+    transition: 1s linear;
+    width: 300;
+    height: 300;
+}
+
+.logoRotate {
+    animation: spin 5s infinite forwards linear;
+    box-sizing: content-box;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+.logoDisappear {
+    opacity: 0%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.logo {
+    overflow: visible;
+    fill: url(#header-shape-gradient) #fff;
+
+    stroke: white;
+}
+
+.backgroundDisappear {
+    opacity: 0% !important;
+}
+

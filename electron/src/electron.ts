@@ -17,13 +17,10 @@ function createWindow() {
             ? 'http://localhost:3000'
             : `file://${path.join(__dirname, '../../build/index.html')}`
     );
-    // Open the DevTools.
+    /*// Open the DevTools.
     if (isDev) {
         mainWindow.webContents.openDevTools({ mode: 'detach' });
-    }
-
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    }*/
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
