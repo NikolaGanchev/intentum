@@ -1,16 +1,21 @@
 import styled from 'styled-components'
 import Logo from '../resources/LogoSvg'
 import '../Loader.css'
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { generateStudyUnits } from '../utils/StudyUnitUtils';
 
 const disappearLength = 3;
 
-const Background = styled.div`
+interface BackgroundProps {
+    readonly visible: boolean;
+};
+
+const Background = styled.div<BackgroundProps>`
         background-color: ${props => props.theme.main};
         position: fixed;
         width: 100%;
         height: 100%;
-        opacity: 100%;
+        opacity: ${props => props.visible ? '100%' : '0'};
         transition: ${disappearLength}s; 
     `
 
@@ -35,22 +40,28 @@ const Motto = styled.h3`
     `
 
 export default function Loader(props: any) {
-    const bgRef = useRef<any>();
-
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            bgRef.current.classList.add("backgroundDisappear");
+        const func = (success: boolean) => {
+            if (success) {
+                setIsVisible(false);
 
-            setTimeout(() => {
-                props.hide();
-            }, disappearLength * 1000);
-        }, 3000)
+                setTimeout(() => {
+                    props.hide();
+                }, disappearLength * 1000);
+            }
+            else {
+                generateStudyUnits(func);
+            }
+        }
 
+
+        generateStudyUnits(func);
     })
 
     return (
-        <Background ref={bgRef}>
+        <Background visible={isVisible}>
             <Title>{props.title}</Title>
             <Logo />
             <Motto>{props.motto}</Motto>

@@ -19,10 +19,6 @@
     transform-box: fill-box;
 }
 
-.logoDisappear {
-    opacity: 0%;
-}
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -35,12 +31,7 @@
 
 .logo {
     overflow: visible;
-    fill: url(#header-shape-gradient) #fff;
+    fill: #000000;
 
     stroke: white;
 }
-
-.backgroundDisappear {
-    opacity: 0% !important;
-}
-

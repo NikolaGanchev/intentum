@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from './components/Loader';
+import * as electron from 'electron';
 
 function App() {
   const [t] = useTranslation("common");
