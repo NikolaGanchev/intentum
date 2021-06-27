@@ -119,15 +119,15 @@ export async function generateIfNeeded(callback: Function) {
 
 export async function generateStudyUnits(callback: Function) {
 
-    var worker = new Worker("./worker.ts");
+    /*var worker = new Worker("./worker.ts");
 
     worker.postMessage("generate");
 
     worker.addEventListener("generateReady", () => {
         callback(true);
-    })
+    })*/
 
-    /*store.set(LESSON + "1", firstUnitConfig);
+    store.set(LESSON + "1", firstUnitConfig);
 
     for (let i = 2; i <= LESSON_AMOUNT; i++) {
         store.set(LESSON + i, otherUnitsConfig);
@@ -136,5 +136,5 @@ export async function generateStudyUnits(callback: Function) {
     for (let i = 1; i <= TEST_POSITIONS.length; i++) {
         store.set(TEST + i, testConfig)
     }
-    callback(true);*/
+    callback(true);
 }
