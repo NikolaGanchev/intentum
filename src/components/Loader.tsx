@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import Logo from '../resources/LogoSvg'
 import '../Loader.css'
-import { useEffect, useRef, useState } from 'react';
-import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getStudyUnit } from '../utils/StudyUnitUtils';
+import { useEffect, useState } from 'react';
+import { generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from '../utils/StudyUnitUtils';
 import StudyUnit from '../utils/StudyUnit';
 
 const disappearLength = 3;
@@ -47,7 +47,6 @@ export default function Loader(props: any) {
         const func = (success: boolean) => {
             if (success) {
                 setIsVisible(false);
-
                 const callback = (units: StudyUnit[] | null) => {
                     if (units == null) {
                         getAllStudyUnitsArray(callback);
@@ -56,7 +55,6 @@ export default function Loader(props: any) {
                         props.hide();
                     }, disappearLength * 1000);
                 };
-
                 getAllStudyUnitsArray(callback);
 
 
@@ -65,7 +63,6 @@ export default function Loader(props: any) {
                 generateStudyUnitsIfNeeded(func);
             }
         }
-
 
         generateStudyUnitsIfNeeded(func);
     }, [])

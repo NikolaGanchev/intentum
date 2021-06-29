@@ -1,8 +1,6 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from './components/Loader';
-import * as electron from 'electron';
-import storage from "electron-json-storage";
 
 function App() {
   const [t] = useTranslation("common");
@@ -12,11 +10,13 @@ function App() {
   }
 
   return (
-    <div>{(showLoader) ?
-      (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} />) :
-      (<div></div>)
-
-    }</div>
+    <div>
+      {
+        (showLoader) ?
+          (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} />) : null
+      }
+      <div>Hey</div>
+    </div>
 
   );
 }

@@ -1,6 +1,4 @@
-import React from "react";
 import { StudyUnitType } from "./StudyUnitType";
-import i18n from 'i18next';
 import StudyUnit from "./StudyUnit";
 import { get, getMany, set, setMany, update } from 'idb-keyval';
 
@@ -104,10 +102,10 @@ export async function getAllStudyUnitsArray(callback: Function) {
 }
 
 export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
-    let key = ((unit.type == StudyUnitType.Lesson) ? LESSON : TEST) + unit.number;
+    let key = ((unit.type === StudyUnitType.Lesson) ? LESSON : TEST) + unit.number;
 
     get(key).then((value) => {
-        if (value == undefined) {
+        if (value === undefined) {
             callback(false);
             return;
         }

@@ -1,4 +1,3 @@
-import React from "react";
 import { StudyUnitType } from "./StudyUnitType";
 
 export default class StudyUnit {

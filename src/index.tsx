@@ -8,6 +8,7 @@ import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 import common_en from './translations/en/common.json';
 import common_bg from './translations/bg/common.json';
+import { createGlobalStyle } from 'styled-components';
 
 const theme = {
   main: "#efefef",
@@ -31,10 +32,25 @@ i18next.init({
   },
 });
 
+
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    color: ${(props: any) => props.theme.text};
+    background-color: ${(props: any) => props.theme.main};;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+  }
+`;
+
+export default GlobalStyle;
+
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <App />
       </ThemeProvider>
     </I18nextProvider>
