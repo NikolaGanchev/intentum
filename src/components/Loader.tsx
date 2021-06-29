@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import Logo from '../resources/LogoSvg'
 import '../Loader.css'
 import { useEffect, useRef, useState } from 'react';
-import { generateStudyUnits } from '../utils/StudyUnitUtils';
+import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getStudyUnit } from '../utils/StudyUnitUtils';
+import StudyUnit from '../utils/StudyUnit';
 
 const disappearLength = 3;
 
@@ -47,18 +48,27 @@ export default function Loader(props: any) {
             if (success) {
                 setIsVisible(false);
 
-                setTimeout(() => {
-                    props.hide();
-                }, disappearLength * 1000);
+                const callback = (units: StudyUnit[] | null) => {
+                    if (units == null) {
+                        getAllStudyUnitsArray(callback);
+                    }
+                    setTimeout(() => {
+                        props.hide();
+                    }, disappearLength * 1000);
+                };
+
+                getAllStudyUnitsArray(callback);
+
+
             }
             else {
-                generateStudyUnits(func);
+                generateStudyUnitsIfNeeded(func);
             }
         }
 
 
-        generateStudyUnits(func);
-    })
+        generateStudyUnitsIfNeeded(func);
+    }, [])
 
     return (
         <Background visible={isVisible}>

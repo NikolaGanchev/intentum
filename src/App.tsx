@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from './components/Loader';
 import * as electron from 'electron';
+import storage from "electron-json-storage";
 
 function App() {
   const [t] = useTranslation("common");

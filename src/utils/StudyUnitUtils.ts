@@ -2,6 +2,7 @@ import React from "react";
 import { StudyUnitType } from "./StudyUnitType";
 import i18n from 'i18next';
 import StudyUnit from "./StudyUnit";
+import { get, getMany, set, setMany, update } from 'idb-keyval';
 
 const HAS_ENTERED_KEY = "hasEntered";
 
@@ -16,7 +17,8 @@ const otherUnitsConfig = {
 }
 
 const testConfig = {
-    unlocked: false
+    unlocked: false,
+    progress: null
 }
 
 const LESSON = "L";
@@ -25,116 +27,146 @@ const TEST = "T";
 const TEST_POSITIONS = [8, 18, 23, 26, 31, 35, 42, 49];
 const LESSON_AMOUNT = 42;
 
-const Store = window.require('electron-store');
-const store = new Store();
 
 
-
-export function getStudyUnit(type: StudyUnitType, number: number): StudyUnit | null {
+export async function getStudyUnit(type: StudyUnitType, number: number, callback: Function) {
 
     let unit: StudyUnit | null;
 
 
     switch (type) {
         case StudyUnitType.Lesson: {
-            let lessonProgress: any = store.get(LESSON + number, {});
-
-            if (lessonProgress == {}) {
-                unit = null;
-                break;
-            }
-            else {
-                unit = new StudyUnit(StudyUnitType.Lesson, number, lessonProgress.unlocked, lessonProgress.progress);
-            }
-
+            console.log(LESSON + number);
+            let lessonProgress: any = await get(LESSON + number);
+            unit = new StudyUnit(StudyUnitType.Lesson, number, lessonProgress.unlocked, lessonProgress.progress);
             break;
         }
         case StudyUnitType.Test: {
-            let testProgress: any = store.get(LESSON + number, {});
-
-            if (testProgress == {}) {
-                unit = null;
-                break;
-            }
-            else {
-                unit = new StudyUnit(StudyUnitType.Test, number, testProgress.unlocked, null);
-            }
+            let testProgress: any = await get(TEST + number);
+            unit = new StudyUnit(StudyUnitType.Test, number, testProgress.unlocked, null);
 
 
             break;
         }
     }
 
-    return unit;
+    callback(unit);
 }
 
-export function getAllStudyUnitsArray() {
-    let units: any[] = [];
+export async function getAllStudyUnitsArray(callback: Function) {
+    let lessonsToGet: any[] = [];
+    let studyUnits: StudyUnit[] = [];
 
-    for (let i = 1; i <= LESSON_AMOUNT; i++) {
-        let unit = getStudyUnit(StudyUnitType.Lesson, i);
-        if (unit == null) {
-            i--;
-            continue;
-        }
-        units.push(unit);
+    lessonsToGet.push(LESSON + "1");
+
+    for (let i = 2; i <= LESSON_AMOUNT; i++) {
+        lessonsToGet.push(LESSON + i);
     }
 
-    for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-        let unit = getStudyUnit(StudyUnitType.Test, i);
-        if (unit == null) {
-            i--;
-            continue;
-        }
-        units.splice(TEST_POSITIONS[i - 1], 0, unit);
-    }
+    getMany(lessonsToGet)
+        .then((...args) => {
+            for (let i = 1; i <= args[0].length; i++) {
+                let currentLesson = args[0][i - 1];
+                studyUnits.push(new StudyUnit(StudyUnitType.Lesson, i, currentLesson.unlocked, currentLesson.progress))
+            }
 
-    console.log(units);
+            let testsToGet: any[] = [];
 
-    return units;
+            for (let i = 1; i <= TEST_POSITIONS.length; i++) {
+                testsToGet.push(TEST + i);
+            }
+
+            getMany(testsToGet)
+                .then((...args1) => {
+                    let tests = [];
+                    for (let i = 1; i <= args1[0].length; i++) {
+                        let currentTest = args1[0][i - 1];
+                        tests.push(new StudyUnit(StudyUnitType.Test, i, currentTest.unlocked, currentTest.progress));
+                    }
+
+                    for (let i = 0; i < TEST_POSITIONS.length; i++) {
+                        studyUnits.splice(TEST_POSITIONS[i], 0, tests[i]);
+                    }
+
+                    callback(studyUnits);
+                })
+                .catch((err) => {
+                    callback(null);
+                    throw err;
+                });
+        })
+        .catch((err) => {
+            callback(null);
+            throw err;
+        });
+
+
 }
 
-export function changeStudyUnit(unit: StudyUnit, callback: Function) {
+export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
     let key = ((unit.type == StudyUnitType.Lesson) ? LESSON : TEST) + unit.number;
 
-    if (store.has(key)) {
-        store.set(key, { unlocked: unit.unlocked, progress: (unit.type === StudyUnitType.Lesson) ? unit.progress : null });
-    }
-    else {
-        callback(false);
-        return;
-    }
+    get(key).then((value) => {
+        if (value == undefined) {
+            callback(false);
+            return;
+        }
+        else {
+            update(key, (val) => {
+                val.unlocked = unit.unlocked;
+                val.progress = (unit.type === StudyUnitType.Lesson) ? unit.progress : null;
+                return val;
+            }).then(() => {
+                callback(true);
+            }).catch((err) => {
+                console.log(err);
+                callback(false);
+            });
+        }
+    });
 }
 
-export async function generateIfNeeded(callback: Function) {
+export async function generateStudyUnitsIfNeeded(callback: Function) {
 
-    if (!store.has(HAS_ENTERED_KEY)) {
-        store.set(HAS_ENTERED_KEY, { HAS_ENTERED_KEY: true });
-        generateStudyUnits(callback);
-    }
-    else {
-        callback(true);
-    }
+    get(HAS_ENTERED_KEY).then((value) => {
+        if (value === undefined) {
+            set(HAS_ENTERED_KEY, { HAS_ENTERED_KEY: true }).then(() => {
+                generateStudyUnits(callback);
+            }).catch((err) => {
+                console.log(err);
+                callback(false);
+            });
+
+        }
+        else {
+            callback(true);
+        }
+    }).catch((err) => {
+        console.log(err);
+        callback(false);
+    });
 }
 
 export async function generateStudyUnits(callback: Function) {
 
-    /*var worker = new Worker("./worker.ts");
+    let valuesToStore: any[] = [];
 
-    worker.postMessage("generate");
-
-    worker.addEventListener("generateReady", () => {
-        callback(true);
-    })*/
-
-    store.set(LESSON + "1", firstUnitConfig);
+    valuesToStore.push([LESSON + "1", firstUnitConfig]);
 
     for (let i = 2; i <= LESSON_AMOUNT; i++) {
-        store.set(LESSON + i, otherUnitsConfig);
+        valuesToStore.push([LESSON + i, otherUnitsConfig]);
     }
 
     for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-        store.set(TEST + i, testConfig)
+        valuesToStore.push([TEST + i, testConfig]);
     }
-    callback(true);
+
+    setMany(valuesToStore)
+        .then(() => {
+            callback(true);
+        })
+        .catch((err) => {
+            console.log("fail " + JSON.stringify(err));
+            callback(false);
+        });
 }
