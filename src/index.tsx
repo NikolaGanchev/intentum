@@ -8,6 +8,8 @@ import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 import common_en from './translations/en/common.json';
 import common_bg from './translations/bg/common.json';
+import lessons_en from './translations/en/lessons.json';
+import lessons_bg from './translations/bg/lessons.json';
 import { createGlobalStyle } from 'styled-components';
 
 const theme = {
@@ -15,7 +17,9 @@ const theme = {
   secondary: "#000000",
   text: "#000000",
   textSecondary: "#FFFFFF",
-  gradient: ""
+  gradient: "",
+  shadow: "rgba(0, 0, 0, 0.25)",
+  pure: "#FFFFFF"
 };
 
 i18next.init({
@@ -24,10 +28,12 @@ i18next.init({
   fallbackLng: ["en", "dev"],
   resources: {
     en: {
-      common: common_en
+      common: common_en,
+      lessons: lessons_en
     },
     bg: {
-      common: common_bg
+      common: common_bg,
+      lessons: lessons_bg
     },
   },
 });

@@ -2,8 +2,6 @@ import styled from 'styled-components'
 import Logo from '../resources/LogoSvg'
 import '../Loader.css'
 import { useEffect, useState } from 'react';
-import { generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from '../utils/StudyUnitUtils';
-import StudyUnit from '../utils/StudyUnit';
 
 const disappearLength = 3;
 
@@ -12,6 +10,7 @@ interface BackgroundProps {
 };
 
 const Background = styled.div<BackgroundProps>`
+        z-index: 9999;
         background-color: ${props => props.theme.main};
         position: fixed;
         width: 100%;
@@ -43,28 +42,25 @@ const Motto = styled.h3`
 export default function Loader(props: any) {
     const [isVisible, setIsVisible] = useState(true);
 
-    useEffect(() => {
-        const func = (success: boolean) => {
-            if (success) {
-                setIsVisible(false);
-                const callback = (units: StudyUnit[] | null) => {
-                    if (units == null) {
-                        getAllStudyUnitsArray(callback);
-                    }
+    const run = () => {
+        if (props.job !== null || props.job !== undefined) {
+            props.job().then(() => {
+                setTimeout(() => {
+                    setIsVisible(false);
                     setTimeout(() => {
                         props.hide();
                     }, disappearLength * 1000);
-                };
-                getAllStudyUnitsArray(callback);
-
-
-            }
-            else {
-                generateStudyUnitsIfNeeded(func);
-            }
+                }, 1000)
+            })
+                .catch((err: any) => {
+                    console.error(err);
+                    run();
+                })
         }
+    }
 
-        generateStudyUnitsIfNeeded(func);
+    useEffect(() => {
+        run();
     }, [])
 
     return (
