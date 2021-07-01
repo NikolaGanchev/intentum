@@ -17,7 +17,7 @@ const theme = {
   secondary: "#000000",
   text: "#000000",
   textSecondary: "#FFFFFF",
-  gradient: "",
+  gradient: "linear-gradient(90deg, rgba(23,26,203,1) 0%, rgba(135,33,203,1) 50%, rgba(203,33,142,1) 100%)",
   shadow: "rgba(0, 0, 0, 0.25)",
   pure: "#FFFFFF"
 };

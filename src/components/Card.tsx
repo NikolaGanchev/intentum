@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-import Button from "./Buttons"
+import Button from "./Button"
 
 const Container = styled.div`
     position: relative;

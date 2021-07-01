@@ -10,8 +10,8 @@ const Container = styled.button<ButtonProps>`
     height: 2.5vw;
     border: 1px solid ${props => props.theme.secondary};
     z-index: 1;
-    color: ${props => (props.isHover) ? props.theme.textSecondary : props.theme.text};
-    background-color: ${props => props.theme.pure};
+    color: ${props => (props.isHover) ? props.theme.text : props.theme.textSecondary};
+    background-color: ${props => props.theme.secondary};
     position: relative;
     transition: color 1s ease;
     cursor: pointer;
@@ -24,7 +24,7 @@ const Container = styled.button<ButtonProps>`
         top: 0px;
         right: ${props => (props.isHover) ? 'auto' : '0px'};
         direction: rtl;
-        background-color: ${props => props.theme.secondary};
+        background: ${props => props.theme.pure};
         z-index: -1;
         transition: all 1s ease;
     }

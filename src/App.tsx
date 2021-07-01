@@ -1,11 +1,29 @@
-import i18next from 'i18next';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Card from './components/Card';
+import styled from 'styled-components';
+import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
 import StudyUnit from './utils/StudyUnit';
 import { generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
 import StudyUnitWithTranslations from './utils/StudyUnitWithTranslations';
+
+const StyledCarousel = styled(CardCarousel)`
+  width: 100%;
+  height: 85vh;
+  
+`
+const Top = styled.div`
+  width: 100%;
+  height: 5vh;
+`
+
+const Footer = styled.div`
+  width: 100%;
+  height: 10vh;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+`
 
 function App() {
   const [t] = useTranslation("common");
@@ -52,7 +70,10 @@ function App() {
         (showLoader) ?
           (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
       }
-      <div>{(cards) ? <Card title={cards[0].title} text={cards[0].text} /> : null}</div>
+      <div>
+        <Top></Top>
+        <StyledCarousel cards={cards}></StyledCarousel>
+        <Footer>{t("app.motto")}</Footer> </div>
     </div>
 
   );

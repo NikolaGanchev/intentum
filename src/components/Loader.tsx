@@ -3,7 +3,7 @@ import Logo from '../resources/LogoSvg'
 import '../Loader.css'
 import { useEffect, useState } from 'react';
 
-const disappearLength = 3;
+const disappearLength = 2;
 
 interface BackgroundProps {
     readonly visible: boolean;

@@ -1,6 +1,6 @@
 import { StudyUnitType } from "./StudyUnitType";
 import StudyUnit from "./StudyUnit";
-import { entries, get, getMany, set, setMany, update } from 'idb-keyval';
+import { get, getMany, set, setMany, update } from 'idb-keyval';
 
 const HAS_ENTERED_KEY = "hasEntered";
 
@@ -74,7 +74,7 @@ export async function getAllStudyUnitsArray(callback: Function) {
                     }
 
                     for (let i = 0; i < TEST_POSITIONS.length; i++) {
-                        studyUnits.splice(TEST_POSITIONS[i], 0, tests[i]);
+                        studyUnits.splice(TEST_POSITIONS[i] - i, 0, tests[i]);
                     }
 
                     callback(studyUnits);
