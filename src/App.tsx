@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
+import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
 import { generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
 import StudyUnitWithTranslations from './utils/StudyUnitWithTranslations';
@@ -29,6 +30,7 @@ function App() {
   const [t] = useTranslation("common");
   const [showLoader, setShowLoader] = useState(true);
   const [cards, setCards] = useState<StudyUnitWithTranslations[] | null>(null);
+  const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnitWithTranslations | null>(null);
   const hide = () => {
     setShowLoader(false);
   }
@@ -70,10 +72,14 @@ function App() {
         (showLoader) ?
           (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
       }
-      <div>
-        <Top></Top>
-        <StyledCarousel cards={cards}></StyledCarousel>
-        <Footer>{t("app.motto")}</Footer> </div>
+      {(currentStudyUnit) ?
+        (<Unit unit={currentStudyUnit} />) :
+        (<div>
+          <Top></Top>
+          <StyledCarousel cards={cards} setStudyUnit={setCurrentStudyUnit}></StyledCarousel>
+          <Footer>{t("app.motto")}</Footer>
+        </div>)
+      }
     </div>
 
   );

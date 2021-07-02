@@ -7,7 +7,7 @@ const Container = styled.div`
     width: 24vw;
     height: 32vw;
     background-color: ${props => props.theme.pure};
-    border: 1px solid #000000;
+    border: 1px solid ${props => props.theme.secondary};
     box-sizing: border-box;
     box-shadow: -10px -10px 50px 5px ${props => props.theme.shadow}, 10px 10px 50px 5px ${props => props.theme.shadow};
 `
@@ -45,6 +45,6 @@ export default function Card(props: any) {
     return <Container>
         <Title>{props.title}</Title>
         <Text>{props.text}</Text>
-        <StyledButton text={t("app.begin")} />
+        <StyledButton text={t("app.begin")} onClick={props.onClick} />
     </Container>
 }
