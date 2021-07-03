@@ -8,7 +8,7 @@ const LESSON = "L";
 const TEST = "T";
 
 const TEST_POSITIONS = [8, 18, 23, 26, 31, 35, 42, 49];
-const LESSON_AMOUNT = 42;
+const LESSON_AMOUNT = 43;
 
 
 
@@ -46,9 +46,9 @@ export async function getAllStudyUnitsArray(callback: Function) {
     let lessonsToGet: any[] = [];
     let studyUnits: StudyUnit[] = [];
 
-    lessonsToGet.push(LESSON + "1");
+    lessonsToGet.push(LESSON + "0");
 
-    for (let i = 2; i <= LESSON_AMOUNT; i++) {
+    for (let i = 1; i <= LESSON_AMOUNT; i++) {
         lessonsToGet.push(LESSON + i);
     }
 
@@ -140,9 +140,9 @@ export async function generateStudyUnits(callback: Function) {
 
     let valuesToStore: any[] = [];
 
-    valuesToStore.push([LESSON + "1", new StudyUnit(StudyUnitType.Lesson, 1, true, null)]);
+    valuesToStore.push([LESSON + "0", new StudyUnit(StudyUnitType.Lesson, 0, true, null)]);
 
-    for (let i = 2; i <= LESSON_AMOUNT; i++) {
+    for (let i = 1; i <= LESSON_AMOUNT; i++) {
         valuesToStore.push([LESSON + i, new StudyUnit(StudyUnitType.Lesson, i, false, null)]);
     }
 

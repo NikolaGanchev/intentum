@@ -3,7 +3,7 @@ import Logo from '../resources/LogoSvg'
 import '../Loader.css'
 import { useEffect, useState } from 'react';
 
-const disappearLength = 2;
+const disappearLength = 1.5;
 
 interface BackgroundProps {
     readonly visible: boolean;
@@ -70,15 +70,13 @@ export default function Loader(props: any) {
 
     useEffect(() => {
         if (props.fadeIn) {
-            requestAnimationFrame(() => {
-                setIsVisible(true);
-                setTimeout(() => {
-                    if (props.fadeEnd !== undefined) {
-                        props.fadeEnd();
-                    }
-                    run();
-                }, disappearLength * 1000);
-            });
+            setIsVisible(true);
+            setTimeout(() => {
+                if (props.fadeEnd !== undefined) {
+                    props.fadeEnd();
+                }
+                run();
+            }, disappearLength * 1000);
         }
         else {
             run();

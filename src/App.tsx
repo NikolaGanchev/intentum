@@ -5,7 +5,7 @@ import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
+import { generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
 import StudyUnitWithTranslations from './utils/StudyUnitWithTranslations';
 
 const StyledCarousel = styled(CardCarousel)`
@@ -50,9 +50,11 @@ function App() {
             let extStudyUnits: StudyUnitWithTranslations[] = [];
             for (let unit of units) {
               let key = getIdFromStudyUnit(unit);
+              console.log(key);
               let ext = new StudyUnitWithTranslations(unit, tl(`${key}.title`), tl(`${key}.text`));
               extStudyUnits.push(ext);
             }
+            console.log(extStudyUnits);
             setCards(extStudyUnits);
           }
         };
@@ -61,11 +63,11 @@ function App() {
 
       }
       else {
-        await generateStudyUnitsIfNeeded(func);
+        await generateStudyUnits(func);
       }
     }
 
-    await generateStudyUnitsIfNeeded(func);
+    await generateStudyUnits(func);
   }
 
   return (

@@ -18,8 +18,12 @@ const theme = {
   text: "#000000",
   textSecondary: "#FFFFFF",
   gradient: "linear-gradient(90deg, rgba(23,26,203,1) 0%, rgba(135,33,203,1) 50%, rgba(203,33,142,1) 100%)",
+  borderGradient: "linear-gradient( rgba(23,26,203,1),  rgba(135,33,203,1) , rgba(203,33,142,1)) 27",
   shadow: "rgba(0, 0, 0, 0.25)",
-  pure: "#FFFFFF"
+  pure: "#FFFFFF",
+  tip: "#171ACB",
+  warning: "#FFE600",
+  error: "#FF000F"
 };
 
 i18next.init({

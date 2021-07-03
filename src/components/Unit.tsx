@@ -1,16 +1,12 @@
 import React, { Suspense } from "react";
-import { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
-import StudyUnitWithTranslations from "../utils/StudyUnitWithTranslations";
-import Loader from "./Loader";
-
-const animationLength = 3;
 
 const Container = styled.div`
+    position: fixed;
     display: grid;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 10% 90%;
 `
@@ -34,10 +30,12 @@ const UnitContainer = styled.div`
     grid-row: 2;
     grid-column-start: 2;
     grid-column-end: 4;
-    box-sizing: border-box;
     border: 1px solid ${props => props.theme.secondary};
     border-top: 0px;
     padding: 1rem;
+    margin-bottom: 1rem;
+    height: 100%;
+    overflow: auto;
 `
 
 const StyledSuspense = styled(Suspense)`
