@@ -4,7 +4,7 @@ import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
 
-const animationLength = 0.33;
+const animationLength = 0.25;
 
 const Container = styled.div`
     width: 100%;
@@ -98,12 +98,12 @@ export default function CardCarousel(props: any) {
     }
 
     const changeToNext = () => {
-        setTransX(-360);
+        setTransX(-300);
         setOpacity(0);
         setTimeout(() => {
             requestAnimationFrame(() => {
                 setIsTransition(false);
-                setTransX(360);
+                setTransX(300);
                 setActiveIndex(activeIndex + 1);
                 requestAnimationFrame(() => {
                     setIsTransition(true);
@@ -115,12 +115,12 @@ export default function CardCarousel(props: any) {
     }
 
     const changeToPrevious = () => {
-        setTransX(360);
+        setTransX(300);
         setOpacity(0);
         setTimeout(() => {
             requestAnimationFrame(() => {
                 setIsTransition(false);
-                setTransX(-360);
+                setTransX(-300);
                 setActiveIndex(activeIndex - 1);
                 requestAnimationFrame(() => {
                     setIsTransition(true);

@@ -19,10 +19,12 @@ const TextContainer = styled.div`
     grid-row: 1;
     grid-column-start: 1;
     grid-column-end: 5;
-    display: block;
+    display: flex;
     width: 100%;
     padding-left: 1rem;
     border: 1px solid ${props => props.theme.secondary};
+    align-items: center;
+    user-select: text;
 `
 
 const Title = styled.h4`
@@ -45,29 +47,24 @@ const StyledSuspense = styled(Suspense)`
 `
 
 export default function Unit(props: any) {
-    const [showLoader, setShowLoader] = useState(true);;
-    const hide = () => {
-        setShowLoader(false);
-    }
     const Unit = React.lazy(() => {
         return Promise.all([
             import(`./units/${getIdFromStudyUnit(props.unit)}`),
-            new Promise(resolvePromise => setTimeout(resolvePromise, animationLength * 1000))
+            new Promise(resolvePromise => setTimeout(resolvePromise, 0))
         ])
             .then(([moduleExports]) => moduleExports);
     });
 
-    return <div>{
-        <Container>
-            <TextContainer>
-                <Title>{props.unit.title + " " + props.unit.text}</Title>
-            </TextContainer>
-            <UnitContainer>
-                <StyledSuspense fallback={<Loader title={props.unit.title} motto={props.unit.text} hide={hide} job={async () => { }}></Loader>}>
+    return <div>
+        <StyledSuspense fallback={<div>Loading...</div>}>
+            <Container>
+                <TextContainer>
+                    <Title>{props.unit.title + " " + props.unit.text}</Title>
+                </TextContainer>
+                <UnitContainer>
                     <Unit></Unit>
-                </StyledSuspense>
-            </UnitContainer>
-        </Container>
-    }
+                </UnitContainer>
+            </Container>
+        </StyledSuspense>
     </div>
 }

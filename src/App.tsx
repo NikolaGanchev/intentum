@@ -29,6 +29,8 @@ const Footer = styled.div`
 function App() {
   const [t] = useTranslation("common");
   const [showLoader, setShowLoader] = useState(true);
+  const [showUnitLoader, setShowUnitLoader] = useState(true);
+  const [showUnit, setShowUnit] = useState(false);
   const [cards, setCards] = useState<StudyUnitWithTranslations[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnitWithTranslations | null>(null);
   const hide = () => {
@@ -73,7 +75,15 @@ function App() {
           (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
       }
       {(currentStudyUnit) ?
-        (<Unit unit={currentStudyUnit} />) :
+        (<div>
+          {(showUnitLoader) ?
+            (<Loader title={currentStudyUnit.title} motto={currentStudyUnit.text} hide={() => { setShowUnitLoader(false) }} fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
+            (null)}
+          {
+            (showUnit) ?
+              (<Unit unit={currentStudyUnit} />) :
+              (null)
+          } </div>) :
         (<div>
           <Top></Top>
           <StyledCarousel cards={cards} setStudyUnit={setCurrentStudyUnit}></StyledCarousel>

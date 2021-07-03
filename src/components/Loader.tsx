@@ -17,6 +17,7 @@ const Background = styled.div<BackgroundProps>`
         height: 100%;
         opacity: ${props => props.visible ? '100%' : '0'};
         transition: ${disappearLength}s; 
+        pointer-events: ${props => props.visible ? 'all' : 'none'};
     `
 
 const Title = styled.h1`
@@ -40,10 +41,10 @@ const Motto = styled.h3`
     `
 
 export default function Loader(props: any) {
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(!props.fadeIn);
 
     const run = () => {
-        if (props.job !== null || props.job !== undefined) {
+        if (props.job !== null && props.job !== undefined) {
             props.job().then(() => {
                 setTimeout(() => {
                     setIsVisible(false);
@@ -57,10 +58,31 @@ export default function Loader(props: any) {
                     run();
                 })
         }
+        else {
+            setTimeout(() => {
+                setIsVisible(false);
+                setTimeout(() => {
+                    props.hide();
+                }, disappearLength * 1000);
+            }, 1000)
+        }
     }
 
     useEffect(() => {
-        run();
+        if (props.fadeIn) {
+            requestAnimationFrame(() => {
+                setIsVisible(true);
+                setTimeout(() => {
+                    if (props.fadeEnd !== undefined) {
+                        props.fadeEnd();
+                    }
+                    run();
+                }, disappearLength * 1000);
+            });
+        }
+        else {
+            run();
+        }
     }, [])
 
     return (
