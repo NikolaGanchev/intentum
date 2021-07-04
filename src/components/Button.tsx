@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ButtonProps {
     readonly isHover: boolean;
+    readonly isActive: boolean;
 };
 
 const Container = styled.button<ButtonProps>`
@@ -10,8 +11,21 @@ const Container = styled.button<ButtonProps>`
     height: 2.5vw;
     border: 1px solid ${props => props.theme.secondary};
     z-index: 1;
-    color: ${props => (props.isHover) ? props.theme.text : props.theme.textSecondary};
-    background-color: ${props => props.theme.secondary};
+    color: ${props => {
+        if (props.isHover && props.isActive) {
+            return props.theme.text;
+        }
+        else if (props.isHover && !props.isActive) {
+            return props.theme.textSecondary;
+        }
+        else if (!props.isHover && props.isActive) {
+            return props.theme.textSecondary;
+        }
+        else if (!props.isHover && !props.isActive) {
+            return props.theme.text;
+        }
+    }};
+    background-color: ${props => (props.isActive) ? props.theme.secondary : props.theme.pure};
     position: relative;
     transition: color 1s ease;
     cursor: pointer;
@@ -24,7 +38,7 @@ const Container = styled.button<ButtonProps>`
         top: 0px;
         right: ${props => (props.isHover) ? 'auto' : '0px'};
         direction: rtl;
-        background: ${props => props.theme.pure};
+        background: ${props => (props.isActive) ? props.theme.pure : props.theme.secondary};
         z-index: -1;
         transition: all 1s ease;
     }
@@ -42,7 +56,7 @@ const Text = styled.div`
 export default function Button(props: any) {
     const [isHover, setIsHover] = useState(false);
 
-    return <Container className={props.className} isHover={isHover} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick}>
+    return <Container className={props.className} isHover={isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick}>
         <Text>{props.text}</Text>
     </Container>
 }

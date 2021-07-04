@@ -50,11 +50,9 @@ function App() {
             let extStudyUnits: StudyUnitWithTranslations[] = [];
             for (let unit of units) {
               let key = getIdFromStudyUnit(unit);
-              console.log(key);
               let ext = new StudyUnitWithTranslations(unit, tl(`${key}.title`), tl(`${key}.text`));
               extStudyUnits.push(ext);
             }
-            console.log(extStudyUnits);
             setCards(extStudyUnits);
           }
         };
@@ -63,11 +61,11 @@ function App() {
 
       }
       else {
-        await generateStudyUnits(func);
+        await generateStudyUnitsIfNeeded(func);
       }
     }
 
-    await generateStudyUnits(func);
+    await generateStudyUnitsIfNeeded(func);
   }
 
   return (
