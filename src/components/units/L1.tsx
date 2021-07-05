@@ -11,6 +11,8 @@ import styled from "styled-components";
 import Code from "../Code";
 import Console from "../Console";
 import Switch from "../Switch";
+import TestQuestion from "../TestQuestion";
+import FullAnswerQuestion from "../FullAnswerQuestion";
 
 const StyledContainer = styled.div`
     padding-bottom: 2rem;
@@ -41,7 +43,8 @@ namespace HelloWorld
 
     const console = `java --hello
 <<output>>success
-cd C:/`
+cd C:/
+<<prefix>>C:/>`
     return <StyledContainer>
         <TextBlock>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci reprehenderit natus incidunt sint maxime eius? Nostrum, unde? Velit, quasi? Laboriosam magnam aspernatur ea esse minima modi dolorem aperiam dolores! Hic! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum exercitationem esse labore omnis mollitia voluptatibus doloribus, natus praesentium eaque dicta, harum officiis dolore, minima quas temporibus quos excepturi. Non, in! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam perspiciatis est recusandae dolores dicta quas officia excepturi sint adipisci dolor quia impedit voluptatum obcaecati, aliquam similique corporis provident distinctio earum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum impedit porro voluptate obcaecati unde veritatis, nam aliquid tenetur. Provident cupiditate accusamus cum sit velit voluptate placeat repudiandae similique sequi nesciunt! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint iure expedita odit consectetur! Culpa corrupti possimus, quas porro consectetur, itaque quasi aliquid dolor similique expedita dolores illo consequatur, ut asperiores.
@@ -77,5 +80,20 @@ cd C:/`
                 <Image src={TestImage2} alt="Lorem ipsum dolor, sit amet consectetur adipisicing elit."></Image>
             </div>
         </Switch>
+        <TestQuestion answers={["lorem", "Правилен", "dolor", "sit", "amet"]} rightAnswer={1} tries={3} explanation="Обяснение">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis consequuntur odit explicabo voluptas sint eligendi id unde exercitationem cumque. Modi quaerat omnis autem ea nesciunt veniam sequi quidem hic eveniet?
+        </TestQuestion>
+        <TestQuestion answers={["lorem", "Правилен", "dolor", "sit", "amet"]} rightAnswer={1} tries={3} explanation="Обяснение" image={TestImage} alt="test">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis consequuntur odit explicabo voluptas sint eligendi id unde exercitationem cumque. Modi quaerat omnis autem ea nesciunt veniam sequi quidem hic eveniet?
+        </TestQuestion>
+        <FullAnswerQuestion button="Провери" rightAnswer="int" explanation="Обяснение">
+            Напишете името на целочисления тип:
+        </FullAnswerQuestion>
+        <FullAnswerQuestion button="Провери" rightAnswers={["int", "integer"]} explanation="Обяснение">
+            Напишете името на целочисления тип по един от два начина:
+        </FullAnswerQuestion>
+        <FullAnswerQuestion button="Провери" rightAnswers={["int", "integer"]} explanation="Обяснение" image={TestImage2}>
+            Напишете името на целочисления тип по един от два начина (тест снимка):
+        </FullAnswerQuestion>
     </StyledContainer>
 }

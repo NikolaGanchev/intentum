@@ -22,6 +22,7 @@ const ContentContainer = styled.div`
     padding: 1rem;
     padding-top: 0rem;
     border: 1px solid ${props => props.theme.secondary};
+    transition: all 1s ease-in;
 `
 
 export default function Switch(props: any) {

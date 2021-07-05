@@ -42,6 +42,10 @@ const Container = styled.button<ButtonProps>`
         z-index: -1;
         transition: all 1s ease;
     }
+    &:disabled {
+        transition: all 1s ease;
+        opacity: 50%;
+    }
 `
 
 const Text = styled.div`
@@ -56,7 +60,7 @@ const Text = styled.div`
 export default function Button(props: any) {
     const [isHover, setIsHover] = useState(false);
 
-    return <Container className={props.className} isHover={isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick}>
+    return <Container className={props.className} isHover={isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick} disabled={props.isDisabled}>
         <Text>{props.text}</Text>
     </Container>
 }

@@ -23,7 +23,11 @@ const theme = {
   pure: "#FFFFFF",
   tip: "#171ACB",
   warning: "#FFE600",
-  error: "#FF000F"
+  error: "#FF000F",
+  correct: "rgba(31, 196, 48, 0.75)",
+  wrong: "rgba(255, 0, 15, 0.75)",
+  correctFull: "rgb(31, 196, 48)",
+  wrongFull: "rgb(255, 0, 15)"
 };
 
 i18next.init({

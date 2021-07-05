@@ -14,10 +14,11 @@ const StyledContainer = styled.div`
 export default function Console(props: any) {
     const prefix = "C:/WINDOWS/system32>";
     const output = "<<output>>"
+    const customPrefix = "<<prefix>>"
     const lines: string[] = props.children.split('\n');
     const html = {
         __html: lines.map((line: string) => {
-            if (line.startsWith(output)) {
+            if (line.startsWith(output) || line.startsWith(customPrefix)) {
                 return line.substring(10, line.length) + '<br />';
             }
             else {

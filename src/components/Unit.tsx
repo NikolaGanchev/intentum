@@ -9,6 +9,7 @@ const Container = styled.div`
     height: 100%;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 10% 90%;
+    background-color: ${props => props.theme.main};
 `
 
 const TextContainer = styled.div`
