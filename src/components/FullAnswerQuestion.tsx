@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components"
 import Button from "./Button";
 import Image from './Image';
@@ -80,6 +81,7 @@ export default function FullAnswerQuestion(props: any) {
     const [isCorrect, setIsCorrect] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [isShowing, setIsShowing] = useState(false);
+    const [t] = useTranslation("common");
     const handleChange = (e: any) => {
         let value: string = e.currentTarget.value;
         setValue(value);
@@ -127,6 +129,12 @@ export default function FullAnswerQuestion(props: any) {
             (null)
         }
         <Explanation isShown={isShowing || props.isShowing}>
+            <TextBlock>
+                {(props.rightAnswer) ?
+                    `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
+                {(props.rightAnswers) ?
+                    `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
+            </TextBlock>
             <TextBlock>
                 {props.explanation}
             </TextBlock>

@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import styled from "styled-components"
 import { nanoid } from 'nanoid'
 import TextBlock from "./TextBlock"
 import Image from './Image';
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
     display: block;
@@ -85,9 +86,11 @@ const Explanation = styled.div<ExplanationProps>`
 export default function TestQuestion(props: any) {
     const id = nanoid()
     const [tries, setTries] = useState(0);
+    const triesRef = useRef(0);
     const [checked, setChecked] = useState(null);
     const [isShowing, setIsShowing] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
+    const [t] = useTranslation("common");
 
     const rightAnswer = props.answers[props.rightAnswer];
     const handleCheck = (e: any) => {
@@ -99,13 +102,14 @@ export default function TestQuestion(props: any) {
         }
 
         if (value !== rightAnswer) {
+            triesRef.current += 1;
             setTries(tries + 1);
         }
         else {
             onShow(true);
             return;
         }
-        if (tries > props.tries) {
+        if (triesRef.current >= props.tries) {
             onShow(false);
         }
 
@@ -122,6 +126,8 @@ export default function TestQuestion(props: any) {
     return <Container>
         <QuestionContainer hasImage={props.image}>
             {props.children}
+            <br />
+            ({t("app.tries", { tries: props.tries - tries })})
             {(props.image) ?
                 <Image src={props.image} alt={props.alt} /> :
                 (null)
