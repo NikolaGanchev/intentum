@@ -27,6 +27,9 @@ const Explanation = styled.div<ExplanationProps>`
     padding: 1rem;
     margin-top: 1rem;
 `
+const StyledButton = styled(Button)`
+    margin-top: 1rem;
+`
 
 interface FillIn {
     rightAnswer: string;
@@ -57,6 +60,9 @@ export default function FillQuestion(props: any) {
     }, [])
 
     const check = () => {
+        if (props.onAnswer) {
+            props.onAnswer();
+        }
         setIsShowing(true);
         setIsDisabled(true);
     }
@@ -76,7 +82,7 @@ export default function FillQuestion(props: any) {
             })}</TextBlock>
         </Container>
         {(!props.noButton) ?
-            <Button text={props.button} onClick={check} isDisabled={isDisabled}></Button> :
+            <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}></StyledButton> :
             (null)
         }
         <Explanation isShown={isShowing || props.isShowing}>

@@ -15,12 +15,18 @@ import TestQuestion from "../TestQuestion";
 import FullAnswerQuestion from "../FullAnswerQuestion";
 import ResearchQuestion from "../ResearchQuestion";
 import FillQuestion from "../FillQuestion";
+import Lock from "../Lock";
+import { useState } from "react";
+import Heading from "../Heading";
+import Button from "../Button";
 
 const StyledContainer = styled.div`
-    padding-bottom: 2rem;
+    padding-bottom: 0rem;
 `
 
 export default function L1(props: any) {
+
+    const [isLocked1, setIsLocked1] = useState(true);
 
     const javaCode = `package src;
 
@@ -104,6 +110,13 @@ are __you__`
         <ResearchQuestion>
             Въпрос за търсене
         </ResearchQuestion>
-        <FillQuestion text={fillIn} button="Провери" explanation="Обяснение"></FillQuestion>
+        <FillQuestion text={fillIn} button="Провери" explanation="Обяснение" onAnswer={() => { setIsLocked1(false) }}></FillQuestion>
+        <Lock isLocked={isLocked1}>
+            <Heading>
+                Заглавие
+            </Heading>
+            <TextBlock>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet vitae voluptas amet adipisci consequuntur vero fugiat eligendi hic, ut error repellendus, animi aspernatur dolores, dignissimos illum necessitatibus velit voluptatem explicabo?</TextBlock>
+            <Button text="Тест"></Button>
+        </Lock>
     </StyledContainer>
 }

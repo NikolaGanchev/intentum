@@ -55,6 +55,7 @@ const StyledInput = styled.input<StyledInputProps>`
     }};
     font-size: 1.1rem;
     padding: 0.5rem;
+    padding-right: 0rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     transition: all 1s ease-in;

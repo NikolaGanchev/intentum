@@ -34,9 +34,10 @@ const UnitContainer = styled.div`
     border: 1px solid ${props => props.theme.secondary};
     border-top: 0px;
     padding: 1rem;
+    padding-bottom: 0rem;
     margin-bottom: 1rem;
     height: 100%;
-    overflow: auto;
+    overflow: scroll;
 `
 
 const StyledSuspense = styled(Suspense)`
