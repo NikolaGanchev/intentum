@@ -76,26 +76,9 @@ const RightArrow = styled(ArrowRight)`
 
 export default function CardCarousel(props: any) {
 
-    const [activeIndex, setActiveIndex] = useState(0);
     const [opacity, setOpacity] = useState(100);
     const [transX, setTransX] = useState(0);
     const [isTransition, setIsTransition] = useState(true);
-
-    const changeToNextVariant1 = () => {
-        setOpacity(0);
-        setTimeout(() => {
-            setActiveIndex(activeIndex + 1);
-            setOpacity(100);
-        }, animationLength * 1000);
-    }
-
-    const changeToPreviousVariant1 = () => {
-        setOpacity(0);
-        setTimeout(() => {
-            setActiveIndex(activeIndex - 1);
-            setOpacity(100);
-        }, animationLength * 1000);
-    }
 
     const changeToNext = () => {
         setTransX(-300);
@@ -104,7 +87,7 @@ export default function CardCarousel(props: any) {
             requestAnimationFrame(() => {
                 setIsTransition(false);
                 setTransX(300);
-                setActiveIndex(activeIndex + 1);
+                props.setActiveIndex(props.activeIndex + 1);
                 requestAnimationFrame(() => {
                     setIsTransition(true);
                     setOpacity(100);
@@ -121,7 +104,7 @@ export default function CardCarousel(props: any) {
             requestAnimationFrame(() => {
                 setIsTransition(false);
                 setTransX(-300);
-                setActiveIndex(activeIndex - 1);
+                props.setActiveIndex(props.activeIndex - 1);
                 requestAnimationFrame(() => {
                     setIsTransition(true);
                     setOpacity(100);
@@ -132,19 +115,19 @@ export default function CardCarousel(props: any) {
     }
 
     const onClick = () => {
-        props.setStudyUnit(props.cards[activeIndex]);
+        props.setStudyUnit(props.cards[props.activeIndex]);
     }
 
     return <Container className={props.className}>
         {(props.cards) ? (
             <div>
-                <LeftArrowButton onClick={changeToPrevious} disabled={activeIndex === 0}><LeftArrow /></LeftArrowButton>
-                <RightArrowButton onClick={changeToNext} disabled={activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></div>
+                <LeftArrowButton onClick={changeToPrevious} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
+                <RightArrowButton onClick={changeToNext} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></div>
         ) : (null)}
 
         {(props.cards) ? (
 
-            <CardContainer transX={transX} transition={isTransition} opacity={opacity}><Card title={props.cards[activeIndex].title} text={props.cards[activeIndex].text} onClick={onClick} /></CardContainer>
+            <CardContainer transX={transX} transition={isTransition} opacity={opacity}><Card title={props.cards[props.activeIndex].title} text={props.cards[props.activeIndex].text} onClick={onClick} /></CardContainer>
         ) : null}
     </Container>
 }

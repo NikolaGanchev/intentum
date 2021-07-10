@@ -12,7 +12,7 @@ const Container = styled.div`
     position: relative;
 `
 
-const Text = styled.div`
+const Text = styled.blockquote`
     line-height: 1.6rem;
     font-size: 1.2rem;
     margin-top: 0.5rem;

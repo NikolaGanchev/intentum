@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import styled from "styled-components";
+import ArrowBack from "../resources/ArrowBack";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 
 const Container = styled.div`
@@ -46,6 +47,20 @@ const StyledSuspense = styled(Suspense)`
     width: 100vw;
 `
 
+const Back = styled(ArrowBack)`
+    width: 2vw;
+    height: 2vw;
+    fill: ${props => props.theme.secondary};
+`
+
+const StyledButton = styled.button`
+    width: 4vw;
+    height: 4vw;
+    border: none;
+    background-color: ${props => props.theme.main};
+    cursor: pointer;
+`
+
 export default function Unit(props: any) {
     const Unit = React.lazy(() => {
         return Promise.all([
@@ -59,6 +74,7 @@ export default function Unit(props: any) {
         <StyledSuspense fallback={<div>Loading...</div>}>
             <Container>
                 <TextContainer>
+                    <StyledButton onClick={() => { props.back() }}><Back></Back></StyledButton>
                     <Title>{props.unit.title + " " + props.unit.text}</Title>
                 </TextContainer>
                 <UnitContainer>

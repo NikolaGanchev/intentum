@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
@@ -9,6 +9,7 @@ import { generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, 
 import StudyUnitWithTranslations from './utils/StudyUnitWithTranslations';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '.';
+import Settings from './resources/Settings';
 
 const StyledCarousel = styled(CardCarousel)`
   width: 100%;
@@ -18,6 +19,43 @@ const StyledCarousel = styled(CardCarousel)`
 const Top = styled.div`
   width: 100%;
   height: 5vh;
+  position: relative;
+`
+
+const animation = keyframes`
+  0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+`
+
+const StyledSettings = styled(Settings)`
+  width: 3vw;
+  height: 3vw;
+  fill: ${props => props.theme.secondary};
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  transition: all 3s ease;
+  cursor: pointer;
+  & :hover {
+    box-sizing: content-box;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: ${animation} 5s infinite forwards linear;
+    width: 4vw;
+    height: 4vw;
+  }
+`
+
+const StyledButton = styled.button`
+    width: 5vw;
+    height: 5vw;
+    border: none;
+    background-color: ${props => props.theme.main};
 `
 
 const Footer = styled.div`
@@ -54,6 +92,8 @@ function App() {
   const [showUnit, setShowUnit] = useState(false);
   const [cards, setCards] = useState<StudyUnitWithTranslations[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnitWithTranslations | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const hide = () => {
     setShowLoader(false);
   }
@@ -104,12 +144,17 @@ function App() {
               (null)}
             {
               (showUnit) ?
-                (<Unit unit={currentStudyUnit} />) :
+                (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} />) :
                 (null)
             } </div>) :
           (<div>
-            <Top></Top>
-            <StyledCarousel cards={cards} setStudyUnit={setCurrentStudyUnit}></StyledCarousel>
+            <Top>
+              <StyledButton onClick={() => { setSettingsOpen(true) }}>
+                <StyledSettings>
+                </StyledSettings>
+              </StyledButton>
+            </Top>
+            <StyledCarousel cards={cards} setStudyUnit={setCurrentStudyUnit} activeIndex={activeIndex} setActiveIndex={setActiveIndex}></StyledCarousel>
             <Footer>{t("app.motto")}</Footer>
           </div>)
         }
