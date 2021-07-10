@@ -7,8 +7,8 @@ interface ButtonProps {
 };
 
 const Container = styled.button<ButtonProps>`
-    width: 10vw;
-    height: 2.5vw;
+    width: auto;
+    height: auto;
     border: 1px solid ${props => props.theme.secondary};
     z-index: 1;
     color: ${props => {
@@ -29,6 +29,10 @@ const Container = styled.button<ButtonProps>`
     position: relative;
     transition: color 1s ease;
     cursor: pointer;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
     &:after {
         position: absolute;
         content: "";

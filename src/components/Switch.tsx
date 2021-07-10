@@ -15,9 +15,6 @@ const ButtonContainer = styled.div`
     flex-direction: row;
 `
 
-const StyledButton = styled(Button)`
-    width: 5vw;
-`
 const ContentContainer = styled.div`
     padding: 1rem;
     padding-top: 0rem;
@@ -32,7 +29,7 @@ export default function Switch(props: any) {
         <ButtonContainer>
             {
                 props.children.map((obj: any, i: number) => {
-                    return <StyledButton text={obj.props["data-switch"]} isActive={i === activeIndex} key={i} onClick={() => setActiveIndex(i)} />
+                    return <Button text={obj.props["data-switch"]} isActive={i === activeIndex} key={i} onClick={() => setActiveIndex(i)} />
                 })
             }
         </ButtonContainer>
