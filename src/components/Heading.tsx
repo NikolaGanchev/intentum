@@ -8,5 +8,5 @@ const StyledHeading = styled.h3`
 `
 
 export default function Heading(props: any) {
-    return <StyledHeading>{props.children}</StyledHeading>
+    return <StyledHeading className={props.className}>{props.children}</StyledHeading>
 }

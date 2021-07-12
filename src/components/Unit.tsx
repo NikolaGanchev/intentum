@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
@@ -62,6 +63,8 @@ const StyledButton = styled.button`
 `
 
 export default function Unit(props: any) {
+    const [t] = useTranslation("lessons");
+
     const Unit = React.lazy(() => {
         return Promise.all([
             import(`./units/${getIdFromStudyUnit(props.unit)}`),
@@ -75,7 +78,11 @@ export default function Unit(props: any) {
             <Container>
                 <TextContainer>
                     <StyledButton onClick={() => { props.back() }}><Back></Back></StyledButton>
-                    <Title>{props.unit.title + " " + props.unit.text}</Title>
+                    <Title>{
+                        t(`${getIdFromStudyUnit(props.unit)}.title`) +
+                        " " +
+                        t(`${getIdFromStudyUnit(props.unit)}.text`)
+                    }</Title>
                 </TextContainer>
                 <UnitContainer>
                     <Unit></Unit>

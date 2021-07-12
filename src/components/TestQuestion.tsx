@@ -74,7 +74,7 @@ interface ExplanationProps {
 const Explanation = styled.div<ExplanationProps>`
     display: block;
     background-color: ${props => props.theme.tip};
-    color: ${props => props.theme.pure};
+    color: ${props => props.theme.text};
     transition: all 1s ease-in;
     visibility: ${props => props.isShown ? 'visible' : 'hidden'};
     display: ${props => props.isShown ? 'block' : 'none'};

@@ -6,6 +6,11 @@
         "rightAnswer": "Правилен отговор",
         "rightAnswers": "Правилни отговори",
         "tries": "остават {{tries}} опита",
-        "fillin": "Попълнете"
+        "fillin": "Попълнете",
+        "settings": "Настройки",
+        "languageSetting": "Език",
+        "themeSetting": "Тъмен режим",
+        "bg": "Български / Bulgarian",
+        "en": "Английски / English"
     }
 }

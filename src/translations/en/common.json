@@ -1,1 +1,16 @@
-{}
+{
+    "app": {
+        "name": "Intentum",
+        "motto": "Learning continues forever",
+        "begin": "Begin",
+        "rightAnswer": "Right answer",
+        "rightAnswers": "Right answers",
+        "tries": "{{tries}} tries remain",
+        "fillin": "Fill in",
+        "settings": "Settings",
+        "languageSetting": "Language",
+        "themeSetting": "Dark mode",
+        "bg": "Bulgarian / Български",
+        "en": "English"
+    }
+}

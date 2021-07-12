@@ -1,25 +1,27 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled, { keyframes } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
 import { generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
-import StudyUnitWithTranslations from './utils/StudyUnitWithTranslations';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyle from '.';
 import Settings from './resources/Settings';
+import { theme, darkTheme, themes } from './utils/Theme';
+import SettingsDisplay from './components/SettingsDisplay';
+import { get, set } from 'idb-keyval';
 
 const StyledCarousel = styled(CardCarousel)`
   width: 100%;
   height: 85vh;
-  
+  transition: all 1s ease;
 `
 const Top = styled.div`
   width: 100%;
   height: 5vh;
   position: relative;
+  transition: all 1s ease;
 `
 
 const animation = keyframes`
@@ -41,14 +43,7 @@ const StyledSettings = styled(Settings)`
   top: 1rem;
   transition: all 3s ease;
   cursor: pointer;
-  & :hover {
-    box-sizing: content-box;
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: ${animation} 5s infinite forwards linear;
-    width: 4vw;
-    height: 4vw;
-  }
+  transition: all 1s ease;
 `
 
 const StyledButton = styled.button`
@@ -56,6 +51,13 @@ const StyledButton = styled.button`
     height: 5vw;
     border: none;
     background-color: ${props => props.theme.main};
+    & svg:hover {
+    box-sizing: content-box;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: ${animation} 5s infinite forwards linear;
+    transition: all 1s ease;
+  }
 `
 
 const Footer = styled.div`
@@ -64,25 +66,19 @@ const Footer = styled.div`
   text-align: center;
   margin: 0;
   padding: 0;
+  transition: all 1s ease;
 `
 
-const theme = {
-  main: "#efefef",
-  secondary: "#000000",
-  text: "#000000",
-  textSecondary: "#FFFFFF",
-  gradient: "linear-gradient(90deg, rgba(23,26,203,1) 0%, rgba(135,33,203,1) 50%, rgba(203,33,142,1) 100%)",
-  borderGradient: "linear-gradient( rgba(23,26,203,1),  rgba(135,33,203,1) , rgba(203,33,142,1)) 27",
-  shadow: "rgba(0, 0, 0, 0.25)",
-  pure: "#FFFFFF",
-  tip: "#171ACB",
-  warning: "#FFE600",
-  error: "#FF000F",
-  correct: "rgba(31, 196, 48, 0.75)",
-  wrong: "rgba(255, 0, 15, 0.75)",
-  correctFull: "rgb(31, 196, 48)",
-  wrongFull: "rgb(255, 0, 15)"
-};
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    color: ${(props: any) => props.theme.text};
+    background-color: ${(props: any) => props.theme.main};;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+    transition: all 1s ease;
+  }
+`;
 
 function App() {
   const [currentTheme, setTheme] = useState(theme);
@@ -90,12 +86,32 @@ function App() {
   const [showLoader, setShowLoader] = useState(true);
   const [showUnitLoader, setShowUnitLoader] = useState(true);
   const [showUnit, setShowUnit] = useState(false);
-  const [cards, setCards] = useState<StudyUnitWithTranslations[] | null>(null);
-  const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnitWithTranslations | null>(null);
+  const [cards, setCards] = useState<StudyUnit[] | null>(null);
+  const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const hide = () => {
     setShowLoader(false);
+  }
+
+  get("theme").then((val: string) => {
+    if (val === "dark") {
+      setTheme(darkTheme);
+    }
+    else {
+      setTheme(theme);
+    }
+  });
+
+  const changeTheme = (isDark: boolean) => {
+    if (isDark) {
+      setTheme(darkTheme);
+      set("theme", themes.darkTheme);
+    }
+    else {
+      setTheme(theme);
+      set("theme", themes.theme);
+    }
   }
 
   const [tl] = useTranslation("lessons");
@@ -108,13 +124,7 @@ function App() {
             await getAllStudyUnitsArray(callback);
           }
           else {
-            let extStudyUnits: StudyUnitWithTranslations[] = [];
-            for (let unit of units) {
-              let key = getIdFromStudyUnit(unit);
-              let ext = new StudyUnitWithTranslations(unit, tl(`${key}.title`), tl(`${key}.text`));
-              extStudyUnits.push(ext);
-            }
-            setCards(extStudyUnits);
+            setCards(units);
           }
         };
         await getAllStudyUnitsArray(callback);
@@ -133,6 +143,9 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <div>
+        {(settingsOpen) ?
+          <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme} changeTheme={changeTheme} close={() => { setSettingsOpen(false) }}></SettingsDisplay> : (null)
+        }
         {
           (showLoader) ?
             (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
@@ -140,7 +153,7 @@ function App() {
         {(currentStudyUnit) ?
           (<div>
             {(showUnitLoader) ?
-              (<Loader title={currentStudyUnit.title} motto={currentStudyUnit.text} hide={() => { setShowUnitLoader(false) }} fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
+              (<Loader title={tl(`${getIdFromStudyUnit(currentStudyUnit)}.title`)} motto={tl(`${getIdFromStudyUnit(currentStudyUnit)}.text`)} hide={() => { setShowUnitLoader(false) }} fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
               (null)}
             {
               (showUnit) ?

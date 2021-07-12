@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
+import { useTranslation } from "react-i18next";
+import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 
 const animationLength = 0.25;
 
@@ -79,6 +81,7 @@ export default function CardCarousel(props: any) {
     const [opacity, setOpacity] = useState(100);
     const [transX, setTransX] = useState(0);
     const [isTransition, setIsTransition] = useState(true);
+    const [t] = useTranslation("lessons");
 
     const changeToNext = () => {
         setTransX(-300);
@@ -127,7 +130,9 @@ export default function CardCarousel(props: any) {
 
         {(props.cards) ? (
 
-            <CardContainer transX={transX} transition={isTransition} opacity={opacity}><Card title={props.cards[props.activeIndex].title} text={props.cards[props.activeIndex].text} onClick={onClick} /></CardContainer>
+            <CardContainer transX={transX} transition={isTransition} opacity={opacity}>
+                <Card title={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.title`)}
+                    text={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.text`)} onClick={onClick} /></CardContainer>
         ) : null}
     </Container>
 }
