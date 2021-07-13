@@ -20,10 +20,6 @@ interface PadlockProps {
     readonly isUnlocking: boolean;
 }
 
-interface DisappearAnimation {
-    readonly isDisappearing: boolean;
-}
-
 const Container = styled.div`
     width: 100%;
     position: relative;
@@ -31,7 +27,7 @@ const Container = styled.div`
     margin-top: 3rem;
 `
 
-const LockContainer = styled.div<DisappearAnimation>`
+const LockContainer = styled.div`
     z-index: 3;
     width: 100%;
     position: absolute;
@@ -42,7 +38,7 @@ const LockContainer = styled.div<DisappearAnimation>`
     background: ${props => props.theme.main};
     box-shadow: 0px -50px 80px ${props => props.theme.main};
     transition: all ${disappearDuration} ease;
-    opacity: ${props => props.isDisappearing ? '0%' : '100%'}; 
+    opacity: 100%; 
 `
 
 const animation = () =>
@@ -65,11 +61,10 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
 export default function Lock(props: any) {
     const [isLocked, setIsLocked] = useState(true);
     const [isUnlocking, setIsUnlocking] = useState(false);
-    const [isDisappearing] = useState(false);
 
     useEffect(() => {
         if (props.isLocked) {
-            return;
+            setIsLocked(true);
         }
         else {
             setIsUnlocking(true);
@@ -83,7 +78,7 @@ export default function Lock(props: any) {
     return <div>
         {(isLocked && props.children) ?
             (
-                <Container><LockContainer isDisappearing={isDisappearing}>
+                <Container><LockContainer>
                     <StyledPadlock isUnlocking={isUnlocking}>
                     </StyledPadlock>
                 </LockContainer>

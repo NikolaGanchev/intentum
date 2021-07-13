@@ -19,10 +19,7 @@ import Lock from "../Lock";
 import { useState } from "react";
 import Heading from "../Heading";
 import Button from "../Button";
-
-const StyledContainer = styled.div`
-    padding-bottom: 0rem;
-`
+import EndButton from "../EndButton";
 
 export default function L1(props: any) {
 
@@ -57,7 +54,7 @@ cd C:/
     const fillIn = `Hello __how__ 
 are __you__`
 
-    return <StyledContainer>
+    return <div>
         <TextBlock>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci reprehenderit natus incidunt sint maxime eius? Nostrum, unde? Velit, quasi? Laboriosam magnam aspernatur ea esse minima modi dolorem aperiam dolores! Hic! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum exercitationem esse labore omnis mollitia voluptatibus doloribus, natus praesentium eaque dicta, harum officiis dolore, minima quas temporibus quos excepturi. Non, in! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam perspiciatis est recusandae dolores dicta quas officia excepturi sint adipisci dolor quia impedit voluptatum obcaecati, aliquam similique corporis provident distinctio earum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum impedit porro voluptate obcaecati unde veritatis, nam aliquid tenetur. Provident cupiditate accusamus cum sit velit voluptate placeat repudiandae similique sequi nesciunt! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint iure expedita odit consectetur! Culpa corrupti possimus, quas porro consectetur, itaque quasi aliquid dolor similique expedita dolores illo consequatur, ut asperiores.
         </TextBlock>
@@ -117,6 +114,7 @@ are __you__`
             </Heading>
             <TextBlock>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet vitae voluptas amet adipisci consequuntur vero fugiat eligendi hic, ut error repellendus, animi aspernatur dolores, dignissimos illum necessitatibus velit voluptatem explicabo?</TextBlock>
             <Button text="Тест"></Button>
+            <EndButton onClick={() => { props.endUnit() }}></EndButton>
         </Lock>
-    </StyledContainer>
+    </div>
 }

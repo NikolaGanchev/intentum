@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 
 const animationLength = 0.25;
-
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -26,7 +25,7 @@ const CardContainer = styled.div<CardContainerProps>`
     display: flex;
     opacity: ${props => `${props.opacity}%`};
     transition: ${props => props.transition ? `all ${animationLength}s ease-in-out` : ''};
-    transform: ${props => `translateX(${props.transX}%)`};
+    transform: ${props => (props.transX === 0) ? `none` : `translateX(${props.transX}%)`};
     place-items: center;
 `
 
@@ -78,44 +77,8 @@ const RightArrow = styled(ArrowRight)`
 
 export default function CardCarousel(props: any) {
 
-    const [opacity, setOpacity] = useState(100);
-    const [transX, setTransX] = useState(0);
-    const [isTransition, setIsTransition] = useState(true);
+
     const [t] = useTranslation("lessons");
-
-    const changeToNext = () => {
-        setTransX(-300);
-        setOpacity(0);
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-                setIsTransition(false);
-                setTransX(300);
-                props.setActiveIndex(props.activeIndex + 1);
-                requestAnimationFrame(() => {
-                    setIsTransition(true);
-                    setOpacity(100);
-                    setTransX(0);
-                })
-            })
-        }, animationLength * 1000);
-    }
-
-    const changeToPrevious = () => {
-        setTransX(300);
-        setOpacity(0);
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-                setIsTransition(false);
-                setTransX(-300);
-                props.setActiveIndex(props.activeIndex - 1);
-                requestAnimationFrame(() => {
-                    setIsTransition(true);
-                    setOpacity(100);
-                    setTransX(0);
-                })
-            })
-        }, animationLength * 1000);
-    }
 
     const onClick = () => {
         props.setStudyUnit(props.cards[props.activeIndex]);
@@ -124,15 +87,15 @@ export default function CardCarousel(props: any) {
     return <Container className={props.className}>
         {(props.cards) ? (
             <div>
-                <LeftArrowButton onClick={changeToPrevious} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
-                <RightArrowButton onClick={changeToNext} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></div>
+                <LeftArrowButton onClick={() => { props.changeToPrevious() }} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
+                <RightArrowButton onClick={() => { props.changeToNext() }} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></div>
         ) : (null)}
 
         {(props.cards) ? (
 
-            <CardContainer transX={transX} transition={isTransition} opacity={opacity}>
+            <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
                 <Card title={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.title`)}
-                    text={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.text`)} onClick={onClick} /></CardContainer>
+                    text={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
         ) : null}
     </Container>
 }

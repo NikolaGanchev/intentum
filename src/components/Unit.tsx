@@ -85,7 +85,7 @@ export default function Unit(props: any) {
                     }</Title>
                 </TextContainer>
                 <UnitContainer>
-                    <Unit></Unit>
+                    <Unit endUnit={() => { props.endUnit() }}></Unit>
                 </UnitContainer>
             </Container>
         </StyledSuspense>

@@ -14,7 +14,8 @@ const theme = {
     wrong: "rgba(255, 0, 15, 0.75)",
     correctFull: "rgb(31, 196, 48)",
     wrongFull: "rgb(255, 0, 15)",
-    blur: "rgba(0, 0, 0, 0.50)"
+    blur: "rgba(0, 0, 0, 0.50)",
+    textWhite: "#FFFFFF"
 };
 
 const darkTheme = {
@@ -33,7 +34,8 @@ const darkTheme = {
     wrong: "rgba(255, 0, 15, 0.75)",
     correctFull: "rgb(31, 196, 48)",
     wrongFull: "rgb(255, 0, 15)",
-    blur: "rgba(256, 256, 256, 0.50)"
+    blur: "rgba(256, 256, 256, 0.50)",
+    textWhite: "#FFFFFF"
 };
 
 const themes = {

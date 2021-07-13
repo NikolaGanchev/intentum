@@ -5,7 +5,7 @@ import CardCarousel from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
+import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
@@ -13,6 +13,7 @@ import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval';
 
 const StyledCarousel = styled(CardCarousel)`
+  position: relative;
   width: 100%;
   height: 85vh;
   transition: all 1s ease;
@@ -79,6 +80,7 @@ const GlobalStyle = createGlobalStyle`
     transition: all 1s ease;
   }
 `;
+const animationLength = 0.25;
 
 function App() {
   const [currentTheme, setTheme] = useState(theme);
@@ -88,10 +90,15 @@ function App() {
   const [showUnit, setShowUnit] = useState(false);
   const [cards, setCards] = useState<StudyUnit[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const hide = () => {
     setShowLoader(false);
+  }
+  const endUnit = () => {
+    setCurrentStudyUnit(null);
+    setTimeout(() => {
+      changeToNext(true);
+    }, 500);
   }
 
   get("theme").then((val: string) => {
@@ -132,11 +139,58 @@ function App() {
 
       }
       else {
-        await generateStudyUnitsIfNeeded(func);
+        await generateStudyUnits(func);
       }
     }
 
-    await generateStudyUnitsIfNeeded(func);
+    await generateStudyUnits(func);
+  }
+
+  // Carousel controller
+  const [opacity, setOpacity] = useState(100);
+  const [transX, setTransX] = useState(0);
+  const [isTransition, setIsTransition] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const changeToNext = (unlockNext = false) => {
+    setTransX(-300);
+    setOpacity(0);
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        setIsTransition(false);
+        setTransX(300);
+        setActiveIndex(activeIndex + 1);
+        requestAnimationFrame(() => {
+          setIsTransition(true);
+          setOpacity(100);
+          setTransX(0);
+          if (unlockNext && cards !== null) {
+            let copy: any = {};
+            Object.assign(copy, cards);
+            copy[activeIndex + 1].unlocked = true;
+            setCards(copy);
+            changeStudyUnit(cards[activeIndex + 1], () => { });
+          }
+        })
+      })
+    }, animationLength * 1000);
+  }
+
+  const changeToPrevious = () => {
+    setTransX(300);
+    setOpacity(0);
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        setIsTransition(false);
+        setTransX(-300);
+        setActiveIndex(activeIndex - 1);
+        requestAnimationFrame(() => {
+          setIsTransition(true);
+          setOpacity(100);
+          setTransX(0);
+        })
+      })
+    }, animationLength * 1000);
   }
 
   return (
@@ -153,11 +207,15 @@ function App() {
         {(currentStudyUnit) ?
           (<div>
             {(showUnitLoader) ?
-              (<Loader title={tl(`${getIdFromStudyUnit(currentStudyUnit)}.title`)} motto={tl(`${getIdFromStudyUnit(currentStudyUnit)}.text`)} hide={() => { setShowUnitLoader(false) }} fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
+              (<Loader
+                title={tl(`${getIdFromStudyUnit(currentStudyUnit)}.title`)}
+                motto={tl(`${getIdFromStudyUnit(currentStudyUnit)}.text`)}
+                hide={() => { setShowUnitLoader(false) }}
+                fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
               (null)}
             {
               (showUnit) ?
-                (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} />) :
+                (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
                 (null)
             } </div>) :
           (<div>
@@ -167,7 +225,16 @@ function App() {
                 </StyledSettings>
               </StyledButton>
             </Top>
-            <StyledCarousel cards={cards} setStudyUnit={setCurrentStudyUnit} activeIndex={activeIndex} setActiveIndex={setActiveIndex}></StyledCarousel>
+            <StyledCarousel
+              cards={cards}
+              setStudyUnit={setCurrentStudyUnit}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              changeToPrevious={changeToPrevious}
+              changeToNext={changeToNext}
+              transX={transX}
+              isTransition={isTransition}
+              opacity={opacity}></StyledCarousel>
             <Footer>{t("app.motto")}</Footer>
           </div>)
         }

@@ -5,9 +5,11 @@ import Close from "../resources/Close";
 
 const StyledBackground = styled.div`
     position: fixed;
-    display: flex;
+    top: 0;
+    right: 0;
     width: 100%;
     height: 100%;
+    display: flex;
     background-color: ${props => props.theme.blur};
     z-index: 1000;
     place-items: center;
