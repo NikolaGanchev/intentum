@@ -4,7 +4,7 @@ import Circle from "./Circle"
 const Container = styled.div`
     border: 1px solid ${props => props.theme.tip};
     display: block;
-    padding: 1vw;
+    padding: 1rem;
     margin-top: 1rem;
 `
 

@@ -36,7 +36,7 @@ const StyledInput = styled.input<StyledInputProps>`
         }
     }};
     background-color: ${props => props.theme.main};
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-left: 0.5rem;
     margin-bottom: 0.5rem;
     transition: all 1s ease-in;

@@ -31,7 +31,7 @@ const StyledSelect = styled.select`
     background-color: ${props => props.theme.main};
     color: ${props => props.theme.text};
     line-height: 1.6rem;
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     padding: 0.5rem;
     overflow: visible;
 `
@@ -39,8 +39,8 @@ const StyledSelect = styled.select`
 const Toggle = styled.label`
     position: relative;
     display: inline-block;
-    width: 4vw;
-    height: 2.2vw;
+    width: 4rem;
+    height: 2.2rem;
     & input {
         opacity: 0;
         width: 0;
@@ -61,10 +61,10 @@ const Slider = styled.span`
     &::before {
         position: absolute;
         content: "";
-        height: 1.8vw;
-        width: 1.8vw;
-        left: 0.2vw;
-        bottom: 0.2vw;
+        height: 1.8rem;
+        width: 1.8rem;
+        left: 0.2rem;
+        bottom: 0.2rem;
         background-color: ${props => props.theme.pure};
         transition: .4s;
     }
@@ -80,7 +80,7 @@ const StyledInput = styled.input`
     }
 
     &:checked + ${Slider}:before {
-        transform: translateX(1.8vw);
+        transform: translateX(1.8rem);
     }
 `
 

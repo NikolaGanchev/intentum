@@ -21,6 +21,9 @@ const QuestionContainer = styled.div<QuestionContainerProps>`
     padding-right: ${props => props.hasImage ? '1rem' : '0px'};
     display: flex;
     font-size: 1.2rem;
+    @media only screen and (max-width: 768px) {
+        displaY: block;
+    }
 `
 
 interface StyledInputProps {

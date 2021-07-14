@@ -6,6 +6,7 @@ const Container = styled.div`
     margin-top: 1rem;
     width: 100%;
     display: flex;
+    margin-bottom: 1rem;
 `
 
 const StyledButton = styled(Button)`

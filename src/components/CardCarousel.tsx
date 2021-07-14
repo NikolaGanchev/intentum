@@ -7,11 +7,15 @@ import { useTranslation } from "react-i18next";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 
 const animationLength = 0.25;
+
 const Container = styled.div`
     width: 100%;
     display: flex;
     place-content: center;
     position: relative;
+    @media (max-width: 470px) {
+        place-items: center
+    }
 `
 
 interface CardContainerProps {
@@ -26,15 +30,17 @@ const CardContainer = styled.div<CardContainerProps>`
     opacity: ${props => `${props.opacity}%`};
     transition: ${props => props.transition ? `all ${animationLength}s ease-in-out` : ''};
     transform: ${props => (props.transX === 0) ? `none` : `translateX(${props.transX}%)`};
+    height: auto;
     place-items: center;
+
 `
 
 const LeftArrowButton = styled.button`
     position: absolute;
-    fill: ${props => props.theme.secondary};
-    left: 5%;
+    left: 0%;
+    margin-left: 0.5rem;
     top: 50%;
-    transform: translate(-95%, -50%);
+    transform: translate(0%, -50%);
     width: 5rem;
     height: 5rem;
     z-index: 2;
@@ -43,13 +49,22 @@ const LeftArrowButton = styled.button`
     cursor: pointer;
     opacity: ${props => props.disabled ? '50%' : '100%'};
     transition: opacity ${animationLength}s ease;
+    @media (max-width: 470px) {
+        position: relative;
+        margin-right: auto;
+        transform: none;
+        right: 0;
+        top: 0;
+        
+    }
 `
 
 const RightArrowButton = styled.button`
     position: absolute;
-    right: 5%;
+    right: 0%;
+    margin-right: 0.5rem;
     top: 50%;
-    transform: translate(95%, -50%);
+    transform: translate(0%, -50%);
     width: 5rem;
     height: 5rem;
     z-index: 2;
@@ -58,6 +73,13 @@ const RightArrowButton = styled.button`
     cursor: pointer;
     opacity: ${props => props.disabled ? '50%' : '100%'};
     transition: opacity ${animationLength}s ease;
+    @media (max-width: 470px) {
+        position: relative;
+        margin-left: auto;
+        transform: none;
+        right: 0;
+        top: 0;
+    }
 `
 
 const LeftArrow = styled(ArrowLeft)`
@@ -65,6 +87,7 @@ const LeftArrow = styled(ArrowLeft)`
     width: 4rem;
     height: 4rem;
     z-index: 2;
+    
 `
 
 const RightArrow = styled(ArrowRight)`
@@ -72,6 +95,17 @@ const RightArrow = styled(ArrowRight)`
     width: 4rem;
     height: 4rem;
     z-index: 2;
+`
+
+const ButtonContainer = styled.div`
+    @media (max-width: 470px) {
+        display: flex;
+        height: 5rem;
+        position: relative;
+        align-self: flex-end;
+        margin-top: 1rem;
+        width: 100%;
+    }
 `
 
 
@@ -86,16 +120,17 @@ export default function CardCarousel(props: any) {
 
     return <Container className={props.className}>
         {(props.cards) ? (
-            <div>
-                <LeftArrowButton onClick={() => { props.changeToPrevious() }} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
-                <RightArrowButton onClick={() => { props.changeToNext() }} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></div>
-        ) : (null)}
-
-        {(props.cards) ? (
 
             <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
                 <Card title={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.title`)}
                     text={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
         ) : null}
+        {(props.cards) ? (
+            <ButtonContainer>
+                <LeftArrowButton onClick={() => { props.changeToPrevious() }} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
+                <RightArrowButton onClick={() => { props.changeToNext() }} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></ButtonContainer>
+        ) : (null)}
     </Container>
 }
+
+export { animationLength }

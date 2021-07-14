@@ -3,7 +3,7 @@ import Quotes from "../resources/Quotes"
 
 const Container = styled.div`
     display: block;
-    padding: 1vw;
+    padding: 1rem;
     margin-top: 1rem;
     padding-bottom: 2rem;
     border-width: 1px;
@@ -22,8 +22,8 @@ const Text = styled.blockquote`
 
 const StyledQuotes = styled(Quotes)`
     fill: ${props => props.theme.secondary};
-    width: 4vw;
-    height: 4vw;
+    width: 4rem;
+    height: 4rem;
 `
 
 const Author = styled.div`

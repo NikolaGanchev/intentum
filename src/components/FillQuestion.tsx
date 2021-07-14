@@ -10,6 +10,7 @@ const Container = styled.div`
     padding: 1rem;
     border: 1px solid ${props => props.theme.secondary};
     margin-top: 1rem;
+    font-size: 1.2rem;
 `
 
 interface ExplanationProps {

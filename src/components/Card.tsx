@@ -9,8 +9,8 @@ import TextBlock from "./TextBlock"
 
 const Container = styled.div`
     position: relative;
-    width: 24vw;
-    height: 32vw;
+    width: 24rem;
+    height: 32rem;
     background-color: ${props => props.theme.pure};
     border: 1px solid ${props => props.theme.secondary};
     box-sizing: border-box;
@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
     color: ${props => props.theme.text};
-    font-size: 1.4em;
+    font-size: 1.4rem;
     font-weight: normal;
     padding: 15px;
     margin: 0px;
@@ -28,7 +28,7 @@ const Title = styled.h1`
 
 const Text = styled.h2`
     color: ${props => props.theme.text};
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: normal;
     padding: 15px;
     padding-top: 0px;
@@ -45,43 +45,38 @@ const StyledButton = styled(Button)`
 `
 
 const unlockDuration = 1.5;
-const disappearDuration = 1;
 
 const unlockAnimation = keyframes`
-    60% {
+    100% {
         transform: translateY(-30%);
     }
-    100% {
-        opacity: 0%;
-        display: none;
-    }
 `
-
 interface PadlockProps {
     readonly isUnlocking: boolean;
 }
 
-const ContainerLock = styled.div`
+const ContainerLock = styled.div<PadlockProps>`
     width: 100%;
     position: absolute;
     bottom: 0;
     height: 8rem;
     margin-top: 3rem;
     cursor: pointer;
+    pointer-events: ${props => props.isUnlocking ? `none` : 'all'};
 `
 
-const LockContainer = styled.div`
+const LockContainer = styled.div<PadlockProps>`
     z-index: 3;
     width: 100%;
     position: absolute;
     bottom: 0px;
-    height: 6vw;
+    height: 6rem;
     display: flex;
     place-content: center;
     background: ${props => props.theme.main};
     box-shadow: 0px -50px 80px ${props => props.theme.main};
-    transition: all ${disappearDuration} ease;
-    opacity: 100%; 
+    transition: all ${unlockDuration}s ease;
+    opacity: ${props => props.isUnlocking ? '0%' : '100%'}; 
 `
 
 const animation = () =>
@@ -90,14 +85,15 @@ const animation = () =>
 
 const StyledPadlock = styled(Padlock) <PadlockProps>`
     overflow: visible;
-    width: 5vw;
-    height: 5vw;
-    margin-bottom: 1vw;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1rem;
 
     & #padlock-shackle {
         transform-origin: 80% left;
         transform-box: fill-box;
         animation: ${props => props.isUnlocking ? animation : 'none'};
+        animation-fill-mode: forwards;
     }
 `
 
@@ -128,6 +124,7 @@ export default function Card(props: any) {
             props.unit.unlocked = true;
             changeStudyUnit(props.unit, () => {
                 setIsUnlocked(true);
+                setIsUnlocking(false);
             });
         }, unlockDuration * 1000)
     }
@@ -160,8 +157,8 @@ export default function Card(props: any) {
         }
         {(isUnlocked) ?
             <StyledButton text={t("app.begin")} onClick={props.onClick} /> :
-            <ContainerLock onClick={() => { setWarningIsShown(true) }}>
-                <LockContainer>
+            <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>
+                <LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>
                     </StyledPadlock>
                 </LockContainer>

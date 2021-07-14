@@ -12,6 +12,9 @@ const Container = styled.div`
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 10% 90%;
     background-color: ${props => props.theme.main};
+    @media (max-width: 1240px) {
+        grid-template-columns: 5% 45% 45% 5%;
+    }
 `
 
 const TextContainer = styled.div`
@@ -49,14 +52,14 @@ const StyledSuspense = styled(Suspense)`
 `
 
 const Back = styled(ArrowBack)`
-    width: 2vw;
-    height: 2vw;
+    width: 2rem;
+    height: 2rem;
     fill: ${props => props.theme.secondary};
 `
 
 const StyledButton = styled.button`
-    width: 4vw;
-    height: 4vw;
+    width: 4rem;
+    height: 4rem;
     border: none;
     background-color: ${props => props.theme.main};
     cursor: pointer;

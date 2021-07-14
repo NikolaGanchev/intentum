@@ -23,6 +23,9 @@ const StyledContainer = styled.div`
     grid-template-rows: auto 90%;
     background-color: ${props => props.theme.main};
     padding: 1rem;
+    @media (max-width: 1280px) {
+        width: 100%;
+    }
 `
 
 const UpperContainer = styled.div`
@@ -46,15 +49,15 @@ const StyledHeading = styled(Heading)`
 `
 
 const StyledClose = styled(Close)`
-    width: 2vw;
-    height: 2vw;
+    width: 2rem;
+    height: 2rem;
     fill: ${props => props.theme.secondary};
 `
 
 const StyledButton = styled.button`
     display: inline-block;
-    width: 4vw;
-    height: 4vw;
+    width: 4rem;
+    height: 4rem;
     border: none;
     background-color: ${props => props.theme.main};
     cursor: pointer;

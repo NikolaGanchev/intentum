@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const Container = styled.div`
     display: block;
-    padding: 1vw;
+    padding: 1rem;
     margin-top: 1rem;
     padding-bottom: 1rem;
     border-width: 1px;
@@ -23,7 +23,7 @@ const StyledQuestionMark = styled.div`
     margin-right: 1rem;
     color: ${props => props.theme.secondary};
     font-style: 'Times New Roman', Verdana;
-    font-size: 3vw;
+    font-size: 3rem;
     user-select: none;
 `
 

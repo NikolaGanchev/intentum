@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
-import CardCarousel from './components/CardCarousel';
+import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
@@ -17,6 +17,11 @@ const StyledCarousel = styled(CardCarousel)`
   width: 100%;
   height: 85vh;
   transition: all 1s ease;
+  @media (max-width: 470px) {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+  }
 `
 const Top = styled.div`
   width: 100%;
@@ -36,8 +41,8 @@ const animation = keyframes`
 `
 
 const StyledSettings = styled(Settings)`
-  width: 3vw;
-  height: 3vw;
+  width: 3rem;
+  height: 3rem;
   fill: ${props => props.theme.secondary};
   position: absolute;
   right: 1rem;
@@ -45,13 +50,15 @@ const StyledSettings = styled(Settings)`
   transition: all 3s ease;
   cursor: pointer;
   transition: all 1s ease;
+  z-index: 400;
 `
 
 const StyledButton = styled.button`
-    width: 5vw;
-    height: 5vw;
+    width: 5rem;
+    height: 5rem;
     border: none;
     background-color: ${props => props.theme.main};
+    z-index: 500;
     & svg:hover {
     box-sizing: content-box;
     transform-origin: center;
@@ -68,19 +75,26 @@ const Footer = styled.div`
   margin: 0;
   padding: 0;
   transition: all 1s ease;
+  font-size: 1.2rem;
+  @media (max-width: 470px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
     color: ${(props: any) => props.theme.text};
     background-color: ${(props: any) => props.theme.main};;
     font-family: Open-Sans, Helvetica, Sans-Serif;
     transition: all 1s ease;
   }
 `;
-const animationLength = 0.25;
 
 function App() {
   const [currentTheme, setTheme] = useState(theme);
@@ -165,11 +179,15 @@ function App() {
           setOpacity(100);
           setTransX(0);
           if (unlockNext && cards !== null) {
-            let copy: any = {};
-            Object.assign(copy, cards);
-            copy[activeIndex + 1].unlocked = true;
-            setCards(copy);
-            changeStudyUnit(cards[activeIndex + 1], () => { });
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                let copy: any = {};
+                Object.assign(copy, cards);
+                copy[activeIndex + 1].unlocked = true;
+                setCards(copy);
+                changeStudyUnit(cards[activeIndex + 1], () => { });
+              })
+            }, animationLength * 1000)
           }
         })
       })
