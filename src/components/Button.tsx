@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface ButtonProps {
     readonly isHover: boolean;
     readonly isActive: boolean;
+    readonly isInverted: boolean;
 };
 
 const Container = styled.button<ButtonProps>`
@@ -13,16 +14,16 @@ const Container = styled.button<ButtonProps>`
     z-index: 1;
     color: ${props => {
         if (props.isHover && props.isActive) {
-            return props.theme.text;
+            return (props.isInverted ? props.theme.textSecondary : props.theme.text);
         }
         else if (props.isHover && !props.isActive) {
-            return props.theme.textSecondary;
+            return (props.isInverted ? props.theme.text : props.theme.textSecondary);
         }
         else if (!props.isHover && props.isActive) {
-            return props.theme.textSecondary;
+            return (props.isInverted ? props.theme.text : props.theme.textSecondary);
         }
         else if (!props.isHover && !props.isActive) {
-            return props.theme.text;
+            return (props.isInverted ? props.theme.textSecondary : props.theme.text);
         }
     }};
     background-color: ${props => (props.isActive) ? props.theme.secondary : props.theme.pure};
@@ -64,7 +65,7 @@ const Text = styled.div`
 export default function Button(props: any) {
     const [isHover, setIsHover] = useState(false);
 
-    return <Container className={props.className} isHover={isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick} disabled={props.isDisabled}>
+    return <Container className={props.className} isInverted={props.isInverted} isHover={isHover || props.isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick} disabled={props.isDisabled}>
         <Text>{props.text}</Text>
     </Container>
 }

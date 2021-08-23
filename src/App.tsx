@@ -28,9 +28,10 @@ const StyledCarousel = styled(CardCarousel)`
 `
 const Top = styled.div`
   width: 100%;
-  height: 5vh;
+  height: 3rem;
   position: relative;
   transition: all 1s ease;
+  display: flex;
 `
 
 const animation = keyframes`
@@ -47,10 +48,6 @@ const StyledSettings = styled(Settings)`
   width: 3rem;
   height: 3rem;
   fill: ${props => props.theme.secondary};
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  transition: all 3s ease;
   cursor: pointer;
   transition: all 1s ease;
   z-index: 400;
@@ -62,6 +59,11 @@ const StyledButton = styled.button`
     border: none;
     background-color: ${props => props.theme.main};
     z-index: 500;
+    position: relative;
+    margin-left: auto;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    display: inline-flex;
     & svg:hover {
     box-sizing: content-box;
     transform-origin: center;
@@ -213,7 +215,10 @@ function App() {
           (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
           (<div>
             <Top>
-              <SearchBar></SearchBar>
+              <SearchBar
+                cards={cards}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}></SearchBar>
               <StyledButton onClick={() => { setSettingsOpen(true) }}>
                 <StyledSettings>
                 </StyledSettings>
