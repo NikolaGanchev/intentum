@@ -153,11 +153,11 @@ function App() {
 
       }
       else {
-        await generateStudyUnits(func);
+        await generateStudyUnitsIfNeeded(func);
       }
     }
 
-    await generateStudyUnits(func);
+    await generateStudyUnitsIfNeeded(func);
   }
 
   // Carousel controller
