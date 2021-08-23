@@ -15,6 +15,12 @@ const Container = styled.div`
     border: 1px solid ${props => props.theme.secondary};
     box-sizing: border-box;
     box-shadow: -10px -10px 50px 5px ${props => props.theme.shadow}, 10px 10px 50px 5px ${props => props.theme.shadow};
+    @media only screen and (min-height: 768px) and (max-width: 700px) {
+        height: 37rem;
+    }
+    @media only screen and (min-height: 900px) and (max-width: 700px) {
+          height: 40rem;
+    }
 `
 
 const Title = styled.h1`

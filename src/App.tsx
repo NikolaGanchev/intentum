@@ -11,6 +11,7 @@ import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval';
+import { GlobalStyle } from './components/GlobalStyles';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -83,19 +84,6 @@ const Footer = styled.div`
   }
 `
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    color: ${(props: any) => props.theme.text};
-    background-color: ${(props: any) => props.theme.main};;
-    font-family: Open-Sans, Helvetica, Sans-Serif;
-    transition: all 1s ease;
-  }
-`;
-
 function App() {
   const [currentTheme, setTheme] = useState(theme);
   const [t] = useTranslation("common");
@@ -105,6 +93,7 @@ function App() {
   const [cards, setCards] = useState<StudyUnit[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+
   const hide = () => {
     setShowLoader(false);
   }
@@ -260,7 +249,5 @@ function App() {
     </ThemeProvider>
   );
 }
-
-//Card title={"Урок 1,"} text={"където ще научите, че цифрите не са само 10"} />
 
 export default App;
