@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, getIdFromStudyUnit } from './utils/StudyUnitUtils';
+import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
@@ -88,8 +88,6 @@ function App() {
   const [currentTheme, setTheme] = useState(theme);
   const [t] = useTranslation("common");
   const [showLoader, setShowLoader] = useState(true);
-  const [showUnitLoader, setShowUnitLoader] = useState(true);
-  const [showUnit, setShowUnit] = useState(false);
   const [cards, setCards] = useState<StudyUnit[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -124,8 +122,6 @@ function App() {
     }
   }
 
-  const [tl] = useTranslation("lessons");
-
   const job = async () => {
     const func = async (success: boolean) => {
       if (success) {
@@ -138,8 +134,6 @@ function App() {
           }
         };
         await getAllStudyUnitsArray(callback);
-
-
       }
       else {
         await generateStudyUnitsIfNeeded(func);
@@ -212,19 +206,7 @@ function App() {
             (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
         }
         {(currentStudyUnit) ?
-          (<div>
-            {(showUnitLoader) ?
-              (<Loader
-                title={tl(`${getIdFromStudyUnit(currentStudyUnit)}.title`)}
-                motto={tl(`${getIdFromStudyUnit(currentStudyUnit)}.text`)}
-                hide={() => { setShowUnitLoader(false) }}
-                fadeIn={true} fadeEnd={() => setShowUnit(true)}></Loader>) :
-              (null)}
-            {
-              (showUnit) ?
-                (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
-                (null)
-            } </div>) :
+          (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
           (<div>
             <Top>
               <StyledButton onClick={() => { setSettingsOpen(true) }}>

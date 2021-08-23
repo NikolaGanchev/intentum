@@ -11,6 +11,12 @@
         "languageSetting": "Language",
         "themeSetting": "Dark mode",
         "bg": "Bulgarian / Български",
-        "en": "English"
+        "en": "English",
+        "warning": "Warning",
+        "unlockWarning": "You are trying to unlock a lesson or test you haven't reached yet. You may miss information. Do you really want to continue?",
+        "yes": "Yes",
+        "no": "No",
+        "end": "End",
+        "loading": "Loading..."
     }
 }

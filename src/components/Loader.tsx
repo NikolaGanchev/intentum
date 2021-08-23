@@ -46,26 +46,24 @@ export default function Loader(props: any) {
     const run = () => {
         if (props.job !== null && props.job !== undefined) {
             props.job().then(() => {
-                setTimeout(() => {
-                    setIsVisible(false);
-                    setTimeout(() => {
-                        props.hide();
-                    }, disappearLength * 1000);
-                }, 1000)
-            })
-                .catch((err: any) => {
-                    console.error(err);
-                    run();
-                })
+                end();
+            }).catch((err: any) => {
+                console.error(err);
+                run();
+            });
         }
         else {
-            setTimeout(() => {
-                setIsVisible(false);
-                setTimeout(() => {
-                    props.hide();
-                }, disappearLength * 1000);
-            }, 1000)
+            end();
         }
+    }
+
+    const end = () => {
+        setTimeout(() => {
+            setIsVisible(false);
+            setTimeout(() => {
+                props.hide();
+            }, disappearLength * 1000);
+        }, 1000)
     }
 
     useEffect(() => {

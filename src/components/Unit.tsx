@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React, { ComponentType, Suspense, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
+import Loader from './Loader';
 
 const Container = styled.div`
     position: fixed;
@@ -66,25 +67,58 @@ const StyledButton = styled.button`
 `
 
 export default function Unit(props: any) {
-    const [t] = useTranslation("lessons");
+    const [t] = useTranslation("common");
+    const [showUnitLoader, setShowUnitLoader] = useState(true);
+    const [tl] = useTranslation("lessons");
+    const isLoaded = useRef(false);
+    const hide = () => {
+        setShowUnitLoader(false);
+    }
 
     const Unit = React.lazy(() => {
-        return Promise.all([
-            import(`./units/${getIdFromStudyUnit(props.unit)}`),
-            new Promise(resolvePromise => setTimeout(resolvePromise, 0))
-        ])
-            .then(([moduleExports]) => moduleExports);
+        isLoaded.current = false;
+        const load = new Promise<{ default: ComponentType<any>; }>(async resolve => {
+            const module = await import(`./units/${getIdFromStudyUnit(props.unit)}`);
+
+            resolve(module);
+        });
+
+        load.then(() => {
+            isLoaded.current = true;
+        })
+
+        return load;
     });
 
+    const job = async () => {
+        await new Promise<void>(async resolve => {
+            const check = () => {
+                if (isLoaded.current) {
+                    clearInterval(intervalId);
+                    resolve();
+                }
+            }
+
+            const intervalId = setInterval(check, 500);
+        });
+    }
+
     return <div>
-        <StyledSuspense fallback={<div>Loading...</div>}>
+        {(showUnitLoader) ?
+            (<Loader
+                title={tl(`${getIdFromStudyUnit(props.unit)}.title`)}
+                motto={tl(`${getIdFromStudyUnit(props.unit)}.text`)}
+                hide={hide}
+                job={job}>
+            </Loader>) : (null)}
+        <StyledSuspense fallback={<div>{t("app.loading")}</div>}>
             <Container>
                 <TextContainer>
                     <StyledButton onClick={() => { props.back() }}><Back></Back></StyledButton>
                     <Title>{
-                        t(`${getIdFromStudyUnit(props.unit)}.title`) +
+                        tl(`${getIdFromStudyUnit(props.unit)}.title`) +
                         " " +
-                        t(`${getIdFromStudyUnit(props.unit)}.text`)
+                        tl(`${getIdFromStudyUnit(props.unit)}.text`)
                     }</Title>
                 </TextContainer>
                 <UnitContainer>
