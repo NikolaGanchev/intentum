@@ -4,8 +4,8 @@ import { get, getMany, set, setMany, update } from 'idb-keyval';
 
 const HAS_ENTERED_KEY = "hasEntered";
 
-const LESSON = "L";
-const TEST = "T";
+const LESSON = "l";
+const TEST = "t";
 
 const TEST_POSITIONS = [8, 18, 23, 26, 31, 35, 42, 49];
 const LESSON_AMOUNT = 43;

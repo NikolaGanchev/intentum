@@ -66,21 +66,6 @@ export default function Loader(props: any) {
         }, 1000)
     }
 
-    useEffect(() => {
-        if (props.fadeIn) {
-            setIsVisible(true);
-            setTimeout(() => {
-                if (props.fadeEnd !== undefined) {
-                    props.fadeEnd();
-                }
-                run();
-            }, disappearLength * 1000);
-        }
-        else {
-            run();
-        }
-    }, [])
-
     return (
         <Background visible={isVisible}>
             <Title>{props.title}</Title>

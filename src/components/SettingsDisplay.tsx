@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
+import StudyUnit from "../utils/StudyUnit";
+import { getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
+import TagLoader from "../utils/TagLoader";
 import { themes } from "../utils/Theme";
 import Modal from "./Modal"
 
@@ -88,14 +91,26 @@ const StyledInput = styled.input`
 export default function SettingsDisplay(props: any) {
     const [t, i18n] = useTranslation("common");
     const [, i18nl] = useTranslation("lessons");
+    const [tt, i18nt] = useTranslation("tags");
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
+
     const onLanguageChange = (e: any) => {
         const lang = languages[e.target.selectedIndex];
         i18n.changeLanguage(lang);
         i18nl.changeLanguage(lang);
+        i18nt.changeLanguage(lang);
         setValue(t(`app.${lang}`));
         set("lang", lang);
+        const callback = async (units: StudyUnit[] | null) => {
+            if (units == null) {
+                await getAllStudyUnitsArray(callback);
+            }
+            else {
+                TagLoader.load(tt, units);
+            }
+        };
+        getAllStudyUnitsArray(callback);
     }
 
 

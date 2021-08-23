@@ -8,6 +8,8 @@ import common_en from './translations/en/common.json';
 import common_bg from './translations/bg/common.json';
 import lessons_en from './translations/en/lessons.json';
 import lessons_bg from './translations/bg/lessons.json';
+import tags_en from './translations/en/tags.json';
+import tags_bg from './translations/bg/tags.json';
 import { get } from 'idb-keyval';
 
 i18next.init({
@@ -18,11 +20,13 @@ i18next.init({
   resources: {
     en: {
       common: common_en,
-      lessons: lessons_en
+      lessons: lessons_en,
+      tags: tags_en
     },
     bg: {
       common: common_bg,
-      lessons: lessons_bg
+      lessons: lessons_bg,
+      tags: tags_bg
     },
   },
 });

@@ -12,6 +12,7 @@ import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval';
 import { GlobalStyle } from './components/GlobalStyles';
+import TagLoader from './utils/TagLoader';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -87,6 +88,7 @@ const Footer = styled.div`
 function App() {
   const [currentTheme, setTheme] = useState(theme);
   const [t] = useTranslation("common");
+  const [tt] = useTranslation("tags");
   const [showLoader, setShowLoader] = useState(true);
   const [cards, setCards] = useState<StudyUnit[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
@@ -130,6 +132,7 @@ function App() {
             await getAllStudyUnitsArray(callback);
           }
           else {
+            TagLoader.load(tt, units);
             setCards(units);
           }
         };
