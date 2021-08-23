@@ -66,6 +66,8 @@ export default function Loader(props: any) {
         }, 1000)
     }
 
+    run();
+
     return (
         <Background visible={isVisible}>
             <Title>{props.title}</Title>

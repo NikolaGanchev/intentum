@@ -13,6 +13,7 @@ import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval';
 import { GlobalStyle } from './components/GlobalStyles';
 import TagLoader from './utils/TagLoader';
+import SearchBar from './components/SearchBar';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -212,6 +213,7 @@ function App() {
           (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
           (<div>
             <Top>
+              <SearchBar></SearchBar>
               <StyledButton onClick={() => { setSettingsOpen(true) }}>
                 <StyledSettings>
                 </StyledSettings>
