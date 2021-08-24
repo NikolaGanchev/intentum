@@ -2,7 +2,6 @@ import React, { ComponentType, Suspense, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
-import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 import Loader from './Loader';
 
 const Container = styled.div`
@@ -78,7 +77,7 @@ export default function Unit(props: any) {
     const Unit = React.lazy(() => {
         isLoaded.current = false;
         const load = new Promise<{ default: ComponentType<any>; }>(async resolve => {
-            const module = await import(`./units/${getIdFromStudyUnit(props.unit)}`);
+            const module = await import(`./units/${props.unit.id}`);
 
             resolve(module);
         });
@@ -106,8 +105,8 @@ export default function Unit(props: any) {
     return <div>
         {(showUnitLoader) ?
             (<Loader
-                title={tl(`${getIdFromStudyUnit(props.unit)}.title`)}
-                motto={tl(`${getIdFromStudyUnit(props.unit)}.text`)}
+                title={tl(`${props.unit.id}.title`)}
+                motto={tl(`${props.unit.id}.text`)}
                 hide={hide}
                 job={job}>
             </Loader>) : (null)}
@@ -116,9 +115,9 @@ export default function Unit(props: any) {
                 <TextContainer>
                     <StyledButton onClick={() => { props.back() }}><Back></Back></StyledButton>
                     <Title>{
-                        tl(`${getIdFromStudyUnit(props.unit)}.title`) +
+                        tl(`${props.unit.id}.title`) +
                         " " +
-                        tl(`${getIdFromStudyUnit(props.unit)}.text`)
+                        tl(`${props.unit.id}.text`)
                     }</Title>
                 </TextContainer>
                 <UnitContainer>

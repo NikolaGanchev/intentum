@@ -93,7 +93,7 @@ export async function getAllStudyUnitsArray(callback: Function) {
 }
 
 export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
-    let key = ((unit.type === StudyUnitType.Lesson) ? LESSON : TEST) + unit.number;
+    let key = unit.id;
 
     get(key).then((value) => {
         if (value === undefined) {
@@ -103,7 +103,7 @@ export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
         else {
             update(key, (val) => {
                 val.unlocked = unit.unlocked;
-                val.progress = (unit.type === StudyUnitType.Lesson) ? unit.progress : null;
+                val.id = unit.id;
                 return val;
             }).then(() => {
                 callback(true);
@@ -122,7 +122,6 @@ export async function generateStudyUnitsIfNeeded(callback: Function) {
             set(HAS_ENTERED_KEY, { HAS_ENTERED_KEY: true }).then(() => {
                 generateStudyUnits(callback);
             }).catch((err) => {
-                console.error(err);
                 callback(false);
             });
 
@@ -131,7 +130,6 @@ export async function generateStudyUnitsIfNeeded(callback: Function) {
             callback(true);
         }
     }).catch((err) => {
-        console.error(err);
         callback(false);
     });
 }
@@ -140,14 +138,14 @@ export async function generateStudyUnits(callback: Function) {
 
     let valuesToStore: any[] = [];
 
-    valuesToStore.push([LESSON + "0", new StudyUnit(StudyUnitType.Lesson, 0, true, null)]);
+    valuesToStore.push([LESSON + "0", new StudyUnit(StudyUnitType.Lesson, 0, true, LESSON + "0")]);
 
     for (let i = 1; i <= LESSON_AMOUNT; i++) {
-        valuesToStore.push([LESSON + i, new StudyUnit(StudyUnitType.Lesson, i, false, null)]);
+        valuesToStore.push([LESSON + i, new StudyUnit(StudyUnitType.Lesson, i, false, LESSON + i)]);
     }
 
     for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-        valuesToStore.push([TEST + i, new StudyUnit(StudyUnitType.Test, i, false, null)]);
+        valuesToStore.push([TEST + i, new StudyUnit(StudyUnitType.Test, i, false, TEST + i)]);
     }
 
     setMany(valuesToStore)
@@ -158,8 +156,4 @@ export async function generateStudyUnits(callback: Function) {
             console.log("fail " + JSON.stringify(err));
             callback(false);
         });
-}
-
-export function getIdFromStudyUnit(unit: StudyUnit) {
-    return ((unit.type === StudyUnitType.Lesson) ? LESSON : TEST) + unit.number;
 }

@@ -4,7 +4,6 @@ import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
 import { useTranslation } from "react-i18next";
-import { getIdFromStudyUnit } from "../utils/StudyUnitUtils";
 
 const animationLength = 0.25;
 
@@ -122,8 +121,8 @@ export default function CardCarousel(props: any) {
         {(props.cards) ? (
 
             <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
-                <Card title={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.title`)}
-                    text={t(`${getIdFromStudyUnit(props.cards[props.activeIndex])}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
+                <Card title={t(`${props.cards[props.activeIndex].id}.title`)}
+                    text={t(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
         ) : null}
         {(props.cards) ? (
             <ButtonContainer>

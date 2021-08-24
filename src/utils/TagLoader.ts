@@ -1,6 +1,6 @@
 import { TFunction } from "i18next";
 import StudyUnit from "./StudyUnit";
-import { getIdFromStudyUnit, getStudyUnit } from "./StudyUnitUtils";
+import { getStudyUnit } from "./StudyUnitUtils";
 
 class Tags {
     private tags: Map<string, string[]>;
@@ -10,7 +10,7 @@ class Tags {
     }
 
     addTagsWithStudyUnit(unit: StudyUnit, tags: string[]) {
-        this.tags.set(getIdFromStudyUnit(unit), tags);
+        this.tags.set(unit.id, tags);
     }
 
     addTagsWithStudyUnitId(unit: string, tags: string[]) {
@@ -47,8 +47,7 @@ export default class TagLoader {
         TagLoader.tags = new Tags();
 
         for (let unit of units) {
-            const id = getIdFromStudyUnit(unit);
-            TagLoader.tags.addTagsWithStudyUnitId(id, translator(`tags.${id}`, { returnObjects: true }));
+            TagLoader.tags.addTagsWithStudyUnitId(unit.id, translator(`tags.${unit.id}`, { returnObjects: true }));
         }
     }
 
