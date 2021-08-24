@@ -1,7 +1,5 @@
 import { TFunction } from "i18next";
 import StudyUnit from "./StudyUnit";
-import { getStudyUnit } from "./StudyUnitUtils";
-
 class Tags {
     private tags: Map<string, string[]>;
 
@@ -21,11 +19,20 @@ class Tags {
         return this.tags.get(id);
     }
 
-    async search(stringToSearch: string) {
+    async search(stringToSearch: string, maxResults: number = Number.MAX_VALUE) {
+        // Check for empty search string
+        if (stringToSearch.trim() === "") {
+            return [];
+        }
+
         const normalised: string[] = stringToSearch.toLowerCase().trim().split(" ");
         const results: string[] = [];
 
         this.tags.forEach((value: string[], key: string) => {
+            if (results.length + 1 >= maxResults) {
+                return;
+            }
+
             for (let token of normalised) {
                 for (let val of value) {
                     if (val.indexOf(token) !== -1) {

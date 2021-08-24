@@ -153,7 +153,6 @@ export async function generateStudyUnits(callback: Function) {
             callback(true);
         })
         .catch((err) => {
-            console.log("fail " + JSON.stringify(err));
             callback(false);
         });
 }

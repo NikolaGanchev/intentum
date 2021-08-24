@@ -57,7 +57,7 @@ const StyledButton = styled.button`
     width: 5rem;
     height: 5rem;
     border: none;
-    background-color: ${props => props.theme.main};
+    background-color: ${props => props.theme.transparent};
     z-index: 500;
     position: relative;
     margin-left: auto;
@@ -156,45 +156,37 @@ function App() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const changeToNext = (unlockNext = false) => {
-    setTransX(-300);
+    changeToArbitrary(activeIndex + 1, unlockNext);
+  }
+
+  const changeToPrevious = () => {
+    changeToArbitrary(activeIndex - 1);
+  }
+
+  const changeToArbitrary = (newActiveIndex: number, unlockNew = false) => {
+    const transitionToNew = (newActiveIndex > activeIndex) ? 300 : -300;
+    setTransX(-transitionToNew);
     setOpacity(0);
     setTimeout(() => {
       requestAnimationFrame(() => {
         setIsTransition(false);
-        setTransX(300);
-        setActiveIndex(activeIndex + 1);
+        setTransX(transitionToNew);
+        setActiveIndex(newActiveIndex);
         requestAnimationFrame(() => {
           setIsTransition(true);
           setOpacity(100);
           setTransX(0);
-          if (unlockNext && cards !== null) {
+          if (unlockNew && cards !== null) {
             setTimeout(() => {
               requestAnimationFrame(() => {
                 let copy: any = {};
                 Object.assign(copy, cards);
-                copy[activeIndex + 1].unlocked = true;
+                copy[newActiveIndex].unlocked = true;
                 setCards(copy);
-                changeStudyUnit(cards[activeIndex + 1], () => { });
+                changeStudyUnit(cards[newActiveIndex], () => { });
               })
             }, animationLength * 1000)
           }
-        })
-      })
-    }, animationLength * 1000);
-  }
-
-  const changeToPrevious = () => {
-    setTransX(300);
-    setOpacity(0);
-    setTimeout(() => {
-      requestAnimationFrame(() => {
-        setIsTransition(false);
-        setTransX(-300);
-        setActiveIndex(activeIndex - 1);
-        requestAnimationFrame(() => {
-          setIsTransition(true);
-          setOpacity(100);
-          setTransX(0);
         })
       })
     }, animationLength * 1000);
@@ -217,8 +209,7 @@ function App() {
             <Top>
               <SearchBar
                 cards={cards}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}></SearchBar>
+                changeToArbitrary={changeToArbitrary}></SearchBar>
               <StyledButton onClick={() => { setSettingsOpen(true) }}>
                 <StyledSettings>
                 </StyledSettings>

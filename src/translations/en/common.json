@@ -17,6 +17,7 @@
         "yes": "Yes",
         "no": "No",
         "end": "End",
-        "loading": "Loading..."
+        "loading": "Loading...",
+        "search": "Search"
     }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
@@ -109,7 +109,7 @@ const ButtonContainer = styled.div`
 
 
 export default function CardCarousel(props: any) {
-
+    const containerRef = useRef<HTMLDivElement | undefined>();
 
     const [t] = useTranslation("lessons");
 
@@ -117,7 +117,53 @@ export default function CardCarousel(props: any) {
         props.setStudyUnit(props.cards[props.activeIndex]);
     }
 
-    return <Container className={props.className}>
+    // Gestures code for mobile
+    let xLast: number;
+    let isInTimeout: boolean = false;
+
+    const activateTimeout = () => {
+        isInTimeout = true;
+        setTimeout(() => {
+            isInTimeout = false;
+        }, animationLength * 1000)
+    };
+
+    const touchStart = (event: TouchEvent) => {
+        xLast = event.touches[0].clientX;
+    };
+
+    const touchMove = (event: TouchEvent) => {
+        if (!xLast) {
+            return;
+        }
+
+        let xNew: number = event.touches[0].clientX;
+
+        let xDifference = xLast - xNew;
+
+        if (xDifference > 0) {
+            // Right swipe
+            if (props.activeIndex === props.cards.length - 1 || isInTimeout) {
+                return;
+            }
+
+            activateTimeout();
+
+            props.changeToNext();
+        }
+        else {
+            // Left swipe
+            if (props.activeIndex === 0 || isInTimeout) {
+                return;
+            }
+
+            activateTimeout();
+
+            props.changeToPrevious();
+        }
+    };
+
+    return <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any}>
         {(props.cards) ? (
 
             <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
