@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";

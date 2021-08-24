@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Logo from '../resources/LogoSvg'
 import '../Loader.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const disappearLength = 1.5;
 

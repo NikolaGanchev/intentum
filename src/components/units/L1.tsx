@@ -7,7 +7,6 @@ import Quote from "../Quote";
 import Image from "../Image";
 import TestImage from '../../resources/test-andrew-haimerl-rip-nefIUYDBPv0-unsplash.jpg';
 import TestImage2 from '../../resources/test-kevin-wolf-hBBGiSd61JA-unsplash.jpg';
-import styled from "styled-components";
 import Code from "../Code";
 import Console from "../Console";
 import Switch from "../Switch";
