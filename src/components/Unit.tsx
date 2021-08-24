@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import Loader from './Loader';
+import WarningModal from "./WarningModal";
 
 const Container = styled.div`
     position: fixed;
@@ -70,6 +71,16 @@ export default function Unit(props: any) {
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
     const isLoaded = useRef(false);
+    const [warningIsShown, setWarningIsShown] = useState(false);
+
+    const answer = (answer: boolean) => {
+        if (answer) {
+            props.back();
+        }
+
+        setWarningIsShown(false);
+    }
+
     const hide = () => {
         setShowUnitLoader(false);
     }
@@ -112,8 +123,17 @@ export default function Unit(props: any) {
             </Loader>) : (null)}
         <StyledSuspense fallback={<div>{t("app.loading")}</div>}>
             <Container>
+                {(warningIsShown) ?
+                    <WarningModal
+                        heading={t("app.warning")}
+                        warning={t("app.backWarning")}
+                        yes={t("app.yes")}
+                        no={t("app.no")}
+                        answer={answer}></WarningModal> :
+                    (null)
+                }
                 <TextContainer>
-                    <StyledButton onClick={() => { props.back() }}><Back></Back></StyledButton>
+                    <StyledButton onClick={() => { setWarningIsShown(true) }}><Back></Back></StyledButton>
                     <Title>{
                         tl(`${props.unit.id}.title`) +
                         " " +

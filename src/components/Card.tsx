@@ -4,8 +4,7 @@ import styled, { css, keyframes } from "styled-components"
 import Padlock from "../resources/Padlock"
 import { changeStudyUnit } from "../utils/StudyUnitUtils"
 import Button from "./Button"
-import Modal from "./Modal"
-import TextBlock from "./TextBlock"
+import WarningModal from "./WarningModal"
 
 const Container = styled.div`
     position: relative;
@@ -103,21 +102,6 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     }
 `
 
-const StyledWarningButtonContainer = styled.div`
-    display: flex;
-    width: 100%;
-`
-
-const YesButton = styled(Button)`
-    margin-left: 1rem;
-    background-color: ${props => props.theme.error};
-    border-color: ${props => props.theme.error};
-`
-
-const NoButton = styled(Button)`
-    margin-left: auto;
-`
-
 export default function Card(props: any) {
     const [t] = useTranslation("common");
     const [isUnlocked, setIsUnlocked] = useState(props.unit.unlocked);
@@ -143,22 +127,24 @@ export default function Card(props: any) {
         setWarningIsShown(false);
     }, [props.unit])
 
+    const answer = (answer: boolean) => {
+        if (answer) {
+            unlock();
+        }
+
+        setWarningIsShown(false);
+    }
+
     return <Container>
         <Title>{props.title}</Title>
         <Text>{props.text}</Text>
         {(warningIsShown) ?
-            <Modal heading={t("app.warning")} close={() => { setWarningIsShown(false) }}>
-                <TextBlock>
-                    {t("app.unlockWarning")}
-                </TextBlock>
-                <StyledWarningButtonContainer>
-                    <NoButton text={t("app.no")} onClick={() => { setWarningIsShown(false) }}></NoButton>
-                    <YesButton text={t("app.yes")} onClick={() => {
-                        setWarningIsShown(false);
-                        unlock();
-                    }}></YesButton>
-                </StyledWarningButtonContainer>
-            </Modal> :
+            <WarningModal
+                heading={t("app.warning")}
+                warning={t("app.unlockWarning")}
+                yes={t("app.yes")}
+                no={t("app.no")}
+                answer={answer}></WarningModal> :
             (null)
         }
         {(isUnlocked) ?

@@ -18,6 +18,7 @@
         "no": "No",
         "end": "End",
         "loading": "Loading...",
-        "search": "Search"
+        "search": "Search",
+        "backWarning": "If you leave a lesson, you will lose your progress. Do you really want to continue?"
     }
 }

@@ -109,8 +109,6 @@ const ButtonContainer = styled.div`
 
 
 export default function CardCarousel(props: any) {
-    const containerRef = useRef<HTMLDivElement | undefined>();
-
     const [t] = useTranslation("lessons");
 
     const onClick = () => {
