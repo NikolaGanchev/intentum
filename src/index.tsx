@@ -14,6 +14,7 @@ import tags_en from './translations/en/tags.json';
 import tags_bg from './translations/bg/tags.json';
 import { get } from 'idb-keyval/dist/esm-compat';
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -39,13 +40,16 @@ get("lang").then((val: string) => {
   i18next.changeLanguage(val);
 })
 
+// Register service-worker
+serviceWorkerRegistration.register();
 
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <Router>
         <Switch>
-          <Route path="/:unitId?" children={<App />} />
+          <Route path="/units/:unitId?" children={<App />} />
+          <Route path="/" exact children={<App />} />
         </Switch>
       </Router>
     </I18nextProvider>

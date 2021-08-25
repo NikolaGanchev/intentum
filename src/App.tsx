@@ -143,9 +143,7 @@ function App() {
 
     cards?.forEach((value: StudyUnit, index: number) => {
       if (value.id.toLowerCase() === normalized) {
-        changeToArbitrary(index, false, () => {
-          setCurrentStudyUnit(cards[activeIndex]);
-        });
+        setActiveIndex(index);
       }
     });
   }

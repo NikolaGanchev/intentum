@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import Logo from '../resources/LogoSvg'
-import '../Loader.css'
+import SpinningLogo from '../resources/LogoSvg'
 import { useState } from 'react';
 
 const disappearLength = 1.5;
@@ -71,7 +70,7 @@ export default function Loader(props: any) {
     return (
         <Background visible={isVisible}>
             <Title>{props.title}</Title>
-            <Logo />
+            <SpinningLogo />
             <Motto>{props.motto}</Motto>
         </Background>
     )

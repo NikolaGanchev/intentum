@@ -78,20 +78,10 @@ export default function Unit(props: any) {
     const answer = (answer: boolean) => {
         if (answer) {
             props.back();
-            history.replace("/");
         }
 
         setWarningIsShown(false);
     }
-
-    // Handle back button
-    useEffect(() => {
-        return history.listen(_ => {
-            if (history.action === 'POP') {
-                setWarningIsShown(true);
-            }
-        })
-    }, [])
 
     const hide = () => {
         setShowUnitLoader(false);
@@ -124,14 +114,6 @@ export default function Unit(props: any) {
             const intervalId = setInterval(check, 500);
         });
     }
-
-    // Handle using back button to go back
-
-    useEffect(() => {
-        if (history.action === "POP") {
-            setWarningIsShown(true);
-        }
-    }, [history])
 
     return <div>
         {(showUnitLoader) ?
