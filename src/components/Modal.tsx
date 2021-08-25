@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components"
 import Heading from "./Heading";
 import Close from "../resources/Close";
+import { useHistory } from "react-router-dom";
 
 const StyledBackground = styled.div`
     position: fixed;
@@ -67,6 +68,7 @@ const StyledButton = styled.button`
 
 export default function Modal(props: any) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const history = useHistory();
 
     const onClick = (e: any) => {
         const container = containerRef.current;
@@ -78,6 +80,20 @@ export default function Modal(props: any) {
         }
     }
 
+    const keyPressListener = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+            props.close();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keydown", keyPressListener);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener("keydown", keyPressListener);
+        }
+    }, [])
 
     return <StyledBackground onClick={onClick}>
         <StyledContainer ref={containerRef}>

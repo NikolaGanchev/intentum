@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from 'styled-components';
 import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { changeStudyUnit, generateStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
+import { changeStudyUnit, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
-import { get, set } from 'idb-keyval';
+import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
 import TagLoader from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
@@ -55,8 +55,8 @@ const StyledSettings = styled(Settings)`
 `
 
 const StyledButton = styled.button`
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     border: none;
     background-color: ${props => props.theme.transparent};
     z-index: 500;
@@ -66,12 +66,12 @@ const StyledButton = styled.button`
     margin-right: 1rem;
     display: inline-flex;
     & svg:hover {
-    box-sizing: content-box;
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: ${animation} 5s infinite forwards linear;
-    transition: all 1s ease;
-  }
+      box-sizing: content-box;
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: ${animation} 5s infinite forwards linear;
+      transition: all 1s ease;
+    }
 `
 
 const Footer = styled.div`
@@ -98,6 +98,10 @@ function App() {
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { unitId }: any = useParams();
+
+  useEffect(() => {
+    document.title = t("app.name");
+  }, [t]);
 
   const hide = () => {
     setShowLoader(false);

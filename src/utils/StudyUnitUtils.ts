@@ -1,6 +1,6 @@
 import { StudyUnitType } from "./StudyUnitType";
 import StudyUnit from "./StudyUnit";
-import { get, getMany, set, setMany, update } from 'idb-keyval';
+import { get, getMany, set, setMany, update } from 'idb-keyval/dist/esm-compat';
 
 const HAS_ENTERED_KEY = "hasEntered";
 

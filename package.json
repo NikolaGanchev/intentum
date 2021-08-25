@@ -17,6 +17,7 @@
     "idb-keyval": "^5.0.6",
     "nanoid": "^3.1.23",
     "react": "^17.0.2",
+    "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.11.0",
     "react-router-dom": "^5.2.0",
@@ -41,6 +42,7 @@
   "browserslist": {
     "production": [
       ">0.2%",
+      ">0.1% in BG",
       "not dead",
       "not op_mini all"
     ],

@@ -73,16 +73,25 @@ export default function Unit(props: any) {
     const [tl] = useTranslation("lessons");
     const isLoaded = useRef(false);
     const [warningIsShown, setWarningIsShown] = useState(false);
-    const history = useHistory<any>();
+    const history = useHistory()
 
     const answer = (answer: boolean) => {
         if (answer) {
-            history.replace("/");
             props.back();
+            history.replace("/");
         }
 
         setWarningIsShown(false);
     }
+
+    // Handle back button
+    useEffect(() => {
+        return history.listen(_ => {
+            if (history.action === 'POP') {
+                setWarningIsShown(true);
+            }
+        })
+    }, [])
 
     const hide = () => {
         setShowUnitLoader(false);
@@ -119,11 +128,9 @@ export default function Unit(props: any) {
     // Handle using back button to go back
 
     useEffect(() => {
-        return () => {
-            if (history.action === "POP") {
-                setWarningIsShown(true);
-            }
-        };
+        if (history.action === "POP") {
+            setWarningIsShown(true);
+        }
     }, [history])
 
     return <div>

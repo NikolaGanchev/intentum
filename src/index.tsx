@@ -1,7 +1,9 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+// These above are polyfills to at least try to support Internet Explorer - you should be able to use Intentum everywhere
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 import common_en from './translations/en/common.json';
@@ -10,7 +12,7 @@ import lessons_en from './translations/en/lessons.json';
 import lessons_bg from './translations/bg/lessons.json';
 import tags_en from './translations/en/tags.json';
 import tags_bg from './translations/bg/tags.json';
-import { get } from 'idb-keyval';
+import { get } from 'idb-keyval/dist/esm-compat';
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 i18next.init({
@@ -50,8 +52,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

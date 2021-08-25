@@ -1,4 +1,4 @@
-import { set, clear } from "idb-keyval";
+import { set, clear } from "idb-keyval/dist/esm-compat";
 import { useState } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
