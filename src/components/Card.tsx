@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 import styled, { css, keyframes } from "styled-components"
 import Padlock from "../resources/Padlock"
 import { changeStudyUnit } from "../utils/StudyUnitUtils"
@@ -148,7 +149,7 @@ export default function Card(props: any) {
             (null)
         }
         {(isUnlocked) ?
-            <StyledButton text={t("app.begin")} onClick={props.onClick} /> :
+            <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link> :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>
                 <LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>

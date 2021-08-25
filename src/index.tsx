@@ -11,6 +11,7 @@ import lessons_bg from './translations/bg/lessons.json';
 import tags_en from './translations/en/tags.json';
 import tags_bg from './translations/bg/tags.json';
 import { get } from 'idb-keyval';
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -40,7 +41,11 @@ get("lang").then((val: string) => {
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <App />
+      <Router>
+        <Switch>
+          <Route path="/:unitId?" children={<App />} />
+        </Switch>
+      </Router>
     </I18nextProvider>
   </React.StrictMode>,
   document.getElementById('root')

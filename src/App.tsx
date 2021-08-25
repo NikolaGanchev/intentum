@@ -14,6 +14,7 @@ import { get, set } from 'idb-keyval';
 import { GlobalStyle } from './components/GlobalStyles';
 import TagLoader from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
+import { useParams } from 'react-router-dom';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -96,10 +97,12 @@ function App() {
   const [cards, setCards] = useState<StudyUnit[] | null>(null);
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const { unitId }: any = useParams();
 
   const hide = () => {
     setShowLoader(false);
   }
+
   const endUnit = () => {
     setCurrentStudyUnit(null);
     setTimeout(() => {
@@ -127,6 +130,22 @@ function App() {
     }
   }
 
+  const switchToUrlUnitIfPossible = (unitId: string) => {
+    if (!unitId || unitId.trim() === "") {
+      return;
+    }
+
+    const normalized = unitId.trim().toLowerCase();
+
+    cards?.forEach((value: StudyUnit, index: number) => {
+      if (value.id.toLowerCase() === normalized) {
+        changeToArbitrary(index, false, () => {
+          setCurrentStudyUnit(cards[activeIndex]);
+        });
+      }
+    });
+  }
+
   const job = async () => {
     const func = async (success: boolean) => {
       if (success) {
@@ -137,6 +156,7 @@ function App() {
           else {
             TagLoader.load(tt, units);
             setCards(units);
+            switchToUrlUnitIfPossible(unitId);
           }
         };
         await getAllStudyUnitsArray(callback);
@@ -163,7 +183,7 @@ function App() {
     changeToArbitrary(activeIndex - 1);
   }
 
-  const changeToArbitrary = (newActiveIndex: number, unlockNew = false) => {
+  const changeToArbitrary = (newActiveIndex: number, unlockNew = false, callback = () => { }) => {
     const transitionToNew = (newActiveIndex > activeIndex) ? 300 : -300;
     setTransX(-transitionToNew);
     setOpacity(0);
@@ -187,6 +207,7 @@ function App() {
               })
             }, animationLength * 1000)
           }
+          callback();
         })
       })
     }, animationLength * 1000);

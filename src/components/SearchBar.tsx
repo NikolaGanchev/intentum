@@ -77,6 +77,7 @@ const StyledAnswerContainer = styled.div<StyledAnswerProps>`
     transition: all ${animationDuration}s ease;
     height: ${props => props.isShown ? `${props.results * REM_RESULT_HEIGHT}rem` : `0rem`};
     overflow: hidden;
+    border: ${props => props.isShown ? `1px` : `0px`} solid ${props => props.theme.secondary};
 `
 
 const StyledList = styled.ul`
@@ -172,7 +173,7 @@ export default function SearchBar(props: any) {
             </StyledInput>
         </StyledQuestionContainer>
         <StyledAnswerContainer
-            isShown={(isHover || isClick) && !isHiddenExplicitly}
+            isShown={(isHover || isClick) && !isHiddenExplicitly && results.length > 0}
             results={results.length}>
             <StyledList>
                 {results.map((value: string, index: number) => {

@@ -1,5 +1,6 @@
-import React, { ComponentType, Suspense, useRef, useState } from "react";
+import React, { ComponentType, Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import Loader from './Loader';
@@ -72,9 +73,11 @@ export default function Unit(props: any) {
     const [tl] = useTranslation("lessons");
     const isLoaded = useRef(false);
     const [warningIsShown, setWarningIsShown] = useState(false);
+    const history = useHistory<any>();
 
     const answer = (answer: boolean) => {
         if (answer) {
+            history.replace("/");
             props.back();
         }
 
@@ -113,10 +116,20 @@ export default function Unit(props: any) {
         });
     }
 
+    // Handle using back button to go back
+
+    useEffect(() => {
+        return () => {
+            if (history.action === "POP") {
+                setWarningIsShown(true);
+            }
+        };
+    }, [history])
+
     return <div>
         {(showUnitLoader) ?
             (<Loader
-                title={tl(`${props.unit.id}.title`)}
+                title={tl(`${props.unit.id}.title`) + t("app.separator")}
                 motto={tl(`${props.unit.id}.text`)}
                 hide={hide}
                 job={job}>
@@ -136,6 +149,7 @@ export default function Unit(props: any) {
                     <StyledButton onClick={() => { setWarningIsShown(true) }}><Back></Back></StyledButton>
                     <Title>{
                         tl(`${props.unit.id}.title`) +
+                        t("app.separator") +
                         " " +
                         tl(`${props.unit.id}.text`)
                     }</Title>
