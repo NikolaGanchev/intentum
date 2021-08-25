@@ -20,6 +20,9 @@
         "loading": "Loading...",
         "search": "Search",
         "backWarning": "If you leave a lesson, you will lose your progress. Do you really want to continue?",
-        "separator": ","
+        "separator": ",",
+        "clearSetting": "Clear data",
+        "clearWarning": "If you clear the application data, you will lose your progress. Do you really want to continue?",
+        "clear": "Clear"
     }
 }

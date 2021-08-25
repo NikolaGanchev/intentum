@@ -116,6 +116,7 @@ export default function CardCarousel(props: any) {
 
     // Gestures code for mobile
     let xLast: number;
+    let yLast: number;
     let isInTimeout: boolean = false;
 
     const activateTimeout = () => {
@@ -127,16 +128,24 @@ export default function CardCarousel(props: any) {
 
     const touchStart = (event: TouchEvent) => {
         xLast = event.touches[0].clientX;
+        yLast = event.touches[0].clientY;
     };
 
     const touchMove = (event: TouchEvent) => {
-        if (!xLast) {
+        if (!xLast || !yLast) {
             return;
         }
 
         let xNew: number = event.touches[0].clientX;
+        let yNew: number = event.touches[0].clientY;
 
         let xDifference = xLast - xNew;
+        let yDifference = yLast - yNew;
+
+        // Ignore down and up swipes
+        if (Math.abs(yDifference) > Math.abs(xDifference)) {
+            return;
+        }
 
         if (xDifference > 0) {
             // Right swipe

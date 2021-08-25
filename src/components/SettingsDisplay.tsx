@@ -1,4 +1,4 @@
-import { set } from "idb-keyval";
+import { set, clear } from "idb-keyval";
 import { useState } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
@@ -7,7 +7,9 @@ import StudyUnit from "../utils/StudyUnit";
 import { getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
 import TagLoader from "../utils/TagLoader";
 import { themes } from "../utils/Theme";
-import Modal from "./Modal"
+import Modal from "./Modal";
+import Button from "./Button";
+import WarningModal from "./WarningModal";
 
 const Setting = styled.div`
     display: flex;
@@ -94,6 +96,7 @@ export default function SettingsDisplay(props: any) {
     const [tt, i18nt] = useTranslation("tags");
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
+    const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
 
     const onLanguageChange = (e: any) => {
         const lang = languages[e.target.selectedIndex];
@@ -113,6 +116,14 @@ export default function SettingsDisplay(props: any) {
         getAllStudyUnitsArray(callback);
     }
 
+    const clearAnswer = (answer: boolean) => {
+        if (answer) {
+            clear();
+            window.location.reload(false);
+        }
+
+        setClearWarningIsShown(false);
+    };
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }}>
         <Setting>
@@ -144,6 +155,22 @@ export default function SettingsDisplay(props: any) {
                 </Toggle>
             </SettingActionContainer>
         </Setting>
-
+        <Setting>
+            {(clearWarningIsShown) ?
+                <WarningModal
+                    heading={t("app.warning")}
+                    warning={t("app.clearWarning")}
+                    yes={t("app.yes")}
+                    no={t("app.no")}
+                    answer={clearAnswer}></WarningModal> :
+                (null)
+            }
+            <SettingName>
+                {t("app.clearSetting")}
+            </SettingName>
+            <SettingActionContainer>
+                <Button text={t("app.clear")} onClick={() => { setClearWarningIsShown(true) }}></Button>
+            </SettingActionContainer>
+        </Setting>
     </Modal>
 }
