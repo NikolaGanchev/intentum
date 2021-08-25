@@ -6,7 +6,6 @@ export default function Logo(props: any) {
                 <path id="top-left" d="M0 150L150 0V150H0Z" />
                 <path id="bottom-left" d="M150 300L0 150L150 150L150 300Z" />
                 <path id="bottom-right" d="M300 150L150 300L150 150L300 150Z" />
-                <circle id="circ" cx="150" cy="150" r="0" fill="black" />
             </g>
         </svg>
     );
