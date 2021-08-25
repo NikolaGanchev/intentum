@@ -23,6 +23,9 @@
         "separator": ",",
         "clearSetting": "Clear data",
         "clearWarning": "If you clear the application data, you will lose your progress. Do you really want to continue?",
-        "clear": "Clear"
+        "clear": "Clear",
+        "nextLesson": "Card of next lesson",
+        "previousLesson": "Card of previous lesson",
+        "back": "Back"
     }
 }

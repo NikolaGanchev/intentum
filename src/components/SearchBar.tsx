@@ -163,7 +163,7 @@ export default function SearchBar(props: any) {
 
     return <Container onMouseEnter={onHover} onMouseLeave={onHover}>
         <StyledQuestionContainer>
-            <StyledButton onClick={onClick}><StyledSearch /></StyledButton>
+            <StyledButton onClick={onClick} aria-label={t("app.search")}><StyledSearch /></StyledButton>
             <StyledInput
                 isShown={(isHover || isClick) && !isHiddenExplicitly}
                 type="text"

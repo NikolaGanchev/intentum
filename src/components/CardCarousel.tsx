@@ -108,7 +108,8 @@ const ButtonContainer = styled.div`
 
 
 export default function CardCarousel(props: any) {
-    const [t] = useTranslation("lessons");
+    const [t] = useTranslation("common");
+    const [tl] = useTranslation("lessons");
 
     const onClick = () => {
         props.setStudyUnit(props.cards[props.activeIndex]);
@@ -173,13 +174,24 @@ export default function CardCarousel(props: any) {
         {(props.cards) ? (
 
             <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
-                <Card title={t(`${props.cards[props.activeIndex].id}.title`)}
-                    text={t(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
+                <Card title={tl(`${props.cards[props.activeIndex].id}.title`)}
+                    text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
         ) : null}
         {(props.cards) ? (
             <ButtonContainer>
-                <LeftArrowButton onClick={() => { props.changeToPrevious() }} disabled={props.activeIndex === 0}><LeftArrow /></LeftArrowButton>
-                <RightArrowButton onClick={() => { props.changeToNext() }} disabled={props.activeIndex === props.cards.length - 1}><RightArrow /></RightArrowButton></ButtonContainer>
+                <LeftArrowButton
+                    onClick={() => { props.changeToPrevious() }}
+                    disabled={props.activeIndex === 0}
+                    aria-label={t("app.previousLesson")}>
+                    <LeftArrow />
+                </LeftArrowButton>
+                <RightArrowButton
+                    onClick={() => { props.changeToNext() }}
+                    disabled={props.activeIndex === props.cards.length - 1}
+                    aria-label={t("app.nextLesson")}>
+                    <RightArrow />
+                </RightArrowButton>
+            </ButtonContainer>
         ) : (null)}
     </Container>
 }

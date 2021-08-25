@@ -235,7 +235,7 @@ function App() {
               <SearchBar
                 cards={cards}
                 changeToArbitrary={changeToArbitrary}></SearchBar>
-              <StyledButton onClick={() => { setSettingsOpen(true) }}>
+              <StyledButton onClick={() => { setSettingsOpen(true) }} aria-label={t("app.settings")}>
                 <StyledSettings>
                 </StyledSettings>
               </StyledButton>

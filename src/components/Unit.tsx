@@ -153,7 +153,7 @@ export default function Unit(props: any) {
                     (null)
                 }
                 <TextContainer>
-                    <StyledButton onClick={() => { setWarningIsShown(true) }}><Back></Back></StyledButton>
+                    <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
                     <Title>{
                         tl(`${props.unit.id}.title`) +
                         t("app.separator") +
