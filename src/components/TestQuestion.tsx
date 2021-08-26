@@ -130,7 +130,7 @@ export default function TestQuestion(props: any) {
         <QuestionContainer hasImage={props.image}>
             {props.children}
             <br />
-            ({t("app.tries", { tries: props.tries - tries })})
+            ({t("app.tries", { count: props.tries - tries })})
             {(props.image) ?
                 <Image src={props.image} alt={props.alt} /> :
                 (null)
