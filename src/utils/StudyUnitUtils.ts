@@ -10,7 +10,35 @@ const TEST = "t";
 const TEST_POSITIONS = [8, 18, 23, 26, 31, 35, 42, 49];
 const LESSON_AMOUNT = 42;
 
+export function isIndexedDbAvailable(): boolean {
+    if (window.indexedDB) {
+        return true;
+    }
 
+    return false;
+
+}
+
+export async function generateAndGetStudyUnits(callback: Function) {
+    let valuesToStore: StudyUnit[] = [];
+
+    valuesToStore.push(new StudyUnit(StudyUnitType.Lesson, 0, true, LESSON + "0"));
+
+    for (let i = 1; i <= LESSON_AMOUNT; i++) {
+        valuesToStore.push(new StudyUnit(StudyUnitType.Lesson, i, false, LESSON + i));
+    }
+
+    let tests = [];
+    for (let i = 1; i <= TEST_POSITIONS.length; i++) {
+        tests.push(new StudyUnit(StudyUnitType.Test, i, false, TEST + i));
+    }
+
+    for (let i = 0; i < TEST_POSITIONS.length; i++) {
+        valuesToStore.splice(TEST_POSITIONS[i] - i, 0, tests[i]);
+    }
+
+    callback(valuesToStore);
+}
 
 export async function getStudyUnit(type: StudyUnitType, number: number, callback: Function) {
 
@@ -153,6 +181,7 @@ export async function generateStudyUnits(callback: Function) {
             callback(true);
         })
         .catch((err) => {
+            console.log(err);
             callback(false);
         });
 }

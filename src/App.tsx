@@ -5,7 +5,7 @@ import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { changeStudyUnit, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
+import { changeStudyUnit, generateAndGetStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, isIndexedDbAvailable } from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
@@ -15,6 +15,7 @@ import { GlobalStyle } from './components/GlobalStyles';
 import TagLoader from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
 import { useParams } from 'react-router-dom';
+import Alert from './components/Alert';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -98,6 +99,7 @@ function App() {
   const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { unitId }: any = useParams();
+  const [showIndexedDBNotSupportedWarning, setShowIndexedDBNotSupportedWarning] = useState(false);
 
   useEffect(() => {
     document.title = t("app.name");
@@ -149,22 +151,34 @@ function App() {
   }
 
   const job = async () => {
+
     const func = async (success: boolean) => {
+      const onError = () => {
+        setShowIndexedDBNotSupportedWarning(true);
+        generateAndGetStudyUnits((units: StudyUnit[]) => {
+          onLoad(units);
+        });
+      }
+
+      const onLoad = (units: StudyUnit[]) => {
+        TagLoader.load(tt, units);
+        setCards(units);
+        switchToUrlUnitIfPossible(unitId);
+      }
+
       if (success) {
         const callback = async (units: StudyUnit[] | null) => {
           if (units == null) {
-            await getAllStudyUnitsArray(callback);
+            onError();
           }
           else {
-            TagLoader.load(tt, units);
-            setCards(units);
-            switchToUrlUnitIfPossible(unitId);
+            onLoad(units);
           }
         };
         await getAllStudyUnitsArray(callback);
       }
       else {
-        await generateStudyUnitsIfNeeded(func);
+        onError();
       }
     }
 
@@ -189,17 +203,25 @@ function App() {
     const transitionToNew = (newActiveIndex > activeIndex) ? 300 : -300;
     setTransX(-transitionToNew);
     setOpacity(0);
+
     setTimeout(() => {
+
       requestAnimationFrame(() => {
+
         setIsTransition(false);
         setTransX(transitionToNew);
         setActiveIndex(newActiveIndex);
+
         requestAnimationFrame(() => {
+
           setIsTransition(true);
           setOpacity(100);
           setTransX(0);
+
           if (unlockNew && cards !== null) {
+
             setTimeout(() => {
+
               requestAnimationFrame(() => {
                 let copy: any = {};
                 Object.assign(copy, cards);
@@ -208,7 +230,9 @@ function App() {
                 changeStudyUnit(cards[newActiveIndex], () => { });
               })
             }, animationLength * 1000)
+
           }
+
           callback();
         })
       })
@@ -219,6 +243,13 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <div>
+        {(showIndexedDBNotSupportedWarning) ?
+          <Alert
+            heading={t("app.warning")}
+            warning={t("app.indexedDBNotSupportedWarning")}
+            ok={t("app.ok")}
+            hide={() => { setShowIndexedDBNotSupportedWarning(false) }}></Alert> : null
+        }
         {(settingsOpen) ?
           <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme} changeTheme={changeTheme} close={() => { setSettingsOpen(false) }}></SettingsDisplay> : (null)
         }

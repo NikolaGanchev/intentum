@@ -112,10 +112,9 @@ export default function Card(props: any) {
         setIsUnlocking(true);
         setTimeout(() => {
             props.unit.unlocked = true;
-            changeStudyUnit(props.unit, () => {
-                setIsUnlocked(true);
-                setIsUnlocking(false);
-            });
+            changeStudyUnit(props.unit, () => { });
+            setIsUnlocked(true);
+            setIsUnlocking(false);
         }, unlockDuration * 1000)
     }
 

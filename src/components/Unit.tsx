@@ -1,6 +1,5 @@
 import React, { ComponentType, Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import Loader from './Loader';
@@ -73,7 +72,6 @@ export default function Unit(props: any) {
     const [tl] = useTranslation("lessons");
     const isLoaded = useRef(false);
     const [warningIsShown, setWarningIsShown] = useState(false);
-    const history = useHistory()
 
     const answer = (answer: boolean) => {
         if (answer) {

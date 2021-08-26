@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import SpinningLogo from '../resources/LogoSvg'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const disappearLength = 1.5;
 
@@ -48,7 +48,6 @@ export default function Loader(props: any) {
                 end();
             }).catch((err: any) => {
                 console.error(err);
-                run();
             });
         }
         else {
@@ -65,7 +64,10 @@ export default function Loader(props: any) {
         }, 1000)
     }
 
-    run();
+    useEffect(() => {
+        run();
+    }, []);
+
 
     return (
         <Background visible={isVisible}>

@@ -26,6 +26,8 @@
         "clear": "Clear",
         "nextLesson": "Card of next lesson",
         "previousLesson": "Card of previous lesson",
-        "back": "Back"
+        "back": "Back",
+        "indexedDBNotSupportedWarning": "The way this application stores information is not supported by your browser at the moment. You may using an old version of your browser or a incognito/private tab/window. Yo can continue using Intentum, however information such as language, theme and reached lesson won't be saved across sessions. Try to restart your browser.",
+        "ok": "ОК"
     }
 }

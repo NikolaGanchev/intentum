@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
 import StudyUnit from "../utils/StudyUnit";
-import { getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
+import { generateAndGetStudyUnits, getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
 import TagLoader from "../utils/TagLoader";
 import { themes } from "../utils/Theme";
 import Modal from "./Modal";
@@ -107,7 +107,7 @@ export default function SettingsDisplay(props: any) {
         set("lang", lang);
         const callback = async (units: StudyUnit[] | null) => {
             if (units == null) {
-                await getAllStudyUnitsArray(callback);
+                generateAndGetStudyUnits(callback);
             }
             else {
                 TagLoader.load(tt, units);
