@@ -93,7 +93,7 @@ export default function Modal(props: any) {
         }
     }, [])
 
-    return <StyledBackground onClick={onClick}>
+    return <StyledBackground onClick={onClick} aria-hidden={false}>
         <StyledContainer ref={containerRef}>
             <UpperContainer>
                 <StyledHeading>{props.heading}</StyledHeading>
