@@ -1,4 +1,4 @@
-import React, { ComponentType, Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
