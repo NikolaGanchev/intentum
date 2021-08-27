@@ -27,6 +27,10 @@ const FullSizeContainer = styled.div`
     align-items: flex-start;
 `
 
+const StyledBigImg = styled.img`
+    width: 50%;
+`
+
 export default function Image(props: any) {
     const [showFullSize, setShowFullSize] = useState(false);
     const onClick = () => {
@@ -36,7 +40,7 @@ export default function Image(props: any) {
     return <Container className={props.className} onClick={onClick}>
         {showFullSize ?
             (<FullSizeContainer>
-                <img src={props.src} alt={props.alt}></img>
+                <StyledBigImg src={props.src} alt={props.alt}></StyledBigImg>
             </FullSizeContainer>) : (null)}
         <StyledImg src={props.src} alt={props.alt}></StyledImg>
     </Container>
