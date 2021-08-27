@@ -5,7 +5,7 @@ import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { changeStudyUnit, generateAndGetStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray, isIndexedDbAvailable } from './utils/StudyUnitUtils';
+import { changeStudyUnit, generateAndGetStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
