@@ -94,7 +94,7 @@ export default function FillQuestion(props: any) {
                     `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
             </TextBlock>
             <TextBlock>
-                {`${t("app.rightAnswer")}: ${props.text.replaceAll("_", "")}`}
+                {`${t("app.rightAnswer")}: ${props.text.replace(/_/g, "")}`}
                 <br />
                 {props.explanation}
             </TextBlock>
