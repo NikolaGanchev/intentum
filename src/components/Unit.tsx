@@ -14,8 +14,14 @@ const Container = styled.div`
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 10% 90%;
     background-color: ${props => props.theme.main};
+
     @media (max-width: 1240px) {
         grid-template-columns: 5% 45% 45% 5%;
+    }
+
+    @supports not (display: grid) {
+        display: flex;
+        flex-direction: column;
     }
 `
 

@@ -30,7 +30,7 @@ const CardContainer = styled.div<CardContainerProps>`
     transform: ${props => (props.transX === 0) ? `none` : `translateX(${props.transX}%)`};
     height: auto;
     place-items: center;
-
+    margin: auto;
 `
 
 const LeftArrowButton = styled.button`

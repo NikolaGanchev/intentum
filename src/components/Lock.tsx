@@ -1,7 +1,9 @@
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled, { css, keyframes } from "styled-components"
 import Padlock from "../resources/Padlock"
+import TextBlock from "./TextBlock";
 
 const unlockDuration = 1.5;
 
@@ -33,7 +35,9 @@ const LockContainer = styled.div<PadlockProps>`
     background: ${props => props.theme.main};
     box-shadow: 0px -50px 80px ${props => props.theme.main};
     transition: all ${unlockDuration}s ease;
-    opacity: ${props => props.isUnlocking ? '0%' : '100%'}; 
+    opacity: ${props => props.isUnlocking ? '0%' : '100%'};
+    flex-direction: column;
+    text-align: center;
 `
 
 const animation = () =>
@@ -45,6 +49,7 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     width: 5rem;
     height: 5rem;
     margin-bottom: 1rem;
+    margin: auto;
 
     & #padlock-shackle {
         transform-origin: 80% left;
@@ -57,6 +62,7 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
 export default function Lock(props: any) {
     const [isLocked, setIsLocked] = useState(true);
     const [isUnlocking, setIsUnlocking] = useState(false);
+    const [t] = useTranslation("common");
 
     useEffect(() => {
         if (props.isLocked) {
@@ -77,6 +83,7 @@ export default function Lock(props: any) {
                 <Container><LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>
                     </StyledPadlock>
+                    <TextBlock>{t("app.continueNotice")}</TextBlock>
                 </LockContainer>
                     {props.children[0]}</Container>) :
             (props.children)

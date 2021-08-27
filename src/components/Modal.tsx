@@ -23,6 +23,8 @@ const StyledContainer = styled.div`
     grid-template-rows: auto 90%;
     background-color: ${props => props.theme.main};
     padding: 1rem;
+    margin: auto;
+    
     @media (max-width: 1280px) {
         width: 100%;
     }

@@ -93,7 +93,8 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     width: 5rem;
     height: 5rem;
     margin-bottom: 1rem;
-
+    margin: auto;
+    
     & #padlock-shackle {
         transform-origin: 80% left;
         transform-box: fill-box;

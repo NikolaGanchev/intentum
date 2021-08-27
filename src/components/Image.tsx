@@ -28,7 +28,11 @@ const FullSizeContainer = styled.div`
 `
 
 const StyledBigImg = styled.img`
-    width: 50%;
+    width: 75%;
+    margin: auto;
+    @media only screen and (max-width: 1024px) {
+        width: 100%;
+    }
 `
 
 export default function Image(props: any) {

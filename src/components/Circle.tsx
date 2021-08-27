@@ -10,14 +10,19 @@ const StyledCircle = styled.div`
     place-content: center;
     place-items: center;
     text-align: center;
+    margin: auto;
     font-size: 4rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     user-select: none;
 `
 
+const Symbol = styled.div`
+    margin: auto;
+`
+
 export default function Circle(props: any) {
     return <StyledCircle className={props.className}>
-        {props.symbol}
+        <Symbol>{props.symbol}</Symbol>
     </StyledCircle>
 }
