@@ -16,6 +16,7 @@ import TagLoader from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
 import { useParams } from 'react-router-dom';
 import Alert from './components/Alert';
+import registerAll from './utils/UnitImports';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -164,6 +165,7 @@ function App() {
         TagLoader.load(tt, units);
         setCards(units);
         switchToUrlUnitIfPossible(unitId);
+        registerAll();
       }
 
       if (success) {

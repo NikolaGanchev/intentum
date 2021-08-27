@@ -2,6 +2,7 @@ import React, { ComponentType, Suspense, useEffect, useRef, useState } from "rea
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
+import { registry } from "../utils/UnitRegistry";
 import Loader from './Loader';
 import WarningModal from "./WarningModal";
 
@@ -70,7 +71,6 @@ export default function Unit(props: any) {
     const [t] = useTranslation("common");
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
-    const isLoaded = useRef(false);
     const [warningIsShown, setWarningIsShown] = useState(false);
 
     const answer = (answer: boolean) => {
@@ -85,41 +85,14 @@ export default function Unit(props: any) {
         setShowUnitLoader(false);
     }
 
-    const Unit = React.lazy(() => {
-        isLoaded.current = false;
-        const load = new Promise<{ default: ComponentType<any>; }>(async resolve => {
-            const module = await import(`./units/${props.unit.id}`);
-
-            resolve(module);
-        });
-
-        load.then(() => {
-            isLoaded.current = true;
-        })
-
-        return load;
-    });
-
-    const job = async () => {
-        await new Promise<void>(async resolve => {
-            const check = () => {
-                if (isLoaded.current) {
-                    clearInterval(intervalId);
-                    resolve();
-                }
-            }
-
-            const intervalId = setInterval(check, 500);
-        });
-    }
+    const Unit = registry.get(props.unit.id);
 
     return <div>
         {(showUnitLoader) ?
             (<Loader
                 title={tl(`${props.unit.id}.title`) + t("app.separator")}
                 motto={tl(`${props.unit.id}.text`)}
-                hide={hide}
-                job={job}>
+                hide={hide}>
             </Loader>) : (null)}
         <StyledSuspense fallback={<div>{t("app.loading")}</div>}>
             <Container>
