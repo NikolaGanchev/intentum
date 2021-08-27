@@ -54,7 +54,7 @@ export default function FillIn(props: any) {
     }
 
     const normalise = (value: string) => {
-        return value.toLowerCase().trim().replaceAll(" ", "");
+        return value.toLowerCase().trim().replace(/ /g, "");
     }
 
     return <StyledInput type="text" value={value} onChange={handleChange} isCorrect={isCorrect} isShowing={props.isShowing} disabled={props.isDisabled}></StyledInput>

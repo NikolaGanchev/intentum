@@ -111,12 +111,12 @@ export default function FullAnswerQuestion(props: any) {
     }
 
     const normalise = (value: string) => {
-        return value.toLowerCase().trim().replaceAll(" ", "");
+        return value.toLowerCase().trim().replace(/ /g, "");
     }
 
     const normaliseArray = (value: string[]) => {
         return value.map((val: string) => {
-            return val.toLowerCase().trim().replaceAll(" ", "");
+            return val.toLowerCase().trim().replace(/ /g, "");
         })
     }
 

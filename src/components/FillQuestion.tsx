@@ -49,7 +49,7 @@ export default function FillQuestion(props: any) {
         for (let value of localText) {
             const result = value.match(fillInRegex);
             if (result !== null) {
-                let wordStripped = result[0].replaceAll("_", "");
+                let wordStripped = result[0].replace(/_/g, "");
                 let obj: FillInType = { rightAnswer: wordStripped };
                 outputRef.current.push(obj);
             }
