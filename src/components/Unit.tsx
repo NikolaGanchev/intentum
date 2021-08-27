@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
@@ -25,14 +25,15 @@ const TextContainer = styled.div`
     grid-column-end: 5;
     display: flex;
     width: 100%;
-    padding-left: 1rem;
     border: 1px solid ${props => props.theme.secondary};
     align-items: center;
     user-select: text;
+    margin-right: 1rem;
 `
 
 const Title = styled.h4`
     font-weight: normal;
+    margin-right: 1rem;
 `
 const UnitContainer = styled.div`
     grid-row: 2;
@@ -45,12 +46,6 @@ const UnitContainer = styled.div`
     margin-bottom: 1rem;
     height: 100%;
     overflow: scroll;
-`
-
-const StyledSuspense = styled(Suspense)`
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
 `
 
 const Back = styled(ArrowBack)`
@@ -94,30 +89,28 @@ export default function Unit(props: any) {
                 motto={tl(`${props.unit.id}.text`)}
                 hide={hide}>
             </Loader>) : (null)}
-        <StyledSuspense fallback={<div>{t("app.loading")}</div>}>
-            <Container>
-                {(warningIsShown) ?
-                    <WarningModal
-                        heading={t("app.warning")}
-                        warning={t("app.backWarning")}
-                        yes={t("app.yes")}
-                        no={t("app.no")}
-                        answer={answer}></WarningModal> :
-                    (null)
-                }
-                <TextContainer>
-                    <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
-                    <Title>{
-                        tl(`${props.unit.id}.title`) +
-                        t("app.separator") +
-                        " " +
-                        tl(`${props.unit.id}.text`)
-                    }</Title>
-                </TextContainer>
-                <UnitContainer>
-                    <Unit endUnit={() => { props.endUnit() }}></Unit>
-                </UnitContainer>
-            </Container>
-        </StyledSuspense>
+        <Container>
+            {(warningIsShown) ?
+                <WarningModal
+                    heading={t("app.warning")}
+                    warning={t("app.backWarning")}
+                    yes={t("app.yes")}
+                    no={t("app.no")}
+                    answer={answer}></WarningModal> :
+                (null)
+            }
+            <TextContainer>
+                <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
+                <Title>{
+                    tl(`${props.unit.id}.title`) +
+                    t("app.separator") +
+                    " " +
+                    tl(`${props.unit.id}.text`)
+                }</Title>
+            </TextContainer>
+            <UnitContainer>
+                <Unit endUnit={() => { props.endUnit() }}></Unit>
+            </UnitContainer>
+        </Container>
     </div>
 }
