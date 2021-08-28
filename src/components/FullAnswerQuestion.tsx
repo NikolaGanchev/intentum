@@ -130,10 +130,10 @@ export default function FullAnswerQuestion(props: any) {
         </QuestionContainer>
         <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={isShowing || props.isShowing} isCorrect={isCorrect} disabled={isDisabled}></StyledInput>
         {(!props.noButton) ?
-            <Button text={props.button} onClick={check} isDisabled={isDisabled}></Button> :
+            <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button> :
             (null)
         }
-        <Explanation isShown={isShowing || props.isShowing}>
+        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
             <TextBlock>
                 {(props.rightAnswer) ?
                     `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}

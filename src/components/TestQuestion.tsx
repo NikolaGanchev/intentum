@@ -147,7 +147,7 @@ export default function TestQuestion(props: any) {
                 </RadioContainer>
             })}
         </AnswerContainer>
-        <Explanation isShown={isShowing || props.isShowing}>
+        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
             <TextBlock>
                 {props.explanation}
             </TextBlock>

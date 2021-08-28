@@ -86,7 +86,7 @@ export default function FillQuestion(props: any) {
             <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}></StyledButton> :
             (null)
         }
-        <Explanation isShown={isShowing || props.isShowing}>
+        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
             <TextBlock>
                 {(props.rightAnswer) ?
                     `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
