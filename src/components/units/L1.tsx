@@ -39,7 +39,7 @@ export default function L1(props: any) {
             <TextBlock>{tl("l1.p27p")}</TextBlock>
             <TextBlock>{tl("l1.p28p")}</TextBlock>
             <TextBlock>{tl("l1.p29p")}</TextBlock>
-            <FullAnswerQuestion rightAnswers={["238"]} onAnswer={() => { setIsLocked3(false) }}>
+            <FullAnswerQuestion rightAnswer={"238"} onAnswer={() => { setIsLocked3(false) }}>
                 {tl("l1.p30fq")}
             </FullAnswerQuestion>
             <TestQuestion answers={["3", "5", "4", "6"]} rightAnswer={3} tries={3} onAnswer={() => { setIsLocked4(false) }}>
@@ -51,7 +51,7 @@ export default function L1(props: any) {
                         return <TextBlock>{tl(`l1.p${index + 1 + 31}p`)}</TextBlock>
                     })
                 }
-                <FullAnswerQuestion rightAnswers={["11101110"]} onAnswer={() => { setIsLocked5(false) }}>
+                <FullAnswerQuestion rightAnswer={"11101110"} onAnswer={() => { setIsLocked5(false) }}>
                     {tl("l1.p49fq")}
                 </FullAnswerQuestion>
                 <Lock isLocked={isLocked5}>

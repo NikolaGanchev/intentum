@@ -133,16 +133,18 @@ export default function FullAnswerQuestion(props: any) {
             <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button> :
             (null)
         }
-        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
+        <Explanation isShown={(isShowing || props.isShowing)}>
             <TextBlock>
                 {(props.rightAnswer) ?
                     `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
                 {(props.rightAnswers) ?
                     `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
             </TextBlock>
-            <TextBlock>
-                {props.explanation}
-            </TextBlock>
+            {props.explanation ?
+                <TextBlock>
+                    {props.explanation}
+                </TextBlock> : null
+            }
         </Explanation>
     </Container>
 }

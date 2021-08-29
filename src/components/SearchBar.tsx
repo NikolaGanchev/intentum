@@ -60,6 +60,8 @@ const StyledInput = styled.input<StyledInputProps>`
     transition: all ${animationDuration}s ease;
     padding: ${props => props.isShown ? `0rem 0.5rem` : `0px`};
     border: ${props => props.isShown ? `1px` : `0px`} solid ${props => props.theme.secondary};
+    background-color: ${props => props.theme.pure};
+    color: ${props => props.theme.text};
 `
 
 const StyledQuestionContainer = styled.div`

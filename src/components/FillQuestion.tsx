@@ -93,11 +93,13 @@ export default function FillQuestion(props: any) {
                 {(props.rightAnswers) ?
                     `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
             </TextBlock>
-            <TextBlock>
-                {`${t("app.rightAnswer")}: ${props.text.replace(/_/g, "")}`}
-                <br />
-                {props.explanation}
-            </TextBlock>
+            {props.explanation ?
+                <TextBlock>
+                    {`${t("app.rightAnswer")}: ${props.text.replace(/_/g, "")}`}
+                    <br />
+                    {props.explanation}
+                </TextBlock> : null
+            }
         </Explanation>
 
     </Container>

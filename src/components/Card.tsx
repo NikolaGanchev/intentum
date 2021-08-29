@@ -37,8 +37,7 @@ const Text = styled.h2`
     font-weight: normal;
     padding: 15px;
     padding-top: 0px;
-    padding-left: 5px;
-    text-indent: 10px;
+    padding-left: 15px;
     margin: 0px;
 `
 
