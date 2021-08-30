@@ -22,6 +22,7 @@ const Container = styled.div`
     position: relative;
     height: 8rem;
     margin-top: 3rem;
+    overflow: hidden;
 `
 
 const LockContainer = styled.div<PadlockProps>`
