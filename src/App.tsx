@@ -90,6 +90,7 @@ const Footer = styled.div`
     justify-content: center;
   }
 `
+const activeIndexKey = "activeIndex";
 
 function App() {
   const [currentTheme, setTheme] = useState(theme);
@@ -147,44 +148,9 @@ function App() {
     cards?.forEach((value: StudyUnit, index: number) => {
       if (value.id.toLowerCase() === normalized) {
         setActiveIndex(index);
+        set(activeIndexKey, index);
       }
     });
-  }
-
-  const job = async () => {
-
-    const func = async (success: boolean) => {
-      const onError = () => {
-        setShowIndexedDBNotSupportedWarning(true);
-        generateAndGetStudyUnits((units: StudyUnit[]) => {
-          onLoad(units);
-        });
-      }
-
-      const onLoad = (units: StudyUnit[]) => {
-        TagLoader.load(tt, units);
-        setCards(units);
-        switchToUrlUnitIfPossible(unitId);
-        registerAll();
-      }
-
-      if (success) {
-        const callback = async (units: StudyUnit[] | null) => {
-          if (units == null) {
-            onError();
-          }
-          else {
-            onLoad(units);
-          }
-        };
-        await getAllStudyUnitsArray(callback);
-      }
-      else {
-        onError();
-      }
-    }
-
-    await generateStudyUnitsIfNeeded(func);
   }
 
   // Carousel controller
@@ -192,6 +158,13 @@ function App() {
   const [transX, setTransX] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const loadActiveIndexFromStorage = async () => {
+    let val: number | undefined = await get(activeIndexKey);
+    if (val) {
+      setActiveIndex(val);
+    }
+  }
 
   const changeToNext = (unlockNext = false) => {
     changeToArbitrary(activeIndex + 1, unlockNext);
@@ -213,6 +186,7 @@ function App() {
         setIsTransition(false);
         setTransX(transitionToNew);
         setActiveIndex(newActiveIndex);
+        set(activeIndexKey, newActiveIndex);
 
         requestAnimationFrame(() => {
 
@@ -239,6 +213,44 @@ function App() {
         })
       })
     }, animationLength * 1000);
+  }
+
+
+  const job = async () => {
+
+    const func = async (success: boolean) => {
+      const onError = () => {
+        setShowIndexedDBNotSupportedWarning(true);
+        generateAndGetStudyUnits((units: StudyUnit[]) => {
+          onLoad(units);
+        });
+      }
+
+      const onLoad = async (units: StudyUnit[]) => {
+        TagLoader.load(tt, units);
+        setCards(units);
+        await loadActiveIndexFromStorage();
+        switchToUrlUnitIfPossible(unitId);
+        registerAll();
+      }
+
+      if (success) {
+        const callback = async (units: StudyUnit[] | null) => {
+          if (units == null) {
+            await onError();
+          }
+          else {
+            await onLoad(units);
+          }
+        };
+        await getAllStudyUnitsArray(callback);
+      }
+      else {
+        onError();
+      }
+    }
+
+    await generateStudyUnitsIfNeeded(func);
   }
 
   return (
