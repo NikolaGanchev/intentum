@@ -10,8 +10,12 @@ const Container = styled.div`
     align-items: flex-start;
 `
 
-const StyledImg = styled.img`
-    width: 100%;
+interface StyledImgProps {
+    readonly isAuto: boolean;
+}
+
+const StyledImg = styled.img<StyledImgProps>`
+    width: ${props => props.isAuto ? "auto" : "100%"};
 `
 const FullSizeContainer = styled.div`
     position: fixed;
@@ -46,6 +50,6 @@ export default function Image(props: any) {
             (<FullSizeContainer>
                 <StyledBigImg src={props.src} alt={props.alt}></StyledBigImg>
             </FullSizeContainer>) : (null)}
-        <StyledImg src={props.src} alt={props.alt}></StyledImg>
+        <StyledImg src={props.src} alt={props.alt} isAuto={props.auto}></StyledImg>
     </Container>
 }

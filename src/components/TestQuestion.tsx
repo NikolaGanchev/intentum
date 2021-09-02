@@ -130,7 +130,7 @@ export default function TestQuestion(props: any) {
         <QuestionContainer hasImage={props.image}>
             {props.children}
             <br />
-            ({t("app.tries", { count: props.tries - tries })})
+            ({props.tries ? t("app.tries", { count: props.tries - tries }) : null})
             {(props.image) ?
                 <Image src={props.image} alt={props.alt} /> :
                 (null)
@@ -139,7 +139,7 @@ export default function TestQuestion(props: any) {
         <AnswerContainer>
             {props.answers.map((value: string, i: number) => {
 
-                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(isShowing || props.isShowing) && value === rightAnswer} key={i}>
+                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing) && value === rightAnswer} key={i}>
                     <StyledLabel>
                         <StyledRadioButton type="radio" name={id} value={value} checked={checked === value} onChange={handleCheck} disabled={isDisabled || props.isDisabled} />
                         {value}
@@ -147,7 +147,7 @@ export default function TestQuestion(props: any) {
                 </RadioContainer>
             })}
         </AnswerContainer>
-        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
+        <Explanation isShown={(props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing) && props.explanation}>
             <TextBlock>
                 {props.explanation}
             </TextBlock>

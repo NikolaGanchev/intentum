@@ -128,12 +128,12 @@ export default function FullAnswerQuestion(props: any) {
                 (null)
             }
         </QuestionContainer>
-        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={isShowing || props.isShowing} isCorrect={isCorrect} disabled={isDisabled}></StyledInput>
+        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled}></StyledInput>
         {(!props.noButton) ?
             <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button> :
             (null)
         }
-        <Explanation isShown={(isShowing || props.isShowing)}>
+        <Explanation isShown={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing}>
             <TextBlock>
                 {(props.rightAnswer) ?
                     `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
