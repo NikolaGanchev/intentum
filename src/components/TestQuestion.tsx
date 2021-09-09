@@ -105,10 +105,25 @@ export default function TestQuestion(props: any) {
         }
 
         if (value !== rightAnswer) {
+            if (!props.tries) {
+                setIsDisabled(true);
+                if (props.onAnswer) {
+                    props.onAnswer(false);
+                }
+                return;
+            }
+
             triesRef.current += 1;
             setTries(tries + 1);
         }
         else {
+            if (!props.tries) {
+                setIsDisabled(true);
+                if (props.onAnswer) {
+                    props.onAnswer(true);
+                }
+                return;
+            }
             onShow(true);
             return;
         }
@@ -130,7 +145,7 @@ export default function TestQuestion(props: any) {
         <QuestionContainer hasImage={props.image}>
             {props.children}
             <br />
-            ({props.tries ? t("app.tries", { count: props.tries - tries }) : null})
+            {props.tries ? "(" + t("app.tries", { count: props.tries - tries }) + ")" : null}
             {(props.image) ?
                 <Image src={props.image} alt={props.alt} /> :
                 (null)

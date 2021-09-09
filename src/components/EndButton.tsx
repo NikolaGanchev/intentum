@@ -16,6 +16,6 @@ const StyledButton = styled(Button)`
 export default function EndButton(props: any) {
     const [t] = useTranslation("common");
 
-    return <Container><StyledButton text={t("app.end")} onClick={props.onClick} className={props.className}>
+    return <Container><StyledButton text={props.text? props.text: t("app.end")} onClick={props.onClick} className={props.className}>
     </StyledButton></Container>
 }

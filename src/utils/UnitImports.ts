@@ -11,6 +11,7 @@ import L4 from "../components/units/L4";
 import L5 from "../components/units/L5";
 import L6 from "../components/units/L6";
 import L7 from "../components/units/L7";
+import T1 from "../components/units/T1";
 
 export default function registerAll() {
     registry.register("l0", L0);
@@ -21,4 +22,5 @@ export default function registerAll() {
     registry.register("l5", L5);
     registry.register("l6", L6);
     registry.register("l7", L7);
+    registry.register("t1", T1);
 }

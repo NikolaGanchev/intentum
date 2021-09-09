@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components"
 import Button from "./Button";
@@ -87,6 +87,13 @@ export default function FullAnswerQuestion(props: any) {
     const [isDisabled, setIsDisabled] = useState(false);
     const [isShowing, setIsShowing] = useState(false);
     const [t] = useTranslation("common");
+
+    useEffect(() => {
+        if (props.isShowing) {
+            check();
+        }
+    }, [props.isShowing]);
+
     const handleChange = (e: any) => {
         let value: string = e.currentTarget.value;
         setValue(value);
@@ -99,6 +106,9 @@ export default function FullAnswerQuestion(props: any) {
         }
         else if (props.rightAnswers) {
             correct = normaliseArray(props.rightAnswers).includes(normalise(value));
+        }
+        else {
+            correct = true;
         }
 
         if (props.onAnswer) {
