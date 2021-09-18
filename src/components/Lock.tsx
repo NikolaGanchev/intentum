@@ -20,7 +20,7 @@ interface PadlockProps {
 const Container = styled.div`
     width: 100%;
     position: relative;
-    height: 8rem;
+    height: 12rem;
     margin-top: 3rem;
     overflow: hidden;
 `
@@ -30,7 +30,7 @@ const LockContainer = styled.div<PadlockProps>`
     width: 100%;
     position: absolute;
     bottom: 0px;
-    height: 6rem;
+    height: 10rem;
     display: flex;
     place-content: center;
     background: ${props => props.theme.main};
@@ -49,7 +49,6 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     overflow: visible;
     width: 5rem;
     height: 5rem;
-    margin-bottom: 1rem;
     margin: auto;
 
     & #padlock-shackle {
@@ -61,25 +60,25 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
 `
 
 export default function Lock(props: any) {
-    const [isLocked, setIsLocked] = useState(true);
+    const [isViewLocked, setIsViewLocked] = useState(true);
     const [isUnlocking, setIsUnlocking] = useState(false);
     const [t] = useTranslation("common");
 
     useEffect(() => {
         if (props.isLocked) {
-            setIsLocked(true);
+            setIsViewLocked(true);
         }
         else {
             setIsUnlocking(true);
             setTimeout(() => {
-                setIsLocked(false);
+                setIsViewLocked(false);
             }, unlockDuration * 1000)
         }
     }, [props.isLocked]);
 
 
     return <div>
-        {(isLocked && props.children) ?
+        {(isViewLocked && props.children) ?
             (
                 <Container><LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>

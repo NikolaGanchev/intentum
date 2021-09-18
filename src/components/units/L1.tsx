@@ -14,15 +14,26 @@ export default function L1(props: any) {
     const [isLocked3, setIsLocked3] = useState(true);
     const [isLocked4, setIsLocked4] = useState(true);
     const [isLocked5, setIsLocked5] = useState(true);
-    const first18Paragraphs = new Array(18);
-    const secondHalf17Paragraphs = new Array(17);
 
     return <div>
-        {
-            [...first18Paragraphs].map((_: any, index: number) => {
-                return <TextBlock>{tl(`l1.p${index + 1}p`)}</TextBlock>;
-            })
-        }
+        <TextBlock>{tl(`l1.p1p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p2p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p3p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p4p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p5p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p6p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p7p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p8p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p9p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p10p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p11p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p12p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p13p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p14p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p15p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p16p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p17p`)}</TextBlock>
+        <TextBlock>{tl(`l1.p18p`)}</TextBlock>
         <TestQuestion answers={["1", "2", "3", "4"]} rightAnswer={1} tries={3} onAnswer={() => { setIsLocked1(false) }}>
             {tl("l1.p19tq")}
         </TestQuestion>
@@ -46,11 +57,23 @@ export default function L1(props: any) {
                 {tl("l1.p31tq")}
             </TestQuestion>
             <Lock isLocked={isLocked3 || isLocked4}>
-                {
-                    [...secondHalf17Paragraphs].map((_: any, index: number) => {
-                        return <TextBlock>{tl(`l1.p${index + 1 + 31}p`)}</TextBlock>
-                    })
-                }
+                <TextBlock>{tl(`l1.p32p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p33p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p34p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p35p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p36p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p37p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p38p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p39p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p40p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p41p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p42p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p43p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p44p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p45p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p46p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p47p`)}</TextBlock>
+                <TextBlock>{tl(`l1.p48p`)}</TextBlock>
                 <FullAnswerQuestion rightAnswer={"11101110"} onAnswer={() => { setIsLocked5(false) }}>
                     {tl("l1.p49fq")}
                 </FullAnswerQuestion>

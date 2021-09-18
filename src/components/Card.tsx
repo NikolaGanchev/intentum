@@ -79,7 +79,7 @@ const LockContainer = styled.div<PadlockProps>`
     place-content: center;
     background: ${props => props.theme.main};
     box-shadow: 0px -50px 80px ${props => props.theme.main};
-    transition: all ${unlockDuration}s ease;
+    transition: ${props => props.isUnlocking ? `all ${unlockDuration}s ease` : 'none'}; 
     opacity: ${props => props.isUnlocking ? '0%' : '100%'}; 
 `
 
@@ -98,7 +98,6 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
         transform-origin: 80% left;
         transform-box: fill-box;
         animation: ${props => props.isUnlocking ? animation : 'none'};
-        animation-fill-mode: forwards;
     }
 `
 
@@ -113,7 +112,12 @@ export default function Card(props: any) {
         setTimeout(() => {
             props.unit.unlocked = true;
             changeStudyUnit(props.unit, () => { });
-            setIsUnlocked(true);
+            // It is possible the user switched cards while one was unlocking.
+            // In that case, the old unit should still be unlocked in the storage
+            // But the view should stay locked
+            if (isUnlocking) {
+                setIsUnlocked(true);
+            }
             setIsUnlocking(false);
         }, unlockDuration * 1000)
     }
@@ -124,6 +128,7 @@ export default function Card(props: any) {
 
     useEffect(() => {
         setWarningIsShown(false);
+        setIsUnlocking(false);
     }, [props.unit])
 
     const answer = (answer: boolean) => {

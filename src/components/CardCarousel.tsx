@@ -112,7 +112,12 @@ export default function CardCarousel(props: any) {
     const [tl] = useTranslation("lessons");
 
     const onClick = () => {
-        props.setStudyUnit(props.cards[props.activeIndex]);
+        if (props.cards[props.activeIndex].unlocked) {
+            props.setStudyUnit(props.cards[props.activeIndex]);
+        }
+        else {
+
+        }
     }
 
     // Gestures code for mobile

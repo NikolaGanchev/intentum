@@ -4,7 +4,6 @@ const Container = styled.div`
     display: block;
     padding: 1rem;
     margin-top: 1rem;
-    padding-bottom: 1rem;
     border-width: 1px;
     border-style: solid;
     border-image: ${props => props.theme.secondary};

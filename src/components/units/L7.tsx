@@ -8,7 +8,6 @@ import Heading from "../Heading";
 import Image from "../Image";
 import Stack1 from "../../resources/stack1.png";
 import Stack2 from "../../resources/stack2.png";
-import styled from "styled-components";
 
 export default function L7(props: any) {
     const [tl] = useTranslation("lessons");

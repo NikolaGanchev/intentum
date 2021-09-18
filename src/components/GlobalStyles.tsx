@@ -61,7 +61,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     color: ${(props: any) => props.theme.text};
     background-color: ${(props: any) => props.theme.main};;
-    font-family: Open-Sans, Helvetica, Sans-Serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif, serif;
     transition: all 1s ease;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
