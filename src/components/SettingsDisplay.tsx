@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { languages } from "../utils/Languages";
 import StudyUnit from "../utils/StudyUnit";
 import { generateAndGetStudyUnits, getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
-import TagLoader from "../utils/TagLoader";
+import TagLoader, {Tag} from "../utils/TagLoader";
 import { themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
@@ -110,10 +110,19 @@ export default function SettingsDisplay(props: any) {
                 generateAndGetStudyUnits(callback);
             }
             else {
-                TagLoader.load(tt, units);
+                TagLoader.load(getTags(units));
             }
         };
         getAllStudyUnitsArray(callback);
+    }
+
+    const getTags = (units: StudyUnit[]) => {
+        const tags: Tag[] = [];
+        for (let unit of units) {
+            tags.push(new Tag(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+        }
+
+        return tags;
     }
 
     const clearAnswer = (answer: boolean) => {

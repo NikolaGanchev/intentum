@@ -12,7 +12,7 @@ import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
-import TagLoader from './utils/TagLoader';
+import TagLoader, {Tag} from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
 import { useParams } from 'react-router-dom';
 import Alert from './components/Alert';
@@ -227,11 +227,20 @@ function App() {
       }
 
       const onLoad = async (units: StudyUnit[]) => {
-        TagLoader.load(tt, units);
+        TagLoader.load(getTags(units));
         setCards(units);
         await loadActiveIndexFromStorage();
         switchToUrlUnitIfPossible(unitId);
         registerAll();
+      }
+
+      const getTags = (units: StudyUnit[]) => {
+        const tags: Tag[] = [];
+        for (let unit of units) {
+          tags.push(new Tag(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+        }
+
+        return tags;
       }
 
       if (success) {
@@ -265,7 +274,9 @@ function App() {
             hide={() => { setShowIndexedDBNotSupportedWarning(false) }}></Alert> : null
         }
         {(settingsOpen) ?
-          <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme} changeTheme={changeTheme} close={() => { setSettingsOpen(false) }}></SettingsDisplay> : (null)
+          <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme}
+                           changeTheme={changeTheme} close={() => { setSettingsOpen(false) }}></SettingsDisplay>
+            : (null)
         }
         {
           (showLoader) ?

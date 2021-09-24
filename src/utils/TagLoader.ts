@@ -1,4 +1,3 @@
-import { TFunction } from "i18next";
 import StudyUnit from "./StudyUnit";
 class Tags {
     private tags: Map<string, string[]>;
@@ -47,14 +46,24 @@ class Tags {
     }
 }
 
+export class Tag {
+    studyUnit: StudyUnit;
+    tags: string[];
+
+    constructor(studyUnit: StudyUnit, tags: string[]) {
+        this.studyUnit = studyUnit;
+        this.tags = tags;
+    }
+}
+
 export default class TagLoader {
     private static tags: Tags;
 
-    static load(translator: TFunction, units: StudyUnit[]) {
+    static load(tags: Tag[]) {
         TagLoader.tags = new Tags();
 
-        for (let unit of units) {
-            TagLoader.tags.addTagsWithStudyUnitId(unit.id, translator(`tags.${unit.id}`, { returnObjects: true }));
+        for (let tag of tags) {
+            TagLoader.tags.addTagsWithStudyUnitId(tag.studyUnit.id, tag.tags);
         }
     }
 

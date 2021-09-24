@@ -91,7 +91,7 @@ export default function Unit(props: any) {
     return <div>
         {(showUnitLoader) ?
             (<Loader
-                title={tl(`${props.unit.id}.title`) + t("app.separator")}
+                title={tl(`${props.unit.id}.title`)}
                 motto={tl(`${props.unit.id}.text`)}
                 hide={hide}>
             </Loader>) : (null)}
