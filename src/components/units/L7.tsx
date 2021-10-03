@@ -29,9 +29,9 @@ export default function L7(props: any) {
                 <Heading>{tl("l7.p9h")}</Heading>
                 <TextBlock>{tl("l7.p10p")}</TextBlock>
                 <TextBlock>{tl("l7.p11p")}</TextBlock>
-                <Image src={Stack1} alt={tl("l7.p12alt")} auto={true}></Image>
+                <Image src={Stack1} alt={tl("l7.p12alt")} width={50}></Image>
                 <TextBlock>{tl("l7.p13p")}</TextBlock>
-                <Image src={Stack2} alt={tl("l7.p14alt")} auto={true}></Image>
+                <Image src={Stack2} alt={tl("l7.p14alt")} width={50}></Image>
                 <TextBlock>{tl("l7.p15p")}</TextBlock>
                 <TextBlock>{tl("l7.p16p")}</TextBlock>
                 <TextBlock>{tl("l7.p17p")}</TextBlock>

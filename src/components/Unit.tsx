@@ -55,14 +55,14 @@ const UnitContainer = styled.div`
 `
 
 const Back = styled(ArrowBack)`
-    width: 2rem;
-    height: 2rem;
+    width: auto;
+    height: 50%;
     fill: ${props => props.theme.secondary};
 `
 
 const StyledButton = styled.button`
-    width: 4rem;
-    height: 4rem;
+    width: auto;
+    height: 100%;
     border: none;
     background-color: ${props => props.theme.main};
     cursor: pointer;
@@ -89,22 +89,18 @@ export default function Unit(props: any) {
     const Unit = registry.get(props.unit.id);
 
     return <div>
-        {(showUnitLoader) ?
-            (<Loader
-                title={tl(`${props.unit.id}.title`)}
-                motto={tl(`${props.unit.id}.text`)}
-                hide={hide}>
-            </Loader>) : (null)}
+        <Loader
+            title={tl(`${props.unit.id}.title`)}
+            motto={tl(`${props.unit.id}.text`)}
+            hide={hide}
+            isShowing={showUnitLoader} />
         <Container>
-            {(warningIsShown) ?
-                <WarningModal
-                    heading={t("app.warning")}
-                    warning={t("app.backWarning")}
-                    yes={t("app.yes")}
-                    no={t("app.no")}
-                    answer={answer}></WarningModal> :
-                (null)
-            }
+            <WarningModal
+                heading={t("app.warning")}
+                warning={t("app.backWarning")}
+                yes={t("app.yes")}
+                no={t("app.no")}
+                answer={answer} isShowing={warningIsShown} />
             <TextContainer>
                 <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
                 <Title>{
@@ -118,5 +114,5 @@ export default function Unit(props: any) {
                 <Unit endUnit={() => { props.endUnit() }}></Unit>
             </UnitContainer>
         </Container>
-    </div>
+    </div>;
 }

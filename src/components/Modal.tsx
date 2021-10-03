@@ -95,18 +95,24 @@ export default function Modal(props: any) {
         }
     }, [])
 
-    return <StyledBackground onClick={onClick} aria-hidden={false}>
-        <StyledContainer ref={containerRef}>
-            <UpperContainer>
-                <StyledHeading>{props.heading}</StyledHeading>
-                <StyledButton onClick={() => { props.close() }}>
-                    <StyledClose>
-                    </StyledClose>
-                </StyledButton>
-            </UpperContainer>
-            <ContentContainer className={props.className}>
-                {props.children}
-            </ContentContainer>
-        </StyledContainer>
-    </StyledBackground>
+    return <div>
+        {props.isShowing &&
+        <StyledBackground onClick={onClick} aria-hidden={false}>
+            <StyledContainer ref={containerRef}>
+                <UpperContainer>
+                    <StyledHeading>{props.heading}</StyledHeading>
+                    <StyledButton onClick={() => {
+                        props.close()
+                    }}>
+                        <StyledClose>
+                        </StyledClose>
+                    </StyledButton>
+                </UpperContainer>
+                <ContentContainer className={props.className}>
+                    {props.children}
+                </ContentContainer>
+            </StyledContainer>
+        </StyledBackground>
+        }
+    </div>;
 }

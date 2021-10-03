@@ -142,15 +142,12 @@ export default function Card(props: any) {
     return <Container>
         <Title>{props.title}</Title>
         <Text>{props.text}</Text>
-        {(warningIsShown) ?
             <WarningModal
                 heading={t("app.warning")}
                 warning={t("app.unlockWarning")}
                 yes={t("app.yes")}
                 no={t("app.no")}
-                answer={answer}></WarningModal> :
-            (null)
-        }
+                answer={answer} isShowing={warningIsShown}/>
         {(isUnlocked) ?
             <StyledButton text={t("app.begin")} onClick={props.onClick} /> :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>

@@ -266,29 +266,22 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <div>
-        {(showIndexedDBNotSupportedWarning) ?
           <Alert
             heading={t("app.warning")}
             warning={t("app.indexedDBNotSupportedWarning")}
             ok={t("app.ok")}
-            hide={() => { setShowIndexedDBNotSupportedWarning(false) }}></Alert> : null
-        }
-        {(settingsOpen) ?
+            hide={() => { setShowIndexedDBNotSupportedWarning(false) }}
+            isShowing={ showIndexedDBNotSupportedWarning } />
           <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme}
-                           changeTheme={changeTheme} close={() => { setSettingsOpen(false) }}></SettingsDisplay>
-            : (null)
-        }
-        {
-          (showLoader) ?
-            (<Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} />) : null
-        }
+          changeTheme={changeTheme} close={() => {setSettingsOpen(false)}} isShowing={settingsOpen}/>
+        <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader}/>
         {(currentStudyUnit) ?
           (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
           (<div>
             <Top>
               <SearchBar
                 cards={cards}
-                changeToArbitrary={changeToArbitrary}></SearchBar>
+                changeToArbitrary={changeToArbitrary} />
               <StyledButton onClick={() => { setSettingsOpen(true) }} aria-label={t("app.settings")}>
                 <StyledSettings>
                 </StyledSettings>
@@ -303,7 +296,7 @@ function App() {
               changeToNext={changeToNext}
               transX={transX}
               isTransition={isTransition}
-              opacity={opacity}></StyledCarousel>
+              opacity={opacity} />
             <Footer>{t("app.motto")}</Footer>
           </div>)
         }

@@ -13,7 +13,7 @@ const OKButton = styled(Button)`
 `
 
 export default function Alert(props: any) {
-    return <Modal heading={props.heading} close={props.hide}>
+    return <Modal heading={props.heading} close={props.hide} isShowing={props.isShowing}>
         <TextBlock>
             {props.warning}
         </TextBlock>

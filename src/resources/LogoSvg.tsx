@@ -2,16 +2,10 @@ import styled, { keyframes } from "styled-components";
 
 const StyledSVG = styled.svg`
     overflow: visible;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 17rem;
     height: 17rem;
     opacity: 100%;
     transition: 1s linear;
-    width: 300;
-    height: 300;
 `
 
 const spin = keyframes`

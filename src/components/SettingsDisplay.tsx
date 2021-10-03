@@ -134,7 +134,7 @@ export default function SettingsDisplay(props: any) {
         setClearWarningIsShown(false);
     };
 
-    return <Modal heading={t("app.settings")} close={() => { props.close() }}>
+    return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
         <Setting>
             <SettingName>
                 {t("app.languageSetting")}
@@ -165,15 +165,12 @@ export default function SettingsDisplay(props: any) {
             </SettingActionContainer>
         </Setting>
         <Setting>
-            {(clearWarningIsShown) ?
-                <WarningModal
-                    heading={t("app.warning")}
-                    warning={t("app.clearWarning")}
-                    yes={t("app.yes")}
-                    no={t("app.no")}
-                    answer={clearAnswer}></WarningModal> :
-                (null)
-            }
+            <WarningModal
+                heading={t("app.warning")}
+                warning={t("app.clearWarning")}
+                yes={t("app.yes")}
+                no={t("app.no")}
+                answer={clearAnswer} isShowing={clearWarningIsShown} />
             <SettingName>
                 {t("app.clearSetting")}
             </SettingName>

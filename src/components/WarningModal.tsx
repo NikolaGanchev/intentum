@@ -19,7 +19,7 @@ const NoButton = styled(Button)`
 `
 
 export default function WarningModal(props: any) {
-    return <Modal heading={props.heading} close={() => { props.answer(false) }}>
+    return <Modal heading={props.heading} close={() => { props.answer(false) }} isShowing={props.isShowing}>
         <TextBlock>
             {props.warning}
         </TextBlock>

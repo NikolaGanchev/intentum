@@ -19,16 +19,27 @@ const Background = styled.div<BackgroundProps>`
         pointer-events: ${props => props.visible ? 'all' : 'none'};
     `
 
+const Container = styled.div`
+    position: fixed;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+`
+
 const Title = styled.h1`
-        position: fixed;
-        left: 50%;
-        top: 20%;
-        transform: translate(-50%, -80%);
-        color: ${props => props.theme.text};
-        font-size: 5em;
-        letter-spacing: 0.10em;
-        font-weight: normal;
-    `
+    color: ${props => props.theme.text};
+    font-size: 5em;
+    letter-spacing: 0.10em;
+    font-weight: normal;
+    margin: 1rem;
+`
+
+const StyledSpinner = styled(SpinningLogo)`
+    position: relative;
+`
 
 const Motto = styled.h3`
         position: fixed;
@@ -69,11 +80,15 @@ export default function Loader(props: any) {
     }, []);
 
 
-    return (
-        <Background visible={isVisible}>
-            <Title>{props.title}</Title>
-            <SpinningLogo />
-            <Motto>{props.motto}</Motto>
-        </Background>
-    )
+    return <div>
+        {props.isShowing &&
+            <Background visible={isVisible}>
+                <Container>
+                    <Title>{props.title}</Title>
+                    <StyledSpinner/>
+                </Container>
+                <Motto>{props.motto}</Motto>
+            </Background>
+        }
+    </div>;
 }

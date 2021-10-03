@@ -12,10 +12,11 @@ const Container = styled.div`
 
 interface StyledImgProps {
     readonly isAuto: boolean;
+    readonly width: number;
 }
 
 const StyledImg = styled.img<StyledImgProps>`
-    width: ${props => props.isAuto ? "auto" : "100%"};
+    width: ${props => props.isAuto ? "auto" : `${props.width}%`};
 `
 const FullSizeContainer = styled.div`
     position: fixed;
@@ -32,11 +33,8 @@ const FullSizeContainer = styled.div`
 `
 
 const StyledBigImg = styled.img`
-    width: 75%;
     margin: auto;
-    @media only screen and (max-width: 1024px) {
-        width: 100%;
-    }
+    height: 90%;
 `
 
 export default function Image(props: any) {
@@ -50,6 +48,6 @@ export default function Image(props: any) {
             (<FullSizeContainer>
                 <StyledBigImg src={props.src} alt={props.alt}></StyledBigImg>
             </FullSizeContainer>) : (null)}
-        <StyledImg src={props.src} alt={props.alt} isAuto={props.auto}></StyledImg>
+        <StyledImg src={props.src} alt={props.alt} isAuto={props.auto} width={props.width ? props.width: 100}></StyledImg>
     </Container>
 }
