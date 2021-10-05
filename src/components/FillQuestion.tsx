@@ -81,23 +81,22 @@ export default function FillQuestion(props: any) {
                 }
             })}</TextBlock>
         </Container>
-        {(!props.noButton) ?
-            <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}></StyledButton> :
-            (null)
+        {!props.noButton &&
+            <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}></StyledButton>
         }
-        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
+        <Explanation isShown={(isShowing || props.isShowing) && (props.explanation || props.rightAnswer || props.rightAnswers)}>
             <TextBlock>
-                {(props.rightAnswer) ?
-                    `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
-                {(props.rightAnswers) ?
-                    `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
+                {(props.rightAnswer) &&
+                    `${t("app.rightAnswer")}: ${props.rightAnswer}`}
+                {(props.rightAnswers) &&
+                    `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}`}
             </TextBlock>
-            {props.explanation ?
+            {props.explanation &&
                 <TextBlock>
                     {`${t("app.rightAnswer")}: ${props.text.replace(/_/g, "")}`}
                     <br />
                     {props.explanation}
-                </TextBlock> : null
+                </TextBlock>
             }
         </Explanation>
 

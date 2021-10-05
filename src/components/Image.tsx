@@ -44,10 +44,10 @@ export default function Image(props: any) {
     }
 
     return <Container className={props.className} onClick={onClick}>
-        {showFullSize ?
-            (<FullSizeContainer>
+        {showFullSize &&
+            <FullSizeContainer>
                 <StyledBigImg src={props.src} alt={props.alt}></StyledBigImg>
-            </FullSizeContainer>) : (null)}
+            </FullSizeContainer>}
         <StyledImg src={props.src} alt={props.alt} isAuto={props.auto} width={props.width ? props.width: 100}></StyledImg>
     </Container>
 }

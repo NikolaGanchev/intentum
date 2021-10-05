@@ -78,7 +78,7 @@ const StyledButton = styled.button`
 
 const Footer = styled.div`
   width: 100%;
-  height: 10vh;
+  height: 3rem;
   text-align: center;
   margin: 0;
   padding: 0;

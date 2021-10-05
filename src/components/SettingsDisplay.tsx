@@ -1,5 +1,5 @@
 import { set, clear } from "idb-keyval/dist/esm-compat";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
@@ -98,6 +98,10 @@ export default function SettingsDisplay(props: any) {
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
 
+    useEffect(() => {
+        setThemeValue(props.theme === themes.darkTheme);
+    }, [props.theme])
+
     const onLanguageChange = (e: any) => {
         const lang = languages[e.target.selectedIndex];
         i18n.changeLanguage(lang);
@@ -128,7 +132,6 @@ export default function SettingsDisplay(props: any) {
     const clearAnswer = (answer: boolean) => {
         if (answer) {
             clear();
-            window.location.reload();
         }
 
         setClearWarningIsShown(false);

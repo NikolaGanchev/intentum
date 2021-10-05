@@ -175,30 +175,30 @@ export default function CardCarousel(props: any) {
         }
     };
 
-    return <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any}>
-        {(props.cards) ? (
-
+    return <div>
+        {(props.cards) &&
+            <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any}>
             <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
                 <Card title={tl(`${props.cards[props.activeIndex].id}.title`)}
-                    text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]} onClick={onClick} /></CardContainer>
-        ) : null}
-        {(props.cards) ? (
-            <ButtonContainer>
+                      text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]}
+                      onClick={onClick}/></CardContainer>
+                <ButtonContainer>
                 <LeftArrowButton
-                    onClick={() => { props.changeToPrevious() }}
-                    disabled={props.activeIndex === 0}
-                    aria-label={t("app.previousLesson")}>
-                    <LeftArrow />
+                onClick={() => {props.changeToPrevious()}}
+                disabled={props.activeIndex === 0}
+                aria-label={t("app.previousLesson")}>
+                <LeftArrow />
                 </LeftArrowButton>
                 <RightArrowButton
-                    onClick={() => { props.changeToNext() }}
-                    disabled={props.activeIndex === props.cards.length - 1}
-                    aria-label={t("app.nextLesson")}>
-                    <RightArrow />
+                onClick={() => {props.changeToNext()}}
+                disabled={props.activeIndex === props.cards.length - 1}
+                aria-label={t("app.nextLesson")}>
+                <RightArrow />
                 </RightArrowButton>
-            </ButtonContainer>
-        ) : (null)}
-    </Container>
+                </ButtonContainer>
+            </Container>
+        }
+    </div>
 }
 
 export { animationLength }

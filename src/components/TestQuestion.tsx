@@ -86,7 +86,7 @@ const Explanation = styled.div<ExplanationProps>`
 `
 
 export default function TestQuestion(props: any) {
-    const id = nanoid()
+    const id = nanoid();
     const [tries, setTries] = useState(0);
     const triesRef = useRef(0);
     const [checked, setChecked] = useState(null);
@@ -144,16 +144,15 @@ export default function TestQuestion(props: any) {
         <QuestionContainer hasImage={props.image}>
             {props.children}
             <br />
-            {props.tries ? "(" + t("app.tries", { count: props.tries - tries }) + ")" : null}
-            {(props.image) ?
-                <Image src={props.image} alt={props.alt} /> :
-                (null)
+            {props.tries && "(" + t("app.tries", { count: props.tries - tries }) + ")"}
+            {(props.image) &&
+                <Image src={props.image} alt={props.alt} />
             }
         </QuestionContainer>
         <AnswerContainer>
             {props.answers.map((value: string, i: number) => {
 
-                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing) && value === rightAnswer} key={i}>
+                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(isShowing || props.isShowing) && value === rightAnswer} key={i}>
                     <StyledLabel>
                         <StyledRadioButton type="radio" name={id} value={value} checked={checked === value} onChange={handleCheck} disabled={isDisabled || props.isDisabled} />
                         {value}
@@ -161,7 +160,7 @@ export default function TestQuestion(props: any) {
                 </RadioContainer>
             })}
         </AnswerContainer>
-        <Explanation isShown={(props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing) && props.explanation}>
+        <Explanation isShown={(isShowing || props.isShowing) && props.explanation}>
             <TextBlock>
                 {props.explanation}
             </TextBlock>

@@ -132,27 +132,25 @@ export default function FullAnswerQuestion(props: any) {
     return <Container>
         <QuestionContainer hasImage={props.image}>
             {props.children}
-            {(props.image) ?
-                <Image src={props.image} alt={props.alt} /> :
-                (null)
+            {(props.image) &&
+                <Image src={props.image} alt={props.alt} />
             }
         </QuestionContainer>
         <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled}></StyledInput>
-        {(!props.noButton) ?
-            <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button> :
-            (null)
+        {(!props.noButton) &&
+            <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button>
         }
-        <Explanation isShown={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing}>
+        <Explanation isShown={(isShowing || props.isShowing) && (props.explanation || props.rightAnswer || props.rightAnswers)}>
             <TextBlock>
-                {(props.rightAnswer) ?
-                    `${t("app.rightAnswer")}: ${props.rightAnswer}` : null}
-                {(props.rightAnswers) ?
-                    `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}` : null}
+                {(props.rightAnswer) &&
+                    `${t("app.rightAnswer")}: ${props.rightAnswer}`}
+                {(props.rightAnswers) &&
+                    `${t("app.rightAnswers")}: ${props.rightAnswers.join(", ")}`}
             </TextBlock>
-            {props.explanation ?
+            {props.explanation &&
                 <TextBlock>
                     {props.explanation}
-                </TextBlock> : null
+                </TextBlock>
             }
         </Explanation>
     </Container>

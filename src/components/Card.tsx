@@ -14,11 +14,16 @@ const Container = styled.div`
     border: 1px solid ${props => props.theme.secondary};
     box-sizing: border-box;
     box-shadow: -10px -10px 50px 5px ${props => props.theme.shadow}, 10px 10px 50px 5px ${props => props.theme.shadow};
+    transition: all 1s ease;
     @media only screen and (min-height: 768px) and (max-width: 700px) {
         height: 37rem;
     }
     @media only screen and (min-height: 900px) and (max-width: 700px) {
-          height: 40rem;
+        height: 40rem;
+    }
+    @media only screen and (max-height: 600px) {
+        height: 70vh;
+        min-height: 15rem;
     }
 `
 
@@ -46,6 +51,14 @@ const StyledButton = styled(Button)`
     left: 50%;
     bottom: 1%;
     transform : translate(-50%, -50%);
+`
+
+const Line = styled.div`
+  display: block;
+  background-color: ${props => props.theme.secondary};
+  height: 1px;
+  margin-left: 15px;
+  margin-right: 15px;
 `
 
 const unlockDuration = 1.5;

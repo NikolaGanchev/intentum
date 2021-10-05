@@ -11,12 +11,12 @@ const Container = styled.div`
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 25% 50% 25%;
     grid-template-rows: 10% 90%;
     background-color: ${props => props.theme.main};
 
     @media (max-width: 1240px) {
-        grid-template-columns: 5% 45% 45% 5%;
+        grid-template-columns: 0% 100%;
     }
 
     @supports not (display: grid) {
@@ -28,7 +28,7 @@ const Container = styled.div`
 const TextContainer = styled.div`
     grid-row: 1;
     grid-column-start: 1;
-    grid-column-end: 5;
+    grid-column-end: 4;
     display: flex;
     width: 100%;
     border: 1px solid ${props => props.theme.secondary};
@@ -44,7 +44,7 @@ const Title = styled.h4`
 const UnitContainer = styled.div`
     grid-row: 2;
     grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-end: 3;
     border: 1px solid ${props => props.theme.secondary};
     border-top: 0px;
     padding: 1rem;
@@ -52,6 +52,10 @@ const UnitContainer = styled.div`
     margin-bottom: 1rem;
     height: 100%;
     overflow: scroll;
+
+    @media (max-width: 1240px) {
+      border: none;
+    }
 `
 
 const Back = styled(ArrowBack)`
