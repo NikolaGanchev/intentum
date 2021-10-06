@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
@@ -78,15 +78,19 @@ export default function Unit(props: any) {
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
     const [warningIsShown, setWarningIsShown] = useState(false);
+    const isWarningShownInternal = useRef(false);
     const history = useHistory();
 
-    const answer = (answer: boolean) => {
+    const answer = (answer: boolean, secondary = false) => {
         if (answer) {
             history.goBack();
             props.back();
+            setWarningIsShown(false);
         }
 
-        setWarningIsShown(false);
+        if (secondary) {
+            setWarningIsShown(false);
+        }
     }
 
     const hide = () => {
@@ -96,11 +100,17 @@ export default function Unit(props: any) {
     useEffect(() => {
         return history.listen(listener => {
             if (history.action === "POP") {
-                history.goForward();
-                setWarningIsShown(true);
+                if (!isWarningShownInternal.current) {
+                    history.goForward();
+                    setWarningIsShown(true);
+                }
             }
         })
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        isWarningShownInternal.current = warningIsShown;
+    }, [warningIsShown]);
 
     const endUnit = () => {
         history.goBack();

@@ -132,6 +132,7 @@ export default function SettingsDisplay(props: any) {
     const clearAnswer = (answer: boolean) => {
         if (answer) {
             clear();
+            window.location.reload();
         }
 
         setClearWarningIsShown(false);

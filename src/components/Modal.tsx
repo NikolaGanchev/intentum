@@ -71,7 +71,6 @@ const StyledButton = styled.button`
 export default function Modal(props: any) {
     const containerRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
-    const [hasPushed, setHasPushed] = useState(false);
 
     const onClick = (e: any) => {
         const container = containerRef.current;
@@ -81,15 +80,15 @@ export default function Modal(props: any) {
         if (!container.contains(e.target)) {
             props.close();
             history.goBack();
-            setHasPushed(false);
         }
     }
 
     const keyPressListener = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
             props.close();
-            history.goBack();
-            setHasPushed(false);
+            if (props.isShowing) {
+                history.goBack();
+            }
         }
     };
 
@@ -97,18 +96,15 @@ export default function Modal(props: any) {
         return history.listen(listener => {
             if (history.action === "POP") {
                 props.close();
-                setHasPushed(false);
             }
         })
     }, [])
 
     useEffect(() => {
-        if (props.isShowing && !hasPushed) {
-            console.log("pushing");
-            history.push(history.location.pathname);
-            setHasPushed(true);
+        if (props.isShowing) {
+            history.push("/modal");
         }
-    }, [props.isShowing, hasPushed])
+    }, [props.isShowing])
 
     useEffect(() => {
         window.addEventListener("keydown", keyPressListener);
@@ -117,7 +113,7 @@ export default function Modal(props: any) {
         return () => {
             window.removeEventListener("keydown", keyPressListener);
         }
-    }, [])
+    }, [props.isShowing])
 
     return <div>
         {props.isShowing &&
@@ -126,7 +122,8 @@ export default function Modal(props: any) {
                 <UpperContainer>
                     <StyledHeading>{props.heading}</StyledHeading>
                     <StyledButton onClick={() => {
-                        props.close()
+                        props.close();
+                        history.goBack();
                     }}>
                         <StyledClose>
                         </StyledClose>
