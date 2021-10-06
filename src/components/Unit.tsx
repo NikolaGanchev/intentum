@@ -1,10 +1,11 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import { registry } from "../utils/UnitRegistry";
 import Loader from './Loader';
 import WarningModal from "./WarningModal";
+import {useHistory} from "react-router-dom";
 
 const Container = styled.div`
     position: fixed;
@@ -77,9 +78,11 @@ export default function Unit(props: any) {
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
     const [warningIsShown, setWarningIsShown] = useState(false);
+    const history = useHistory();
 
     const answer = (answer: boolean) => {
         if (answer) {
+            history.goBack();
             props.back();
         }
 
@@ -88,6 +91,20 @@ export default function Unit(props: any) {
 
     const hide = () => {
         setShowUnitLoader(false);
+    }
+
+    useEffect(() => {
+        return history.listen(listener => {
+            if (history.action === "POP") {
+                history.goForward();
+                setWarningIsShown(true);
+            }
+        })
+    }, [])
+
+    const endUnit = () => {
+        history.goBack();
+        props.endUnit();
     }
 
     const Unit = registry.get(props.unit.id);
@@ -115,7 +132,7 @@ export default function Unit(props: any) {
                 }</Title>
             </TextContainer>
             <UnitContainer>
-                <Unit endUnit={() => { props.endUnit() }}></Unit>
+                <Unit endUnit={endUnit}></Unit>
             </UnitContainer>
         </Container>
     </div>;

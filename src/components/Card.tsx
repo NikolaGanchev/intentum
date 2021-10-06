@@ -5,6 +5,7 @@ import Padlock from "../resources/Padlock"
 import { changeStudyUnit } from "../utils/StudyUnitUtils"
 import Button from "./Button"
 import WarningModal from "./WarningModal"
+import { Link } from "react-router-dom"
 
 const Container = styled.div`
     position: relative;
@@ -162,13 +163,14 @@ export default function Card(props: any) {
                 no={t("app.no")}
                 answer={answer} isShowing={warningIsShown}/>
         {(isUnlocked) ?
-            <StyledButton text={t("app.begin")} onClick={props.onClick} /> :
+            <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link> :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>
                 <LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>
                     </StyledPadlock>
                 </LockContainer>
-                <StyledButton text={t("app.begin")} onClick={props.onClick} /></ContainerLock>
+                <StyledButton text={t("app.begin")} onClick={props.onClick} />
+            </ContainerLock>
         }
 
     </Container>

@@ -138,14 +138,14 @@ function App() {
     }
   }
 
-  const switchToUrlUnitIfPossible = (unitId: string) => {
+  const switchToUrlUnitIfPossible = (unitId: string, cards: StudyUnit[]) => {
     if (!unitId || unitId.trim() === "") {
       return;
     }
 
     const normalized = unitId.trim().toLowerCase();
 
-    cards?.forEach((value: StudyUnit, index: number) => {
+    cards.forEach((value: StudyUnit, index: number) => {
       if (value.id.toLowerCase() === normalized) {
         setActiveIndex(index);
         set(activeIndexKey, index);
@@ -230,7 +230,7 @@ function App() {
         TagLoader.load(getTags(units));
         setCards(units);
         await loadActiveIndexFromStorage();
-        switchToUrlUnitIfPossible(unitId);
+        switchToUrlUnitIfPossible(unitId, units);
         registerAll();
       }
 

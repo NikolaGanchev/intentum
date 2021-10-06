@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Button from "./Button"
 import Modal from "./Modal"
 import TextBlock from "./TextBlock"
+import {theme} from "../utils/Theme";
 
 const StyledWarningButtonContainer = styled.div`
     display: flex;
@@ -10,8 +11,6 @@ const StyledWarningButtonContainer = styled.div`
 
 const YesButton = styled(Button)`
     margin-left: 1rem;
-    background-color: ${props => props.theme.error};
-    color: ${props => props.theme.textWhite};
     border-color: ${props => props.theme.error};
 `
 
@@ -28,7 +27,7 @@ export default function WarningModal(props: any) {
             <NoButton text={props.no} onClick={() => { props.answer(false) }}></NoButton>
             <YesButton text={props.yes} onClick={() => {
                 props.answer(true);
-            }}></YesButton>
+            }} customBackgroundColor={theme.error}></YesButton>
         </StyledWarningButtonContainer>
     </Modal>
 }

@@ -5,6 +5,7 @@ interface ButtonProps {
     readonly isHover: boolean;
     readonly isActive: boolean;
     readonly isInverted: boolean;
+    readonly customBackgroundColor: any;
 };
 
 const Container = styled.button<ButtonProps>`
@@ -26,7 +27,14 @@ const Container = styled.button<ButtonProps>`
             return (props.isInverted ? props.theme.textSecondary : props.theme.text);
         }
     }};
-    background-color: ${props => (props.isActive) ? props.theme.secondary : props.theme.pure};
+    background-color: ${props => {
+        if (props.isActive) {
+            return props.customBackgroundColor? props.customBackgroundColor: props.theme.secondary;
+        }
+        else {
+            return props.theme.pure;
+        }
+    }};
     position: relative;
     transition: color 1s ease;
     cursor: pointer;
@@ -65,7 +73,14 @@ const Text = styled.div`
 export default function Button(props: any) {
     const [isHover, setIsHover] = useState(false);
 
-    return <Container className={props.className} isInverted={props.isInverted} isHover={isHover || props.isHover} isActive={props.isActive !== undefined ? props.isActive : true} onMouseEnter={() => { setIsHover(true) }} onMouseLeave={() => { setIsHover(false) }} onClick={props.onClick} disabled={props.isDisabled}>
+    return <Container className={props.className}
+                      isInverted={props.isInverted}
+                      isHover={isHover || props.isHover}
+                      isActive={props.isActive !== undefined ? props.isActive : true}
+                      onMouseEnter={() => { setIsHover(true) }}
+                      onMouseLeave={() => { setIsHover(false) }}
+                      onClick={props.onClick} disabled={props.isDisabled}
+                      customBackgroundColor={props.customBackgroundColor}>
         <Text>{props.text}</Text>
     </Container>
 }

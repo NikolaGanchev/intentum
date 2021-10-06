@@ -50,6 +50,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/units/:unitId?" children={<App />} />
           <Route path="/" exact children={<App />} />
+          <Route path="/:unitId?" children={<App />} />
         </Switch>
       </Router>
     </I18nextProvider>

@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import {useEffect, useRef, useState} from "react";
 import styled from "styled-components"
 import Heading from "./Heading";
 import Close from "../resources/Close";
+import {useHistory} from "react-router-dom";
 
 const StyledBackground = styled.div`
     position: fixed;
@@ -69,6 +70,8 @@ const StyledButton = styled.button`
 
 export default function Modal(props: any) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const history = useHistory();
+    const [hasPushed, setHasPushed] = useState(false);
 
     const onClick = (e: any) => {
         const container = containerRef.current;
@@ -77,14 +80,35 @@ export default function Modal(props: any) {
 
         if (!container.contains(e.target)) {
             props.close();
+            history.goBack();
+            setHasPushed(false);
         }
     }
 
     const keyPressListener = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
             props.close();
+            history.goBack();
+            setHasPushed(false);
         }
     };
+
+    useEffect(() => {
+        return history.listen(listener => {
+            if (history.action === "POP") {
+                props.close();
+                setHasPushed(false);
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        if (props.isShowing && !hasPushed) {
+            console.log("pushing");
+            history.push(history.location.pathname);
+            setHasPushed(true);
+        }
+    }, [props.isShowing, hasPushed])
 
     useEffect(() => {
         window.addEventListener("keydown", keyPressListener);
