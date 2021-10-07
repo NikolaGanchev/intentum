@@ -73,24 +73,29 @@ const StyledButton = styled.button`
     cursor: pointer;
 `
 
+enum AnswerState {
+    right,
+    wrong,
+    unset
+}
+
 export default function Unit(props: any) {
     const [t] = useTranslation("common");
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
     const [warningIsShown, setWarningIsShown] = useState(false);
-    const isWarningShownInternal = useRef(false);
+    const [answer, setAnswer] = useState<AnswerState>(AnswerState.unset);
     const history = useHistory();
 
-    const answer = (answer: boolean, secondary = false) => {
+    const evalAnswer = (answer: boolean) => {
+        setAnswer(answer ? AnswerState.right: AnswerState.wrong);
+
         if (answer) {
             history.goBack();
             props.back();
-            setWarningIsShown(false);
         }
 
-        if (secondary) {
-            setWarningIsShown(false);
-        }
+        setWarningIsShown(false);
     }
 
     const hide = () => {
@@ -100,22 +105,31 @@ export default function Unit(props: any) {
     useEffect(() => {
         return history.listen(listener => {
             if (history.action === "POP") {
-                if (!isWarningShownInternal.current) {
-                    history.goForward();
+                // This comparison is more complex than I'd like it to be
+                // But it does the job and I currently cannot figure out a better way to do it
+                if (!warningIsShown && answer === AnswerState.unset) {
+                    history.push(`/${props.unit.id}`);
                     setWarningIsShown(true);
+                }
+                else if (!warningIsShown && answer === AnswerState.wrong) {
+                    setAnswer(AnswerState.unset);
                 }
             }
         })
-    }, []);
-
-    useEffect(() => {
-        isWarningShownInternal.current = warningIsShown;
-    }, [warningIsShown]);
+    }, [warningIsShown, answer]);
 
     const endUnit = () => {
         history.goBack();
         props.endUnit();
     }
+
+    useEffect(() => {
+        history.push(`/${props.unit.id}`);
+
+        return () => {
+            history.goBack();
+        }
+    }, [])
 
     const Unit = registry.get(props.unit.id);
 
@@ -131,7 +145,7 @@ export default function Unit(props: any) {
                 warning={t("app.backWarning")}
                 yes={t("app.yes")}
                 no={t("app.no")}
-                answer={answer} isShowing={warningIsShown} />
+                answer={evalAnswer} isShowing={warningIsShown} />
             <TextContainer>
                 <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
                 <Title>{

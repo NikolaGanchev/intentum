@@ -3,6 +3,8 @@ import styled from "styled-components"
 import Heading from "./Heading";
 import Close from "../resources/Close";
 import {useHistory} from "react-router-dom";
+import ModalHelper from "./ModalHelper";
+import React from "react";
 
 const StyledBackground = styled.div`
     position: fixed;
@@ -79,31 +81,24 @@ export default function Modal(props: any) {
 
         if (!container.contains(e.target)) {
             props.close();
-            history.goBack();
         }
     }
 
     const keyPressListener = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
             props.close();
-            if (props.isShowing) {
-                history.goBack();
-            }
         }
     };
 
     useEffect(() => {
         return history.listen(listener => {
             if (history.action === "POP") {
-                props.close();
+                if (props.isShowing) {
+                    history.push("/modal");
+                    props.close();
+                }
             }
         })
-    }, [])
-
-    useEffect(() => {
-        if (props.isShowing) {
-            history.push("/modal");
-        }
     }, [props.isShowing])
 
     useEffect(() => {
@@ -113,27 +108,29 @@ export default function Modal(props: any) {
         return () => {
             window.removeEventListener("keydown", keyPressListener);
         }
-    }, [props.isShowing])
+    }, [])
 
     return <div>
         {props.isShowing &&
-        <StyledBackground onClick={onClick} aria-hidden={false}>
-            <StyledContainer ref={containerRef}>
-                <UpperContainer>
-                    <StyledHeading>{props.heading}</StyledHeading>
-                    <StyledButton onClick={() => {
-                        props.close();
-                        history.goBack();
-                    }}>
-                        <StyledClose>
-                        </StyledClose>
-                    </StyledButton>
-                </UpperContainer>
-                <ContentContainer className={props.className}>
-                    {props.children}
-                </ContentContainer>
-            </StyledContainer>
-        </StyledBackground>
+            <div>
+                <ModalHelper />
+                <StyledBackground onClick={onClick} aria-hidden={false}>
+                    <StyledContainer ref={containerRef}>
+                        <UpperContainer>
+                            <StyledHeading>{props.heading}</StyledHeading>
+                            <StyledButton onClick={() => {
+                                props.close();
+                            }}>
+                                <StyledClose>
+                                </StyledClose>
+                            </StyledButton>
+                        </UpperContainer>
+                        <ContentContainer className={props.className}>
+                            {props.children}
+                        </ContentContainer>
+                    </StyledContainer>
+                </StyledBackground>
+            </div>
         }
     </div>;
 }
