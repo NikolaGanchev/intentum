@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 interface StyledImgProps {
-    readonly isAuto: boolean;
+    readonly isAuto: boolean | undefined;
     readonly width: number;
 }
 
@@ -37,7 +37,15 @@ const StyledBigImg = styled.img`
     height: 90%;
 `
 
-export default function Image(props: any) {
+interface ImageProps {
+    src: any;
+    className?: string;
+    alt?: string;
+    auto?: boolean;
+    width?: number;
+}
+
+export default function Image(props: ImageProps) {
     const [showFullSize, setShowFullSize] = useState(false);
     const onClick = () => {
         setShowFullSize(!showFullSize);

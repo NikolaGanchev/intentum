@@ -14,7 +14,7 @@ const Container = styled.div`
 `
 
 interface ExplanationProps {
-    readonly isShown: boolean
+    readonly isShown: any;
 }
 
 const Explanation = styled.div<ExplanationProps>`
@@ -35,7 +35,18 @@ interface FillInType {
     rightAnswer: string;
 }
 
-export default function FillQuestion(props: any) {
+interface FillQuestionProps {
+    rightAnswers?: string[];
+    rightAnswer?: string;
+    explanation?: string;
+    isShowing?: boolean;
+    noButton?: boolean;
+    text: string;
+    button: string;
+    onAnswer?: any;
+}
+
+export default function FillQuestion(props: FillQuestionProps) {
     const [t] = useTranslation("common");
     const [isShowing, setIsShowing] = useState(false);
     const fillInRegex = /__[^\s]*__/g;
@@ -82,7 +93,7 @@ export default function FillQuestion(props: any) {
             })}</TextBlock>
         </Container>
         {!props.noButton &&
-            <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}></StyledButton>
+            <StyledButton text={props.button} onClick={check} isDisabled={isDisabled}/>
         }
         <Explanation isShown={(isShowing || props.isShowing) && (props.explanation || props.rightAnswer || props.rightAnswers)}>
             <TextBlock>

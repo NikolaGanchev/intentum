@@ -66,7 +66,7 @@ const StyledInput = styled.input<StyledInputProps>`
 `
 
 interface ExplanationProps {
-    readonly isShown: boolean
+    readonly isShown: any;
 }
 
 const Explanation = styled.div<ExplanationProps>`
@@ -80,7 +80,20 @@ const Explanation = styled.div<ExplanationProps>`
     margin-top: 1rem;
 `
 
-export default function FullAnswerQuestion(props: any) {
+interface FullAnswerQuestionProps {
+    placeholder?: string;
+    explanation?: string;
+    alt?: string;
+    noButton?: boolean;
+    children?: any;
+    image?: any;
+    onAnswer?: any;
+    rightAnswers?: any[];
+    rightAnswer?: any;
+    isShowing?: boolean;
+}
+
+export default function FullAnswerQuestion(props: FullAnswerQuestionProps) {
     const [value, setValue] = useState("");
     const [isCorrect, setIsCorrect] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -136,7 +149,7 @@ export default function FullAnswerQuestion(props: any) {
                 <Image src={props.image} alt={props.alt} />
             }
         </QuestionContainer>
-        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled}></StyledInput>
+        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled}/>
         {(!props.noButton) &&
             <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button>
         }

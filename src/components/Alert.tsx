@@ -12,7 +12,15 @@ const OKButton = styled(Button)`
     margin-left: auto;
 `
 
-export default function Alert(props: any) {
+interface AlertProps {
+    heading: string;
+    hide: any;
+    isShowing: boolean;
+    ok: string;
+    warning: string;
+}
+
+export default function Alert(props: AlertProps) {
     return <Modal heading={props.heading} close={props.hide} isShowing={props.isShowing}>
         <TextBlock>
             {props.warning}

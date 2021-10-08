@@ -33,7 +33,7 @@ const AnswerContainer = styled.div`
 
 interface StyledRadioContainerProps {
     readonly isCorrect: boolean;
-    readonly isShowing: boolean;
+    readonly isShowing: boolean | undefined;
 }
 
 const RadioContainer = styled.div<StyledRadioContainerProps>`
@@ -71,7 +71,7 @@ const StyledLabel = styled.label`
 `
 
 interface ExplanationProps {
-    readonly isShown: boolean
+    readonly isShown: any;
 }
 
 const Explanation = styled.div<ExplanationProps>`
@@ -85,7 +85,23 @@ const Explanation = styled.div<ExplanationProps>`
     margin-top: 1rem;
 `
 
-export default function TestQuestion(props: any) {
+interface TestQuestionProps {
+    isDisabled?: boolean;
+    placeholder?: string;
+    explanation?: string;
+    alt?: string;
+    noButton?: boolean;
+    children?: any;
+    image?: any;
+    onAnswer?: any;
+    rightAnswer: number;
+    answers: string[];
+    isShowing?: boolean;
+    check? : any;
+    tries?: number;
+}
+
+export default function TestQuestion(props: TestQuestionProps) {
     const id = nanoid();
     const [tries, setTries] = useState(0);
     const triesRef = useRef(0);

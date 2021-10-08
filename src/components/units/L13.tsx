@@ -21,7 +21,7 @@ export default function L13(props: any) {
         <TextBlock>{tl("l13.p6p")}</TextBlock>
         <TextBlock>{tl("l13.p7p")}</TextBlock>
         <TextBlock>{tl("l13.p8p")}</TextBlock>
-        <TestQuestion answers={[tl("l13.p9a1"), tl("l13.p9a2"), tl("l13.p9a3"), tl("l13.p9a4")]} rightAnswer={0} tries={3} onAnswer={() => { setIsLocked1(false) }} expalanation={tl("l13.p10exp")}>{tl("l13.p9tq")}</TestQuestion>
+        <TestQuestion answers={[tl("l13.p9a1"), tl("l13.p9a2"), tl("l13.p9a3"), tl("l13.p9a4")]} rightAnswer={0} tries={3} onAnswer={() => { setIsLocked1(false) }} explanation={tl("l13.p10exp")}>{tl("l13.p9tq")}</TestQuestion>
         <Lock isLocked={isLocked1}>
             <TextBlock>{tl("l13.p11p")}</TextBlock>
             <Switch>

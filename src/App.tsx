@@ -291,7 +291,6 @@ function App() {
               cards={cards}
               setStudyUnit={setCurrentStudyUnit}
               activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
               changeToPrevious={changeToPrevious}
               changeToNext={changeToNext}
               transX={transX}

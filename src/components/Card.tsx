@@ -6,6 +6,7 @@ import { changeStudyUnit } from "../utils/StudyUnitUtils"
 import Button from "./Button"
 import WarningModal from "./WarningModal"
 import { Link } from "react-router-dom"
+import StudyUnit from "../utils/StudyUnit";
 
 const Container = styled.div`
     position: relative;
@@ -115,7 +116,14 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     }
 `
 
-export default function Card(props: any) {
+interface CardProps {
+    unit: StudyUnit;
+    title: string;
+    text: string;
+    onClick: any;
+}
+
+export default function Card(props: CardProps) {
     const [t] = useTranslation("common");
     const [isUnlocked, setIsUnlocked] = useState(props.unit.unlocked);
     const [isUnlocking, setIsUnlocking] = useState(false);

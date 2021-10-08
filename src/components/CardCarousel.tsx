@@ -3,6 +3,7 @@ import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
 import { useTranslation } from "react-i18next";
+import StudyUnit from "../utils/StudyUnit";
 
 const animationLength = 0.25;
 
@@ -106,8 +107,19 @@ const ButtonContainer = styled.div`
     }
 `
 
+interface CardCarouselProps {
+    activeIndex: number;
+    opacity: number;
+    isTransition: boolean;
+    transX: number;
+    className?: string;
+    cards: any;
+    changeToPrevious(): void;
+    changeToNext(): void;
+    setStudyUnit : any;
+}
 
-export default function CardCarousel(props: any) {
+export default function CardCarousel(props: CardCarouselProps) {
     const [t] = useTranslation("common");
     const [tl] = useTranslation("lessons");
 

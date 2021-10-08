@@ -42,7 +42,13 @@ const StyledInput = styled.input<StyledInputProps>`
     transition: all 1s ease-in;
 `
 
-export default function FillIn(props: any) {
+interface FillInProps {
+    rightAnswer: string;
+    isShowing: boolean;
+    isDisabled: boolean;
+}
+
+export default function FillIn(props: FillInProps) {
 
     const [value, setValue] = useState("");
     const [isCorrect, setIsCorrect] = useState(false);

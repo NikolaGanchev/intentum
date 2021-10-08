@@ -8,6 +8,11 @@ const StyledHeading = styled.h3`
     text-indent: 1rem;
 `
 
-export default function Heading(props: any) {
+interface HeadingProps {
+    className?: string;
+    children?: any;
+}
+
+export default function Heading(props: HeadingProps) {
     return <StyledHeading className={props.className}>{props.children}</StyledHeading>
 }

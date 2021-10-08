@@ -21,7 +21,12 @@ const Symbol = styled.div`
     margin: auto;
 `
 
-export default function Circle(props: any) {
+interface CircleProps {
+    className?: string;
+    symbol: string;
+}
+
+export default function Circle(props: CircleProps) {
     return <StyledCircle className={props.className}>
         <Symbol>{props.symbol}</Symbol>
     </StyledCircle>
