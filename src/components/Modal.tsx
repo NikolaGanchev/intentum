@@ -1,10 +1,13 @@
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef } from "react";
 import styled from "styled-components"
 import Heading from "./Heading";
 import Close from "../resources/Close";
 import {useHistory} from "react-router-dom";
 import ModalHelper from "./ModalHelper";
 import React from "react";
+import { ModalStackContext } from "./ModalStackContext";
+import {nanoid} from "nanoid";
+import {MODAL_PATH} from "../utils/ModalStack";
 
 const StyledBackground = styled.div`
     position: fixed;
@@ -73,19 +76,21 @@ const StyledButton = styled.button`
 export default function Modal(props: any) {
     const containerRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
+    const modalStack = useContext(ModalStackContext);
+    const id = useRef(nanoid());
 
     const onClick = (e: any) => {
         const container = containerRef.current;
 
         if (!container) return;
 
-        if (!container.contains(e.target)) {
+        if (!container.contains(e.target) && modalStack.current.peek() === id.current) {
             props.close();
         }
     }
 
     const keyPressListener = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
+        if (event.key === "Escape" && modalStack.current.peek() === id.current) {
             props.close();
         }
     };
@@ -93,13 +98,15 @@ export default function Modal(props: any) {
     useEffect(() => {
         return history.listen(listener => {
             if (history.action === "POP") {
-                if (props.isShowing) {
-                    history.push("/modal");
+                if (props.isShowing && modalStack.current.peek() === id.current) {
+                    history.push(MODAL_PATH);
                     props.close();
                 }
             }
         })
     }, [props.isShowing])
+
+
 
     useEffect(() => {
         window.addEventListener("keydown", keyPressListener);
@@ -113,7 +120,7 @@ export default function Modal(props: any) {
     return <div>
         {props.isShowing &&
             <div>
-                <ModalHelper />
+                <ModalHelper id={id.current}/>
                 <StyledBackground onClick={onClick} aria-hidden={false}>
                     <StyledContainer ref={containerRef}>
                         <UpperContainer>

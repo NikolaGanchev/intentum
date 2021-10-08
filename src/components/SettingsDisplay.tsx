@@ -10,6 +10,7 @@ import { themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
+import {useHistory} from "react-router-dom";
 
 const Setting = styled.div`
     display: flex;
@@ -97,6 +98,7 @@ export default function SettingsDisplay(props: any) {
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         setThemeValue(props.theme === themes.darkTheme);
@@ -130,12 +132,17 @@ export default function SettingsDisplay(props: any) {
     }
 
     const clearAnswer = (answer: boolean) => {
-        if (answer) {
-            clear();
-            window.location.reload();
-        }
 
-        setClearWarningIsShown(false);
+        setClearWarningIsShown(() => {
+
+            if (answer) {
+                clear().then(_ => {
+                        window.location.reload();
+                });
+            }
+
+            return false
+        });
     };
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>

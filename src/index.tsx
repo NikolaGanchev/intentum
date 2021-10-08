@@ -15,6 +15,7 @@ import tags_bg from './translations/bg/tags.json';
 import { get } from 'idb-keyval/dist/esm-compat';
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { ModalStackProvider } from "./components/ModalStackContext";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -46,13 +47,15 @@ serviceWorkerRegistration.register();
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <Router>
-        <Switch>
-          <Route path="/units/:unitId?" children={<App />} />
-          <Route path="/" exact children={<App />} />
-          <Route path="/:unitId?" children={<App />} />
-        </Switch>
-      </Router>
+      <ModalStackProvider>
+        <Router>
+          <Switch>
+            <Route path="/units/:unitId?" children={<App />} />
+            <Route path="/" exact children={<App />} />
+            <Route path="/:unitId?" children={<App />} />
+          </Switch>
+        </Router>
+      </ModalStackProvider>
     </I18nextProvider>
   </React.StrictMode>,
   document.getElementById('root')

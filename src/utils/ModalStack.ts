@@ -1,6 +1,6 @@
-// This class stores the last shown modal to prevent multiple modals from closing at once
+// This class stores the list of currently shown modals to prevent multiple modals from closing at once
 
-class ModalStack {
+export default class ModalStack {
     private readonly modals: string[];
 
     constructor() {
@@ -34,3 +34,5 @@ class ModalStack {
 }
 
 export const modalStack = new ModalStack();
+
+export const MODAL_PATH = "/";
