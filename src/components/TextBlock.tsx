@@ -8,7 +8,10 @@ const StyledParagraph = styled.p`
     text-indent: 1rem;
 `
 
+interface TextBlockProps {
+    children: any;
+}
 
-export default function TextBlock(props: any) {
+export default function TextBlock(props: TextBlockProps) {
     return <StyledParagraph>{props.children}</StyledParagraph>
 }

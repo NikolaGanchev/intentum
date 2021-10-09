@@ -20,7 +20,11 @@ const Text = styled.div`
     display: inline-flex;
 `
 
-export default function Warning(props: any) {
+interface WarningProps {
+    children: any;
+}
+
+export default function Warning(props: WarningProps) {
     return <Container>
         <StyledCircle symbol="!"></StyledCircle>
         <Text>{props.children}</Text>

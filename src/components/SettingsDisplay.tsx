@@ -90,15 +90,20 @@ const StyledInput = styled.input`
     }
 `
 
+interface SettingsDisplayProps {
+    theme: string;
+    changeTheme: any;
+    close: any;
+    isShowing: boolean;
+}
 
-export default function SettingsDisplay(props: any) {
+export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [t, i18n] = useTranslation("common");
     const [, i18nl] = useTranslation("lessons");
     const [tt, i18nt] = useTranslation("tags");
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
-    const history = useHistory();
 
     useEffect(() => {
         setThemeValue(props.theme === themes.darkTheme);

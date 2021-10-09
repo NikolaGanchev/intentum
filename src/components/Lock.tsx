@@ -59,7 +59,13 @@ const StyledPadlock = styled(Padlock) <PadlockProps>`
     }
 `
 
-export default function Lock(props: any) {
+interface LockProps {
+    children: any;
+    isLocked: boolean;
+
+}
+
+export default function Lock(props: LockProps) {
     const [isViewLocked, setIsViewLocked] = useState(true);
     const [isUnlocking, setIsUnlocking] = useState(false);
     const [t] = useTranslation("common");

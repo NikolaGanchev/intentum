@@ -26,7 +26,11 @@ const StyledQuestionMark = styled.div`
     user-select: none;
 `
 
-export default function ResearchQuestion(props: any) {
+interface ResearchQuestionProps {
+    children: any;
+}
+
+export default function ResearchQuestion(props: ResearchQuestionProps) {
     return <Container>
         <StyledQuestionMark>?</StyledQuestionMark>
         <Text>{props.children}</Text>

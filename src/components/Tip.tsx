@@ -20,7 +20,11 @@ const Text = styled.div`
     display: inline-flex;
 `
 
-export default function Tip(props: any) {
+interface TipProps {
+    children: any;
+}
+
+export default function Tip(props: TipProps) {
     return <Container>
         <StyledCircle symbol="i"></StyledCircle>
         <Text>{props.children}</Text>

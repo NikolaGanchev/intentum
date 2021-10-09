@@ -1,11 +1,15 @@
 import {useContext, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {ModalStackContext} from "./ModalStackContext";
-import {set} from "idb-keyval";
 import {MODAL_PATH} from "../utils/ModalStack";
 
+interface ModalHelperProps {
+    id: string;
+}
+
+
 // This component handles pathing in a modal
-export default function ModalHelper(props: any) {
+export default function ModalHelper(props: ModalHelperProps) {
     const history = useHistory();
     const modalStack = useContext(ModalStackContext);
 

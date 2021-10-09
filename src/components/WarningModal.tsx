@@ -18,7 +18,16 @@ const NoButton = styled(Button)`
     margin-left: auto;
 `
 
-export default function WarningModal(props: any) {
+interface WarningModalProps {
+    isShowing: boolean;
+    yes: string;
+    no: string;
+    warning: string;
+    heading:string;
+    answer: any;
+}
+
+export default function WarningModal(props: WarningModalProps) {
     return <Modal heading={props.heading} close={() => { props.answer(false) }} isShowing={props.isShowing}>
         <TextBlock>
             {props.warning}

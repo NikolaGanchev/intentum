@@ -41,7 +41,11 @@ const Author = styled.div`
     }
 `
 
-export default function Quote(props: any) {
+interface QuoteProps {
+    children: any;
+}
+
+export default function Quote(props: QuoteProps) {
     return <Container>
         <StyledQuotes></StyledQuotes>
         <Text>{props.children}</Text>

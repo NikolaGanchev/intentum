@@ -72,8 +72,15 @@ const StyledButton = styled.button`
     margin-left: auto;
 `
 
+interface ModalProps {
+    children: any;
+    className?: string;
+    heading: string;
+    isShowing: boolean;
+    close: any;
+}
 
-export default function Modal(props: any) {
+export default function Modal(props: ModalProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
     const modalStack = useContext(ModalStackContext);

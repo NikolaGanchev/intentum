@@ -48,9 +48,19 @@ const Motto = styled.h3`
         transform: translate(-50%, -10%);
         color: ${props => props.theme.text};
         font-weight: normal;
-    `
+`
 
-export default function Loader(props: any) {
+interface LoaderProps {
+    motto: string;
+    title: string;
+    isShowing: boolean;
+    job?: any;
+    fadeIn?: boolean;
+    hide: any;
+}
+
+
+export default function Loader(props: LoaderProps) {
     const [isVisible, setIsVisible] = useState(!props.fadeIn);
 
     const run = () => {

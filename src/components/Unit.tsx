@@ -6,6 +6,7 @@ import { registry } from "../utils/UnitRegistry";
 import Loader from './Loader';
 import WarningModal from "./WarningModal";
 import {useHistory} from "react-router-dom";
+import StudyUnit from "../utils/StudyUnit";
 
 const Container = styled.div`
     position: fixed;
@@ -79,7 +80,13 @@ enum AnswerState {
     unset
 }
 
-export default function Unit(props: any) {
+interface UnitProps {
+    unit: StudyUnit;
+    back: any;
+    endUnit: any;
+}
+
+export default function Unit(props: UnitProps) {
     const [t] = useTranslation("common");
     const [showUnitLoader, setShowUnitLoader] = useState(true);
     const [tl] = useTranslation("lessons");
@@ -147,7 +154,9 @@ export default function Unit(props: any) {
                 no={t("app.no")}
                 answer={evalAnswer} isShowing={warningIsShown} />
             <TextContainer>
-                <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}><Back></Back></StyledButton>
+                <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}>
+                    <Back></Back>
+                </StyledButton>
                 <Title>{
                     tl(`${props.unit.id}.title`) +
                     t("app.separator") +

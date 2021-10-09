@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Search from "../resources/Search";
 import TagLoader from "../utils/TagLoader";
 import Button from "./Button";
+import StudyUnit from "../utils/StudyUnit";
 
 const MAX_RESULTS = 5;
 const REM_RESULT_HEIGHT = 3;
@@ -107,7 +108,13 @@ const StyledListButton = styled(Button)`
     }
 `
 
-export default function SearchBar(props: any) {
+interface SearchBarProps {
+    cards: any;
+    changeToArbitrary: any;
+}
+
+
+export default function SearchBar(props: SearchBarProps) {
     const [value, setValue] = useState("");
     const [t] = useTranslation("common");
     const [tl] = useTranslation("lessons");

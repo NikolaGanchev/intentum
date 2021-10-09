@@ -22,7 +22,11 @@ const ContentContainer = styled.div`
     transition: all 1s ease-in;
 `
 
-export default function Switch(props: any) {
+interface SwitchProps {
+    children: any;
+}
+
+export default function Switch(props: SwitchProps) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return <Container>

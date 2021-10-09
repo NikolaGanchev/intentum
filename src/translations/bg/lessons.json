@@ -899,7 +899,7 @@
         "s31con": "<<prefix>>>>Здравей",
         "s32p": "Тук създаваме променлива pozdrav от тип низ, която е равна на input.nextLine(). Програмата чака да въведеш нещо в конзолата и да натиснеш Enter, след което продължава и принтира на конзолата поздрава, който си въвел.",
         "s33p": "Scanner също има и други методи. Например .nextInt(), .nextLong(), .nextByte() и така нататък. Разгледай ги сам. Аз само трябва да те предупредя за нещо.",
-        "s34e": "При Scanner в Java има грешка / бъг. Ако първо поискаш цяло число (int) и след това String ще получиш празен String.",
+        "s34e": "При Scanner в Java има грешка / бъг. Ако първо поискаш цяло число (int) и след това String, ще получиш празен String.",
         "s35cj": "package tutorial;\n\nimport java.util.Scanner;\n\npublic class Input {\n\t\n\tpublic static void main(String[] args) {\n\t\tScanner input = new Scanner(System.in);\n\t\tint inputInt = input.nextInt();\n\t\tString scannerBug = input.nextLine();\n\t}\n}",
         "s36p": "Вход:",
         "s37con": "<<prefix>>>>5",
