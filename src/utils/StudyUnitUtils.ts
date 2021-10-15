@@ -7,7 +7,7 @@ const HAS_ENTERED_KEY = "hasEntered";
 const LESSON = "l";
 const TEST = "t";
 
-const TEST_POSITIONS = [8, 18, 24, 26, 31, 35, 42, 49];
+const TEST_POSITIONS = [8, 18, 24, 28, 34, 39, 48, 56];
 const LESSON_AMOUNT = 42;
 
 export async function generateAndGetStudyUnits(callback: Function) {
