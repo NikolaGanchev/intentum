@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
 
 export default function Console(props: any) {
     const prefix = "C:/WINDOWS/system32>";
+    const defaultPrefix = ">>";
     const output = "<<output>>"
     const customPrefix = "<<prefix>>"
     const lines: string[] = props.children.split('\n');
@@ -22,7 +23,7 @@ export default function Console(props: any) {
                 return line.substring(10, line.length) + '<br />';
             }
             else {
-                return prefix + line + '<br />';
+                return defaultPrefix + line + '<br />';
             }
         }).join("")
     }
