@@ -1,4 +1,7 @@
 // importing all units at the start and registering them
+// This is done so webpack can actually decode the paths
+// It would be about the same thing if I imported all the units
+// Then stored them in a map with their respective id and looped over the map to register them
 // If anyone can think of a better way to do this, try it
 
 import { registry } from "./UnitRegistry";
@@ -40,6 +43,12 @@ import L28 from "../components/units/L28";
 import T6 from "../components/units/T6";
 import L29 from "../components/units/L29";
 import L30 from "../components/units/L30";
+import L31 from "../components/units/L31";
+import L32 from "../components/units/L32";
+import L33 from "../components/units/L33";
+import L34 from "../components/units/L34";
+import L35 from "../components/units/L35";
+import T7 from "../components/units/T7";
 
 export default function registerAll() {
     registry.register("l0", L0);
@@ -79,4 +88,10 @@ export default function registerAll() {
     registry.register("t6", T6);
     registry.register("l29", L29);
     registry.register("l30", L30);
+    registry.register("l31", L31);
+    registry.register("l32", L32);
+    registry.register("l33", L33);
+    registry.register("l34", L34);
+    registry.register("l35", L35);
+    registry.register("t7", T7);
 }
