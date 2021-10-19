@@ -49,6 +49,14 @@ import L33 from "../components/units/L33";
 import L34 from "../components/units/L34";
 import L35 from "../components/units/L35";
 import T7 from "../components/units/T7";
+import L36 from "../components/units/L36";
+import L37 from "../components/units/L37";
+import L38 from "../components/units/L38";
+import L39 from "../components/units/L39";
+import L40 from "../components/units/L40";
+import L41 from "../components/units/L41";
+import T8 from "../components/units/T8";
+import L42 from "../components/units/L42";
 
 export default function registerAll() {
     registry.register("l0", L0);
@@ -94,4 +102,12 @@ export default function registerAll() {
     registry.register("l34", L34);
     registry.register("l35", L35);
     registry.register("t7", T7);
+    registry.register("l36", L36);
+    registry.register("l37", L37);
+    registry.register("l38", L38);
+    registry.register("l39", L39);
+    registry.register("l40", L40);
+    registry.register("l41", L41);
+    registry.register("t8", T8);
+    registry.register("l42", L42);
 }
