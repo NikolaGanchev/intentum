@@ -82,6 +82,7 @@ const ContainerLock = styled.div<PadlockProps>`
     margin-top: 3rem;
     cursor: pointer;
     pointer-events: ${props => props.isUnlocking ? `none` : 'all'};
+    user-select: none;
 `
 
 const LockContainer = styled.div<PadlockProps>`
@@ -164,12 +165,12 @@ export default function Card(props: CardProps) {
     return <Container>
         <Title>{props.title}</Title>
         <Text>{props.text}</Text>
-            <WarningModal
-                heading={t("app.warning")}
-                warning={t("app.unlockWarning")}
-                yes={t("app.yes")}
-                no={t("app.no")}
-                answer={answer} isShowing={warningIsShown}/>
+        <WarningModal
+            heading={t("app.warning")}
+            warning={t("app.unlockWarning")}
+            yes={t("app.yes")}
+            no={t("app.no")}
+            answer={answer} isShowing={warningIsShown} />
         {(isUnlocked) ?
             <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link> :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>

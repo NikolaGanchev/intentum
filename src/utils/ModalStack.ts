@@ -35,4 +35,6 @@ export default class ModalStack {
 
 export const modalStack = new ModalStack();
 
-export const MODAL_PATH = "/";
+export const getModalPath = () => {
+    return "/modal";
+}

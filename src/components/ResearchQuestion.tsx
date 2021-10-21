@@ -4,6 +4,7 @@ const Container = styled.div`
     display: block;
     padding: 1rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     border-width: 1px;
     border-style: solid;
     border-image: ${props => props.theme.secondary};
@@ -14,6 +15,7 @@ const Text = styled.div`
     line-height: 1.6rem;
     font-size: 1.2rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     display: inline-flex;
 `
 

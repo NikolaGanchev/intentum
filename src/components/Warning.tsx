@@ -6,6 +6,7 @@ const Container = styled.div`
     display: block;
     padding: 1rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
 `
 
 const StyledCircle = styled(Circle)`
@@ -17,6 +18,7 @@ const Text = styled.div`
     line-height: 1.6rem;
     font-size: 1.2rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     display: inline-flex;
 `
 

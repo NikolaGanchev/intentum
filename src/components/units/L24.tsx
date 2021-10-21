@@ -39,7 +39,7 @@ export default function L24(props: any) {
         <TextBlock>{tl("l24.p23p")}</TextBlock>
         <TextBlock>{tl("l24.p24p")}</TextBlock>
         <TextBlock>{tl("l24.p25p")}</TextBlock>
-        <TestQuestion answers={[tl("l24.p26a1"), tl("l24.p26a2")]} rightAnswer={0} tries={3} onAnswer={() => { setIsLocked1(false) }}>{tl("l24.p26tq")}</TestQuestion>
+        <TestQuestion answers={[tl("l24.p26a1"), tl("l24.p26a2")]} rightAnswer={0} tries={1} onAnswer={() => { setIsLocked1(false) }}>{tl("l24.p26tq")}</TestQuestion>
         <Lock isLocked={isLocked1}>
             <Heading>{tl("l24.p27h")}</Heading>
             <Switch>

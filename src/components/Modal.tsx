@@ -1,13 +1,13 @@
-import {useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import styled from "styled-components"
 import Heading from "./Heading";
 import Close from "../resources/Close";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ModalHelper from "./ModalHelper";
 import React from "react";
 import { ModalStackContext } from "./ModalStackContext";
-import {nanoid} from "nanoid";
-import {MODAL_PATH} from "../utils/ModalStack";
+import { nanoid } from "nanoid";
+import { getModalPath } from "../utils/ModalStack";
 
 const StyledBackground = styled.div`
     position: fixed;
@@ -106,7 +106,7 @@ export default function Modal(props: ModalProps) {
         return history.listen(listener => {
             if (history.action === "POP") {
                 if (props.isShowing && modalStack.current.peek() === id.current) {
-                    history.push(MODAL_PATH);
+                    history.push(getModalPath());
                     props.close();
                 }
             }
@@ -127,7 +127,7 @@ export default function Modal(props: ModalProps) {
     return <div>
         {props.isShowing &&
             <div>
-                <ModalHelper id={id.current}/>
+                <ModalHelper id={id.current} />
                 <StyledBackground onClick={onClick} aria-hidden={false}>
                     <StyledContainer ref={containerRef}>
                         <UpperContainer>

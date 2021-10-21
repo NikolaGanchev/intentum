@@ -4,6 +4,7 @@ import styled from "styled-components"
 const Container = styled.div`
     width: 100%;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     display: flex;
     place-content: center;
     cursor: pointer;
@@ -56,6 +57,6 @@ export default function Image(props: ImageProps) {
             <FullSizeContainer>
                 <StyledBigImg src={props.src} alt={props.alt}></StyledBigImg>
             </FullSizeContainer>}
-        <StyledImg src={props.src} alt={props.alt} isAuto={props.auto} width={props.width ? props.width: 100}></StyledImg>
+        <StyledImg src={props.src} alt={props.alt} isAuto={props.auto} width={props.width ? props.width : 100}></StyledImg>
     </Container>
 }

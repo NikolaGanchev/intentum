@@ -31,7 +31,7 @@ export default function L10(props: any) {
         </Switch>
         <TextBlock>{tl("l10.p11p")}</TextBlock>
         <Console>{tl("l10.p12con")}</Console>
-        <TestQuestion answers={[tl("l10.p13a1"), tl("l10.p13a2")]} rightAnswer={0} tries={3} onAnswer={() => { setIsLocked1(false) }}>{tl("l10.p13tq")}</TestQuestion>
+        <TestQuestion answers={[tl("l10.p13a1"), tl("l10.p13a2")]} rightAnswer={0} tries={1} onAnswer={() => { setIsLocked1(false) }}>{tl("l10.p13tq")}</TestQuestion>
         <Lock isLocked={isLocked1}>
             <ResearchQuestion>{tl("l10.p14rq")}</ResearchQuestion>
             <EndButton onClick={() => { props.endUnit() }} />

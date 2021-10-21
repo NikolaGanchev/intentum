@@ -10,6 +10,7 @@ const Container = styled.div`
     padding: 1rem;
     border: 1px solid ${props => props.theme.secondary};
     margin-top: 1rem;
+    margin-bottom: 1rem;
 `
 
 interface QuestionContainerProps {
@@ -97,7 +98,7 @@ interface TestQuestionProps {
     rightAnswer: number;
     answers: string[];
     isShowing?: boolean;
-    check? : any;
+    check?: any;
     tries?: number;
 }
 
@@ -119,15 +120,14 @@ export default function TestQuestion(props: TestQuestionProps) {
             return;
         }
 
-        if (value !== rightAnswer) {
-            if (!props.tries) {
-                setIsDisabled(true);
-                if (props.onAnswer) {
-                    props.onAnswer(false);
-                }
-                return;
+        if (!props.tries) {
+            if (props.onAnswer) {
+                props.onAnswer(false);
             }
+            return;
+        }
 
+        if (value !== rightAnswer) {
             triesRef.current += 1;
             setTries(tries + 1);
         }
@@ -170,7 +170,7 @@ export default function TestQuestion(props: TestQuestionProps) {
 
                 return <RadioContainer isCorrect={value === rightAnswer} isShowing={(isShowing || props.isShowing) && value === rightAnswer} key={i}>
                     <StyledLabel>
-                        <StyledRadioButton type="radio" name={id} value={value} checked={checked === value} onChange={handleCheck} disabled={isDisabled || props.isDisabled} />
+                        <StyledRadioButton type="radio" name={id} value={value} checked={checked === value} onChange={handleCheck} disabled={isDisabled || props.isDisabled || props.isShowing} />
                         {value}
                     </StyledLabel>
                 </RadioContainer>

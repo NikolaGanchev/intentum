@@ -59,7 +59,7 @@ export default function L17(props: any) {
         <TextBlock>{tl("l17.p27p")}</TextBlock>
         <Console>{tl("l17.p28con")}</Console>
         <TextBlock>{tl("l17.p29p")}</TextBlock>
-        <TestQuestion answers={[tl("l17.p30a1"), tl("l17.p30a2")]} rightAnswer={1} tries={3} explanation={tl("l17.p30exp")} onAnswer={() => { setIsLocked1(false) }}>{tl("l17.p30tq")}</TestQuestion>
+        <TestQuestion answers={[tl("l17.p30a1"), tl("l17.p30a2")]} rightAnswer={1} tries={1} explanation={tl("l17.p30exp")} onAnswer={() => { setIsLocked1(false) }}>{tl("l17.p30tq")}</TestQuestion>
         <Lock isLocked={isLocked1}>
             <Heading>{tl("l17.p32h")}</Heading>
             <TextBlock>{tl("l17.p33p")}</TextBlock>

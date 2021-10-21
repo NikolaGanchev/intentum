@@ -3,7 +3,6 @@ import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
 import { useTranslation } from "react-i18next";
-import StudyUnit from "../utils/StudyUnit";
 
 const animationLength = 0.25;
 
@@ -15,6 +14,7 @@ const Container = styled.div`
     @media (max-width: 470px) {
         place-items: center
     }
+    overflow-x: hidden;
 `
 
 interface CardContainerProps {
@@ -116,7 +116,7 @@ interface CardCarouselProps {
     cards: any;
     changeToPrevious(): void;
     changeToNext(): void;
-    setStudyUnit : any;
+    setStudyUnit: any;
 }
 
 export default function CardCarousel(props: CardCarouselProps) {
@@ -190,23 +190,23 @@ export default function CardCarousel(props: CardCarouselProps) {
     return <div>
         {(props.cards) &&
             <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any}>
-            <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
-                <Card title={tl(`${props.cards[props.activeIndex].id}.title`)}
-                      text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]}
-                      onClick={onClick}/></CardContainer>
+                <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
+                    <Card title={tl(`${props.cards[props.activeIndex].id}.title`)}
+                        text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]}
+                        onClick={onClick} /></CardContainer>
                 <ButtonContainer>
-                <LeftArrowButton
-                onClick={() => {props.changeToPrevious()}}
-                disabled={props.activeIndex === 0}
-                aria-label={t("app.previousLesson")}>
-                <LeftArrow />
-                </LeftArrowButton>
-                <RightArrowButton
-                onClick={() => {props.changeToNext()}}
-                disabled={props.activeIndex === props.cards.length - 1}
-                aria-label={t("app.nextLesson")}>
-                <RightArrow />
-                </RightArrowButton>
+                    <LeftArrowButton
+                        onClick={() => { props.changeToPrevious() }}
+                        disabled={props.activeIndex === 0}
+                        aria-label={t("app.previousLesson")}>
+                        <LeftArrow />
+                    </LeftArrowButton>
+                    <RightArrowButton
+                        onClick={() => { props.changeToNext() }}
+                        disabled={props.activeIndex === props.cards.length - 1}
+                        aria-label={t("app.nextLesson")}>
+                        <RightArrow />
+                    </RightArrowButton>
                 </ButtonContainer>
             </Container>
         }

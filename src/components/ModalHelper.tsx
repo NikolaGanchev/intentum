@@ -1,7 +1,7 @@
-import {useContext, useEffect} from "react";
-import {useHistory} from "react-router-dom";
-import {ModalStackContext} from "./ModalStackContext";
-import {MODAL_PATH} from "../utils/ModalStack";
+import { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { ModalStackContext } from "./ModalStackContext";
+import { getModalPath } from "../utils/ModalStack";
 
 interface ModalHelperProps {
     id: string;
@@ -15,7 +15,7 @@ export default function ModalHelper(props: ModalHelperProps) {
 
     useEffect(() => {
         modalStack.current.push(props.id);
-        history.push(MODAL_PATH);
+        history.push(getModalPath());
 
         return () => {
             /*

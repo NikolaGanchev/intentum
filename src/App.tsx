@@ -12,7 +12,7 @@ import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
-import TagLoader, {Tag} from './utils/TagLoader';
+import TagLoader, { Tag } from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
 import { useParams } from 'react-router-dom';
 import Alert from './components/Alert';
@@ -175,6 +175,12 @@ function App() {
   }
 
   const changeToArbitrary = (newActiveIndex: number, unlockNew = false, callback = () => { }) => {
+    if (cards === null) {
+      return;
+    }
+    if (newActiveIndex < 0 || newActiveIndex > cards.length - 1) {
+      return;
+    }
     const transitionToNew = (newActiveIndex > activeIndex) ? 300 : -300;
     setTransX(-transitionToNew);
     setOpacity(0);
@@ -266,15 +272,15 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <div>
-          <Alert
-            heading={t("app.warning")}
-            warning={t("app.indexedDBNotSupportedWarning")}
-            ok={t("app.ok")}
-            hide={() => { setShowIndexedDBNotSupportedWarning(false) }}
-            isShowing={ showIndexedDBNotSupportedWarning } />
-          <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme}
-          changeTheme={changeTheme} close={() => {setSettingsOpen(false)}} isShowing={settingsOpen}/>
-        <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader}/>
+        <Alert
+          heading={t("app.warning")}
+          warning={t("app.indexedDBNotSupportedWarning")}
+          ok={t("app.ok")}
+          hide={() => { setShowIndexedDBNotSupportedWarning(false) }}
+          isShowing={showIndexedDBNotSupportedWarning} />
+        <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme}
+          changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
+        <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />
         {(currentStudyUnit) ?
           (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
           (<div>

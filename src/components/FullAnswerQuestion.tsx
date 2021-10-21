@@ -10,6 +10,7 @@ const Container = styled.div`
     padding: 1rem;
     border: 1px solid ${props => props.theme.secondary};
     margin-top: 1rem;
+    margin-bottom: 1rem;
 `
 
 interface QuestionContainerProps {
@@ -149,7 +150,7 @@ export default function FullAnswerQuestion(props: FullAnswerQuestionProps) {
                 <Image src={props.image} alt={props.alt} />
             }
         </QuestionContainer>
-        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled}/>
+        <StyledInput type="text" value={value} onChange={handleChange} placeholder={props.placeholder} isShowing={props.isShowing != null && props.isShowing != undefined ? props.isShowing : isShowing} isCorrect={isCorrect} disabled={isDisabled} />
         {(!props.noButton) &&
             <Button text={t("app.check")} onClick={check} isDisabled={isDisabled}></Button>
         }
