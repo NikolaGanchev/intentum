@@ -434,7 +434,7 @@
     "s17p": "Your code should look like this:",
     "s18cj": "package tutorial;\n\nimport java.util.Scanner;\n\npublic class Input {\n\t\n\tpublic static void main(String[] args) {\n\t\tScanner input = new Scanner();\n\t}\n}",
     "s19p": "However, if you run this code, you will get an error. The problem is that Scanner needs to get an argument. It makes sense - it needs to know which file to read. It expects the argument between the parentheses. Here we would enter a string with the path to a file - absolute or relative. For example:",
-    "s20cj": "package tutorial;\n\nimport java.util.Scanner;\n\npublic class Input {\n\t\n\tpublic static void main(String[] args) {\n\t\tScanner input = new Scanner(\"C:veryimportantfile.txt\");\n\t}\n}",
+    "s20cj": "package tutorial;\n\nimport java.util.Scanner;\n\npublic class Input {\n\t\n\tpublic static void main(String[] args) {\n\t\tScanner input = new Scanner(\"C:\\veryimportantfile.txt\");\n\t}\n}",
     "s21p": "That would give an error - remember why?",
     "s22p": "Yes, because of . That is, it would be right:",
     "s23cj": "package tutorial;\n\nimport java.util.Scanner;\n\npublic class Input {\n\t\n\tpublic static void main(String[] args) {\n\t\tScanner input = new Scanner(\"C:/veryimportantfile.txt\");\n\t}\n}",
