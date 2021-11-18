@@ -3,7 +3,7 @@ import styled from "styled-components"
 const StyledCircle = styled.div`
     display: inline-flex;
     background-color: ${props => props.theme.secondary};
-    color: ${props => props.theme.pure};
+    color: ${props => props.theme.textWhite};
     border-radius: 100%;
     width: 5.5rem;
     height: 5.5rem;

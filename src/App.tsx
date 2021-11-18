@@ -23,6 +23,7 @@ const StyledCarousel = styled(CardCarousel)`
   width: 100%;
   height: 85vh;
   transition: all 1s ease;
+  overflow: visible;
   @media (max-width: 470px) {
     display: flex;
     flex-wrap: wrap;
@@ -35,6 +36,7 @@ const Top = styled.div`
   position: relative;
   transition: all 1s ease;
   display: flex;
+  background-color: ${props => props.theme.transparent};
 `
 
 const animation = keyframes`
