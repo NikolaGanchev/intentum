@@ -63,7 +63,7 @@ const Line = styled.div`
   margin-right: 15px;
 `
 
-const unlockDuration = 1.5;
+const unlockDuration = 0.85;
 
 const unlockAnimation = keyframes`
     100% {
@@ -77,9 +77,8 @@ interface PadlockProps {
 const ContainerLock = styled.div<PadlockProps>`
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: 1%;
     height: 8rem;
-    margin-top: 3rem;
     cursor: pointer;
     pointer-events: ${props => props.isUnlocking ? `none` : 'all'};
     user-select: none;
