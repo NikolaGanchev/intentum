@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Button from "./Button"
 import Modal from "./Modal"
 import TextBlock from "./TextBlock"
-import {theme} from "../utils/Theme";
+import { theme } from "../utils/Theme";
 
 const StyledWarningButtonContainer = styled.div`
     display: flex;
@@ -12,6 +12,7 @@ const StyledWarningButtonContainer = styled.div`
 const YesButton = styled(Button)`
     margin-left: 1rem;
     border-color: ${props => props.theme.error};
+    color: ${props => props.theme.textWhite};
 `
 
 const NoButton = styled(Button)`
@@ -23,7 +24,7 @@ interface WarningModalProps {
     yes: string;
     no: string;
     warning: string;
-    heading:string;
+    heading: string;
     answer: any;
 }
 

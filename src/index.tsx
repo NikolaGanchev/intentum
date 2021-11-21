@@ -1,6 +1,6 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-// These above are polyfills to at least try to support Internet Explorer - you should be able to use Intentum everywhere
+// These above are polyfills to at least try to support Internet Explorer
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
