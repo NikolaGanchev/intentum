@@ -1,11 +1,11 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ArrowBack from "../resources/ArrowBack";
 import { registry } from "../utils/UnitRegistry";
 import Loader from './Loader';
 import WarningModal from "./WarningModal";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import StudyUnit from "../utils/StudyUnit";
 
 const Container = styled.div`
@@ -95,7 +95,7 @@ export default function Unit(props: UnitProps) {
     const history = useHistory();
 
     const evalAnswer = (answer: boolean) => {
-        setAnswer(answer ? AnswerState.right: AnswerState.wrong);
+        setAnswer(answer ? AnswerState.right : AnswerState.wrong);
 
         if (answer) {
             history.goBack();
@@ -157,12 +157,9 @@ export default function Unit(props: UnitProps) {
                 <StyledButton onClick={() => { setWarningIsShown(true) }} aria-label={t("app.back")}>
                     <Back></Back>
                 </StyledButton>
-                <Title>{
-                    tl(`${props.unit.id}.title`) +
-                    t("app.separator") +
-                    " " +
-                    tl(`${props.unit.id}.text`)
-                }</Title>
+                <Title>
+                    {tl(`${props.unit.id}.text`)}
+                </Title>
             </TextContainer>
             <UnitContainer>
                 <Unit endUnit={endUnit}></Unit>

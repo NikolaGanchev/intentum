@@ -18,10 +18,10 @@ interface PadlockProps {
     readonly isUnlocking: boolean;
 }
 
-const Container = styled.div`
+const Container = styled.div<PadlockProps>`
     width: 100%;
     position: relative;
-    height: 12rem;
+    height: ${props => props.isUnlocking ? "auto" : "12rem"};
     margin-top: -0.5rem;
     overflow: hidden;
 `
@@ -30,7 +30,8 @@ const LockContainer = styled.div<PadlockProps>`
     z-index: 3;
     width: 100%;
     position: absolute;
-    bottom: 0px;
+    bottom: ${props => props.isUnlocking ? "auto" : "0px"};
+    top: ${props => props.isUnlocking ? "0px" : "auto"};
     height: 10rem;
     display: flex;
     place-content: center;
@@ -86,7 +87,7 @@ export default function Lock(props: LockProps) {
     return <div>
         {(isViewLocked && props.children) ?
             (
-                <Container>
+                <Container isUnlocking={isUnlocking}>
                     <LockContainer isUnlocking={isUnlocking}>
                         <StyledPadlock isUnlocking={isUnlocking}>
                         </StyledPadlock>

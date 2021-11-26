@@ -111,13 +111,12 @@ export async function getAllStudyUnitsArray(callback: Function) {
 
 }
 
-export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
+export async function changeStudyUnit(unit: StudyUnit) {
     let key = unit.id;
 
     get(key).then((value) => {
         if (value === undefined) {
-            callback(false);
-            return;
+            return false;
         }
         else {
             update(key, (val) => {
@@ -125,10 +124,10 @@ export async function changeStudyUnit(unit: StudyUnit, callback: Function) {
                 val.id = unit.id;
                 return val;
             }).then(() => {
-                callback(true);
+                return true;
             }).catch((err) => {
                 console.log(err);
-                callback(false);
+                return false;
             });
         }
     });

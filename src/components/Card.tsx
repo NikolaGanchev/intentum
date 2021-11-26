@@ -133,7 +133,7 @@ export default function Card(props: CardProps) {
         setIsUnlocking(true);
         setTimeout(() => {
             props.unit.unlocked = true;
-            changeStudyUnit(props.unit, () => { });
+            changeStudyUnit(props.unit);
             // It is possible the user switched cards while one was unlocking.
             // In that case, the old unit should still be unlocked in the storage
             // But the view should stay locked

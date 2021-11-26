@@ -64,7 +64,7 @@
     "p7p": "Let's write this down in its full version - after all, 6 is actually multiplied by 1:",
     "p8p": "156 = 1*100 + 5*10 + 6*1",
     "p9p": "First, let's see what the numbers 100 and 10 have in common. I can already hear you thinking \"They are both divisible by 10\". And you're right. Not only that, but both are powers of 10 -> 10 is 10^1 , and 100 is 10^2 . Let's write it down (\"^\" is a power sign):",
-    "text": "where you woll learn that there aren't only 10 digits",
+    "text": "Where you woll learn that there aren't only 10 digits",
     "title": "Lesson 1"
   },
   "l10": {
@@ -85,7 +85,7 @@
     "s10cc": "float num = 5.68f;\ndouble otherNum = 5.67;\nConsole.WriteLine(num);\nConsole.WriteLine(otherNum);",
     "s8ds2": "C#",
     "s9cj": "float num = 5.68f;\ndouble otherNum = 5.67;\nSystem.out.println(num);\nSystem.out.println(otherNum);",
-    "text": "where you will learn what is a real number",
+    "text": "Where you will learn what is a real number",
     "title": "Lesson 10"
   },
   "l11": {
@@ -239,7 +239,7 @@
     "p98pc": "int num = 5;\nint num1 = 6;\nint num2 = num++ + num1; // Here num + num1 will be executed first, i.e. 5+6, which will be 11\n// Accordingly, num2 will become 11. Then num++ will be executed, where num becomes 6\nprint(num);\nprint(num2);",
     "p99p": "Result:",
     "p9p": "We can also add two variables of the same type:",
-    "text": "where you will learn how to add and subtract numbers... once again",
+    "text": "Where you will learn how to add and subtract numbers... once again",
     "title": "Lesson 11"
   },
   "l12": {
@@ -266,7 +266,7 @@
     "p7p": "Result:",
     "p8con": "-1",
     "p9p": "Here we know that according to the ordering of the symbols, b is one greater than a. That is, if we subtract b from a, we get -1.",
-    "text": "where you will understand why you learned character encoding",
+    "text": "Where you will understand why you learned character encoding",
     "title": "Lesson 12"
   },
   "l13": {
@@ -368,7 +368,7 @@
     "s87p": "Result:",
     "s88con": "Hello Tony",
     "s89con": "Hello to you too",
-    "text": "where you will learn how text is stored",
+    "text": "Where you will learn how text is stored",
     "title": "Lesson 13"
   },
   "l14": {
@@ -466,7 +466,7 @@
     "s49p": "If you want to get something other than a string, you have to use a different method - Convert. It works like this:",
     "s50cc": "using System;\n\t\t\t\t\t\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tint num = Convert.ToInt32(Console.ReadLine());\n\t\tConsole.WriteLine(num);\n\t}\n}",
     "s51p": "Convert.ToInt32() receives Console.ReadLine() as an argument, therefore converts the result to int32 or in other words int with 32 bits - 4 bytes - or our normal int. There's also Convert.ToInt64(), which is long, and Convert.ToInt16(), which is 16 bits - 2 bytes, or short. There's also .ToDouble() and .ToChar().",
-    "text": "where you will learn how to use the console... from the other side",
+    "text": "Where you will learn how to use the console... from the other side",
     "title": "Lesson 15"
   },
   "l16": {
@@ -539,7 +539,7 @@
     "s16p": "Notice that the name in Java is written completely - boolean. In our pseudocode I will use bool, the abbreviation also used in C#, because it is shorter. However, it does not exist in Java.",
     "s17ds2": "C#",
     "s18cc": "using System;\n\t\t\t\t\t\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tbool b = true;\n\t\tbool b1 = false;\n\t}\n}",
-    "text": "where you will learn how to compare",
+    "text": "Where you will learn how to compare",
     "title": "Lesson 16"
   },
   "l17": {
@@ -601,7 +601,7 @@
     "p7p": "In code it is used where any other comparison can be made:",
     "p8pc": "bool b = 5 < 7 && 6 < 7;\nprint(b);",
     "p9p": "Result:",
-    "text": "where you'll learn how to compare... several times to once",
+    "text": "Where you'll learn how to compare... several times to once",
     "title": "Lesson 17"
   },
   "l18": {
@@ -627,7 +627,7 @@
     "s5cj": "package tutorial;\n\npublic class Ifs {\n\t\n\tpublic static void main(String[] args) {\n\t\tint num = -2;\n\t\tif (num > 0) {\n\t\t\tSystem.out.println(\"The number is positive\");\n\t\t}\n\t\telse {\n\t\t\tSystem.out.println(\"The number is negative or zero\");\n\t\t}\n\t}\n}",
     "s6ds2": "C#",
     "s7cc": "using System;\n\t\t\t\t\t\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tint num = -2;\n\t\tif (num > 0) \n\t\t{\n\t\t\tConsole.WriteLine(\"The number is positive\");\n\t\t}\n\t\telse \n\t\t{\n\t\t\tConsole.WriteLine(\"The number is negative or zero\");\n\t\t}\n\t}\n}",
-    "text": "where you will learn how to control a program",
+    "text": "Where you will learn how to control a program",
     "title": "Lesson 18"
   },
   "l19": {
@@ -643,7 +643,7 @@
     "s6cj": "package tutorial;\n\npublic class Ifs {\n\t\n\tpublic static void main(String[] args) {\n\t\tString result = \"The number\";\n\t\tint num = 15;\n\t\tif (num % 3 == 0) {\n\t\t\tresult += \" is even to 3\";\n\t\t\t\n\t\t\tif (num % 5 == 0) {\n\t\t\t\t\t\tresult += \" and 5\";\n\t\t\t}\n\t\t}\n\t\tSystem.out.println(result);\n\t}\n}",
     "s7ds2": "C#",
     "s8cc": "using System;\n\t\t\t\t\t\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tstring result = \"The number\";\n\t\tint num = 15;\n\t\tif (num % 3 == 0) {\n\t\t\tresult += \" is even to 3\";\n\t\t}\n\t\tif (num % 5 == 0) {\n\t\t\tresult += \" and 5\";\n\t\t}\n\t\tConsole.WriteLine(result);\n\t}\n}",
-    "text": "where you will learn how to write checks",
+    "text": "Where you will learn how to write checks",
     "title": "Lesson 19"
   },
   "l2": {
@@ -669,7 +669,7 @@
     "p6p": "Adding numbers in binary is actually the same. Only instead of keeping track of 10, we keep track of 2 - the base of the system. That is, if the sum of a column is less than 2, we write it down, otherwise we put one on the next column and write down the difference of the sum and 2. Let's give it a try:",
     "p7pre": "\n101 \n + \n 011 \n1000",
     "p8p": "First we add 1 and 1. We get 2, which equals two. Therefore, we write 1 above the next column and write 2-2 = 0. On the next column we add 0 and 1 and get 1, but we have 1, therefore the sum is 2. We put 1, write 0 and continue. On the next column we add 1 and 0, we get 1. We have 1, add that too, and get 2. We write 1 on the next column. We write down 0. The last column is blank, so we just write 1 (from the previous 1). We get 1000. Let's do a check. 101 is 5. 011 is 3. 1000 is 8. So we have worked correctly.",
-    "text": "where you will learn how to add and subtract numbers... again",
+    "text": "Where you will learn how to add and subtract numbers... again",
     "title": "Lesson 2"
   },
   "l20": {
@@ -693,7 +693,7 @@
     "p7fq": "How many characters are there in ASCII?",
     "p8p": "You might be noticing a slight problem here - there are only the Latin characters, punctuation marks and numbers. What happens if you have a message in Cyrillic? Or in Japanese? What about Chinese? And where do the emoticons fit into this whole thing. And the answer is, well, nowhere. But that problem didn't appear for a long time. Countries that used unauthorized characters used different character encodings. But the problem appeared - on a computer with ASCII, 61 is a little \"a\". But what if it runs a file saved with an encoding in which 61 is an \"i\"? The answer is \"complete chaos.\" Not to mention that many alternative encodings were also created, such as Windows-1251, where 0438 (in base 16, that is 1080 in decimal) is \"and\". What happens when a computer trying to read ASCII, where there is no 1080 character, gets to this? The character is usually displayed as question marks.",
     "p9p": "These problems still occur today. Do not imagine that they have disappeared. But they are much less so, thanks to one reason - Unicode (from universal code, read \"unicode\", spelled unicode).",
-    "text": "where you will learn how text becomes zeros and ones",
+    "text": "Where you will learn how text becomes zeros and ones",
     "title": "Lesson 3"
   },
   "l4": {
@@ -786,7 +786,7 @@
     "p7p": "Let's look at an example. We are in Windows. We are logged into a user named \"John\". This user has a file named \"nominations.docx\" in his \"Documents\" folder. This folder is located in his users folder (\"Users\"), which is in his root folder (\"C\").",
     "p8p": "This is what the absolute path to this file would look like:",
     "p9pre": "C:\\Users\\Gosho\\Documents\\nominations.docx",
-    "text": "where you will learn that extensions are a lie",
+    "text": "Where you will learn that extensions are a lie",
     "title": "Lesson 4"
   },
   "l5": {
@@ -832,7 +832,7 @@
     "p7p": "Furthermore, in this case \"C:/Users/User>\" is our working folder. We can change it. This is done using the \"cd\" command from \"change directory\" (directory is a synonym for folder). The console works with relative addresses. That means, if we type:",
     "p8con": "<<prefix>>C:/Users/User> cd ./",
     "p9p": "We will remain in the same folder. If we write:",
-    "text": "where you will learn how computers were used before graphics",
+    "text": "Where you will learn how computers were used before graphics",
     "title": "Lesson 5"
   },
   "l6": {
@@ -863,7 +863,7 @@
     "p7p": "Get up. Look at the clock. You are 30 minutes late. Brush your teeth while getting dressed. You are ready again.",
     "p8p": "The result is also general. For example, if I sort one pile of objects one way and another one - the same way, the piles are not the same. But the result of the sorting algorithm is the same - the items are sorted. Similarly, the lottery algorithm always has the same result - there are always 6 numbers drawn, never mind that they are different each time. Each action is broken down to its smallest parts to be part of an algorithm. If someone asks you, \"What is your morning routine\", and you reply \"I just get ready\", you won't help much, however, if you respond with some of the above examples, you would give a complete answer. After that, you may be asked \"How do you brush your teeth?\". An answer like the previous should follow. In a sense, programming comes down to the ability to break down problems to their smallest part.",
     "p9p": "Running the same algorithm twice and expecting a different result is bad, and if it works, then there's a bug in the algorithm - the expected result of the laundry algorithm is \"clean clothes\", not \"flooded room\".",
-    "text": "where you will learn what is an algorithm",
+    "text": "Where you will learn what is an algorithm",
     "title": "Lesson 6"
   },
   "l7": {
@@ -898,7 +898,7 @@
     "p8a4": "very fast",
     "p8tq": "The heap is:",
     "p9h": "Stack",
-    "text": "where you will learn what is the connection between buscuits and memory",
+    "text": "Where you will learn what is the connection between buscuits and memory",
     "title": "Lesson 7"
   },
   "l8": {
@@ -947,7 +947,7 @@
     "s40p": "Edit it, so it becomes:",
     "s41cc": "using System;\n\nnamespace Tutorial\n{\n    class Hello\n    {\n        static void Main(string[] args)\n        {\n            Console.WriteLine(\"Hello world!\");\n        }\n    }\n}",
     "s42p": "Above there should be a rectangle with the project name and a green triangle. Click it and select the project name. The console will open in a black window. It should say \"Hello World!\". You have run your first code. Bravo!",
-    "text": "where you will find out what you will learn",
+    "text": "Where you will find out what you will learn",
     "title": "Lesson 8"
   },
   "l9": {
@@ -1024,7 +1024,7 @@
     "s54cc": "int num = 5; // Създаваме / инициализираме променливата\nint secondNum = num; // Променливите може да са равни и на други променливи и взимат моментната им стойност\nConsole.WriteLine(num);\nnum = 6; // Променяме стойността на променливата. Не се записва типът.\nConsole.WriteLine(num);\nConsole.WriteLine(secondNum);",
     "s9cj": "System.out.println() // This prints and then leaves a line - comes from print line\nSystem.out.print() // This prints but does not leave a line. System.out.println() uses this, \n//only it adds one\"\\n\" character at the end to show a new line. Do you remember that was the newline character?",
     "s9ds2": "C#",
-    "text": "where you will see code for the first time",
+    "text": "Where you will see code for the first time",
     "title": "Lesson 9"
   },
   "t1": {
@@ -1097,7 +1097,7 @@
     "p9a3": "doesn't indicate what program should open the file",
     "p9a4": "doesn't limit what program can open the file",
     "p9tqc": "The extension of a file:",
-    "text": "where you will check your computer knowledge",
+    "text": "Where you will check your computer knowledge",
     "title": "Test 1"
   },
   "t2": {
@@ -1183,7 +1183,7 @@
     "p9a3": "there are no unsigned types",
     "p9a4": "unsigned types do not differ in size from normal types",
     "p9tqc": "Unsigned types can store larger numbers because:",
-    "text": "where you will check your ability to store information",
+    "text": "Where you will check your ability to store information",
     "title": "Test 2"
   },
   "t3": {
@@ -1224,7 +1224,7 @@
     "p8a4": "None of the above",
     "p8tqc": "After executing the above code, the variable \"result\" will be equal to:",
     "p9pc": "int num = 5;\nswitch (num) {\ncase 1:\n\tprint(num * 65 - 1);\n\tbreak;\ncase 2:\n\tprint(num * 78 - 3);\n\tbreak;\ncase 15:\n\tprint(num * 32 - 4);\n\tbreak;\ndefault:\n\tprint(num);\n\tbreak;\n}",
-    "text": "where you will test your ability to control a program",
+    "text": "Where you will test your ability to control a program",
     "title": "Test 3"
   }
 }
