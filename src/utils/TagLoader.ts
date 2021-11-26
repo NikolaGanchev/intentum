@@ -1,17 +1,13 @@
 import StudyUnit from "./StudyUnit";
-class Tags {
+export default class Tags {
     private tags: Map<string, string[]>;
 
     constructor() {
         this.tags = new Map<string, string[]>();
     }
 
-    addTagsWithStudyUnit(unit: StudyUnit, tags: string[]) {
-        this.tags.set(unit.id, tags);
-    }
-
-    addTagsWithStudyUnitId(unit: string, tags: string[]) {
-        this.tags.set(unit, tags);
+    addTagsWithStudyUnitId(tags: TagSet) {
+        this.tags.set(tags.studyUnit.id, tags.tags);
     }
 
     getTags(id: string) {
@@ -44,35 +40,20 @@ class Tags {
 
         return results;
     }
+
+    load(tags: TagSet[]) {
+        for (let tag of tags) {
+            this.addTagsWithStudyUnitId(tag);
+        }
+    }
 }
 
-export class Tag {
+export class TagSet {
     studyUnit: StudyUnit;
     tags: string[];
 
     constructor(studyUnit: StudyUnit, tags: string[]) {
         this.studyUnit = studyUnit;
         this.tags = tags;
-    }
-}
-
-export default class TagLoader {
-    private static tags: Tags;
-
-    static load(tags: Tag[]) {
-        TagLoader.tags = new Tags();
-
-        for (let tag of tags) {
-            TagLoader.tags.addTagsWithStudyUnitId(tag.studyUnit.id, tag.tags);
-        }
-    }
-
-    static getTagsObject() {
-        if (TagLoader.tags) {
-            return TagLoader.tags;
-        }
-        else {
-            throw new Error("Call TagLoader.load() to load tags before using TagLoader.getTags()");
-        }
     }
 }

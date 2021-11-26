@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from 'styled-components';
 import CardCarousel, { animationLength } from './components/CardCarousel';
@@ -12,11 +12,12 @@ import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
-import TagLoader, { Tag } from './utils/TagLoader';
+import TagLoader, { TagSet } from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Alert from './components/Alert';
 import registerAll from './utils/UnitImports';
+import { TagsContext } from './components/TagsContext';
 
 const StyledCarousel = styled(CardCarousel)`
   position: relative;
@@ -104,6 +105,8 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { unitId }: any = useParams();
   const [showIndexedDBNotSupportedWarning, setShowIndexedDBNotSupportedWarning] = useState(false);
+  const tags = useContext(TagsContext);
+  const history = useHistory();
 
   useEffect(() => {
     document.title = t("app.name");
@@ -147,12 +150,13 @@ function App() {
 
     const normalized = unitId.trim().toLowerCase();
 
-    cards.forEach((value: StudyUnit, index: number) => {
-      if (value.id.toLowerCase() === normalized) {
-        setActiveIndex(index);
-        set(activeIndexKey, index);
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i].id.toLowerCase() === normalized) {
+        setActiveIndex(i);
+        set(activeIndexKey, i);
+        break;
       }
-    });
+    }
   }
 
   // Carousel controller
@@ -195,6 +199,7 @@ function App() {
         setTransX(transitionToNew);
         setActiveIndex(newActiveIndex);
         set(activeIndexKey, newActiveIndex);
+        history.replace(cards[newActiveIndex].id);
 
         requestAnimationFrame(() => {
 
@@ -207,11 +212,11 @@ function App() {
             setTimeout(() => {
 
               requestAnimationFrame(() => {
-                let copy: any = {};
+                let copy: any = [];
                 Object.assign(copy, cards);
                 copy[newActiveIndex].unlocked = true;
                 setCards(copy);
-                changeStudyUnit(cards[newActiveIndex], () => { });
+                changeStudyUnit(cards[newActiveIndex]);
               })
             }, animationLength * 1000)
 
@@ -223,6 +228,18 @@ function App() {
     }, animationLength * 1000);
   }
 
+  const onSelect = (id: string) => {
+    if (cards == null) {
+      return;
+    }
+
+    for (let i = 0; i < cards.length; i++) {
+      if (id === cards[i].id) {
+        changeToArbitrary(i);
+        break;
+      }
+    }
+  }
 
   const job = async () => {
 
@@ -235,7 +252,7 @@ function App() {
       }
 
       const onLoad = async (units: StudyUnit[]) => {
-        TagLoader.load(getTags(units));
+        tags.current.load(getTags(units));
         setCards(units);
         await loadActiveIndexFromStorage();
         switchToUrlUnitIfPossible(unitId, units);
@@ -243,9 +260,9 @@ function App() {
       }
 
       const getTags = (units: StudyUnit[]) => {
-        const tags: Tag[] = [];
+        const tags: TagSet[] = [];
         for (let unit of units) {
-          tags.push(new Tag(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+          tags.push(new TagSet(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
         }
 
         return tags;
@@ -289,7 +306,8 @@ function App() {
             <Top>
               <SearchBar
                 cards={cards}
-                changeToArbitrary={changeToArbitrary} />
+                changeToArbitrary={changeToArbitrary}
+                onSelect={onSelect} />
               <StyledButton onClick={() => { setSettingsOpen(true) }} aria-label={t("app.settings")}>
                 <StyledSettings>
                 </StyledSettings>

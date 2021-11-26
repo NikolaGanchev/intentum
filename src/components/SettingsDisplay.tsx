@@ -1,16 +1,16 @@
 import { set, clear } from "idb-keyval/dist/esm-compat";
-import {useEffect, useState} from "react";
+import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
 import StudyUnit from "../utils/StudyUnit";
 import { generateAndGetStudyUnits, getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
-import TagLoader, {Tag} from "../utils/TagLoader";
 import { themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
-import {useHistory} from "react-router-dom";
+import { TagsContext } from "./TagsContext";
+import { TagSet } from "../utils/TagLoader";
 
 const Setting = styled.div`
     display: flex;
@@ -104,6 +104,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
     const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
+    const tags = useContext(TagsContext);
 
     useEffect(() => {
         setThemeValue(props.theme === themes.darkTheme);
@@ -121,16 +122,16 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                 generateAndGetStudyUnits(callback);
             }
             else {
-                TagLoader.load(getTags(units));
+                tags.current.load(getTags(units));
             }
         };
         getAllStudyUnitsArray(callback);
     }
 
     const getTags = (units: StudyUnit[]) => {
-        const tags: Tag[] = [];
+        const tags: TagSet[] = [];
         for (let unit of units) {
-            tags.push(new Tag(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+            tags.push(new TagSet(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
         }
 
         return tags;
@@ -142,7 +143,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
 
             if (answer) {
                 clear().then(_ => {
-                        window.location.reload();
+                    window.location.reload();
                 });
             }
 

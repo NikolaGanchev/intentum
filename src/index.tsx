@@ -16,6 +16,7 @@ import { get } from 'idb-keyval/dist/esm-compat';
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { ModalStackProvider } from "./components/ModalStackContext";
+import { TagsProvider } from './components/TagsContext';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -48,13 +49,15 @@ ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <ModalStackProvider>
-        <Router>
-          <Switch>
-            <Route path="/units/:unitId?" children={<App />} />
-            <Route path="/" exact children={<App />} />
-            <Route path="/:unitId?" children={<App />} />
-          </Switch>
-        </Router>
+        <TagsProvider>
+          <Router>
+            <Switch>
+              <Route path="/units/:unitId?" children={<App />} />
+              <Route path="/" exact children={<App />} />
+              <Route path="/:unitId?" children={<App />} />
+            </Switch>
+          </Router>
+        </TagsProvider>
       </ModalStackProvider>
     </I18nextProvider>
   </React.StrictMode>,

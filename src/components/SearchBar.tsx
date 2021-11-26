@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Search from "../resources/Search";
 import TagLoader from "../utils/TagLoader";
 import Button from "./Button";
 import StudyUnit from "../utils/StudyUnit";
+import { TagsContext } from "./TagsContext";
 
 const MAX_RESULTS = 5;
 const REM_RESULT_HEIGHT = 3;
@@ -111,6 +112,7 @@ const StyledListButton = styled(Button)`
 interface SearchBarProps {
     cards: any;
     changeToArbitrary: any;
+    onSelect: (id: string) => any;
 }
 
 
@@ -121,6 +123,7 @@ export default function SearchBar(props: SearchBarProps) {
     const [isHover, setIsHover] = useState(false);
     const [isClick, setIsClick] = useState(false);
     const [results, setResults] = useState<string[]>([]);
+    const tags = useContext(TagsContext);
     // isHiddenExplicitly is a toggle that is used to allow disabling the SearchBar without hovering for mobile use
     // it is only set true by clicking the SearchBar button to disable it
     // upon any future hover or click (click that doesn't disable the SearchBar)
@@ -136,7 +139,7 @@ export default function SearchBar(props: SearchBarProps) {
         let value: string = e.currentTarget.value;
         setValue(value);
 
-        TagLoader.getTagsObject().search(value, MAX_RESULTS)
+        tags.current.search(value, MAX_RESULTS)
             .then((results: string[]) => {
                 setResults(results);
             });
@@ -163,11 +166,7 @@ export default function SearchBar(props: SearchBarProps) {
     }
 
     const onClickResult = (value: string) => {
-        for (let i = 0; i < props.cards.length; i++) {
-            if (value === props.cards[i].id) {
-                props.changeToArbitrary(i);
-            }
-        }
+        props.onSelect(value);
     }
 
     return <Container onMouseEnter={onHover} onMouseLeave={onHover}>
