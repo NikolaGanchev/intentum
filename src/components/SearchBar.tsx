@@ -2,9 +2,7 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Search from "../resources/Search";
-import TagLoader from "../utils/TagLoader";
 import Button from "./Button";
-import StudyUnit from "../utils/StudyUnit";
 import { TagsContext } from "./TagsContext";
 
 const MAX_RESULTS = 5;

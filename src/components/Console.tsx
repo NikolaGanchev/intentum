@@ -12,7 +12,6 @@ const StyledContainer = styled.div`
 `
 
 export default function Console(props: any) {
-    const prefix = "C:/WINDOWS/system32>";
     const defaultPrefix = ">>";
     const output = "<<output>>"
     const customPrefix = "<<prefix>>"

@@ -55,14 +55,6 @@ const StyledButton = styled(Button)`
     transform : translate(-50%, -50%);
 `
 
-const Line = styled.div`
-  display: block;
-  background-color: ${props => props.theme.secondary};
-  height: 1px;
-  margin-left: 15px;
-  margin-right: 15px;
-`
-
 const unlockDuration = 0.85;
 
 const unlockAnimation = keyframes`

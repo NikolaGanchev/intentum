@@ -1,4 +1,3 @@
-import StudyUnit from "./StudyUnit";
 export default class Tags {
     private tags: Map<string, string[]>;
 

@@ -1,5 +1,5 @@
 
-import React, { useRef } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled, { css, keyframes } from "styled-components"
