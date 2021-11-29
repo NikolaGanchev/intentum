@@ -117,6 +117,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         i18nt.changeLanguage(lang);
         setValue(t(`app.${lang}`));
         set(StorageKeys.LANGUAGE, lang);
+        tags.current.clear();
         tags.current.load(getTagSets(Array.from(UNITS.keys())));
     }
 

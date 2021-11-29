@@ -45,6 +45,10 @@ export default class Tags {
             this.addTagSet(tagSet);
         }
     }
+
+    clear() {
+        this.tags.clear();
+    }
 }
 
 export class TagSet {
