@@ -3,13 +3,14 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import { themes } from "../utils/Theme";
+import { Themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
 import { TagsContext } from "./TagsContext";
 import { TagSet } from "../utils/TagLoader";
 import {UNITS} from "../utils/UnitImports";
+import StorageKeys from "../utils/StorageKeys";
 
 const Setting = styled.div`
     display: flex;
@@ -101,12 +102,12 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [, i18nl] = useTranslation("lessons");
     const [tt, i18nt] = useTranslation("tags");
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
-    const [themeValue, setThemeValue] = useState(props.theme === themes.darkTheme);
+    const [themeValue, setThemeValue] = useState(props.theme === Themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
     const tags = useContext(TagsContext);
 
     useEffect(() => {
-        setThemeValue(props.theme === themes.darkTheme);
+        setThemeValue(props.theme === Themes.darkTheme);
     }, [props.theme])
 
     const onLanguageChange = (e: any) => {
@@ -115,7 +116,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         i18nl.changeLanguage(lang);
         i18nt.changeLanguage(lang);
         setValue(t(`app.${lang}`));
-        set("lang", lang);
+        set(StorageKeys.LANGUAGE, lang);
         tags.current.load(getTagSets(Array.from(UNITS.keys())));
     }
 

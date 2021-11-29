@@ -2,92 +2,9 @@ import { StudyUnitType } from "./StudyUnitType";
 import StudyUnit from "./StudyUnit";
 import { get, getMany, set, setMany, update } from 'idb-keyval/dist/esm-compat';
 import Result from "./Result";
-
-const HAS_ENTERED_KEY = "hasEntered";
-
-const LESSON = "l";
-const TEST = "t";
-
-const TEST_POSITIONS = [8, 18, 24, 28, 34, 39, 48, 56];
-const LESSON_AMOUNT = 42;
-
-export async function getStudyUnit(type: StudyUnitType, number: number, callback: Function) {
-
-    let unit: StudyUnit | null;
-
-
-    switch (type) {
-        case StudyUnitType.Lesson: {
-            let lessonProgress: StudyUnit | undefined = await get(LESSON + number);
-            if (lessonProgress === undefined) {
-                unit = null;
-                break;
-            }
-            unit = lessonProgress;
-            break;
-        }
-        case StudyUnitType.Test: {
-            let testProgress: StudyUnit | undefined = await get(TEST + number);
-            if (testProgress === undefined) {
-                unit = null;
-                break;
-            }
-            unit = testProgress;
-
-            break;
-        }
-    }
-
-    callback(unit);
-}
+import StorageKeys from "./StorageKeys";
 
 export async function getAllStudyUnitsArray(unitIds: string[]) {
-    /*let lessonsToGet: any[] = [];
-    let studyUnits: StudyUnit[] = [];
-
-    lessonsToGet.push(LESSON + "0");
-
-    for (let i = 1; i <= LESSON_AMOUNT; i++) {
-        lessonsToGet.push(LESSON + i);
-    }
-
-    getMany(lessonsToGet)
-        .then((...args) => {
-            for (let i = 1; i <= args[0].length; i++) {
-                let currentLesson: StudyUnit = args[0][i - 1];
-                studyUnits.push(currentLesson)
-            }
-
-            let testsToGet: any[] = [];
-
-            for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-                testsToGet.push(TEST + i);
-            }
-
-            getMany(testsToGet)
-                .then((...args1) => {
-                    let tests = [];
-                    for (let i = 1; i <= args1[0].length; i++) {
-                        let currentTest: StudyUnit = args1[0][i - 1];
-                        tests.push(currentTest);
-                    }
-
-                    for (let i = 0; i < TEST_POSITIONS.length; i++) {
-                        studyUnits.splice(TEST_POSITIONS[i] - i, 0, tests[i]);
-                    }
-
-                    callback(studyUnits);
-                })
-                .catch((err) => {
-                    callback(null);
-                    throw err;
-                });
-        })
-        .catch((err) => {
-            callback(null);
-            throw err;
-        });*/
-
     try {
         const result = await getMany(unitIds);
 
@@ -126,7 +43,7 @@ export async function changeStudyUnit(unit: StudyUnit) {
 export async function generateAndGetStudyUnitsIfNeeded(unitIds: string[]) {
 
     try {
-        const value = await get(HAS_ENTERED_KEY);
+        const value = await get(StorageKeys.HAS_ENTERED);
 
         if (value === undefined) {
             const result = await generateAndStoreStudyUnits(unitIds);
@@ -136,7 +53,7 @@ export async function generateAndGetStudyUnitsIfNeeded(unitIds: string[]) {
             }
 
             try {
-                await set(HAS_ENTERED_KEY, {HAS_ENTERED_KEY: true});
+                await set(StorageKeys.HAS_ENTERED, {HAS_ENTERED_KEY: true});
                 return result;
             } catch (error) {
                 return new Result<StudyUnit[]>(false, result.result, error);

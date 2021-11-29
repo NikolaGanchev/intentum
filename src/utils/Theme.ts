@@ -40,9 +40,9 @@ const darkTheme = {
     transparent: "rgba(0, 0, 0, 0)"
 };
 
-const themes = {
+const Themes = {
     darkTheme: "dark",
     theme: "light"
 }
 
-export { theme, darkTheme, themes };
+export { theme, darkTheme, Themes };

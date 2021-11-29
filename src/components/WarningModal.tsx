@@ -12,7 +12,7 @@ const StyledWarningButtonContainer = styled.div`
 const YesButton = styled(Button)`
     margin-left: 1rem;
     border-color: ${props => props.theme.error};
-    color: ${props => props.theme.textWhite};
+    color: ${props => props.theme.text};
 `
 
 const NoButton = styled(Button)`

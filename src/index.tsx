@@ -17,6 +17,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { ModalStackProvider } from "./components/ModalStackContext";
 import { TagsProvider } from './components/TagsContext';
+import StorageKeys from "./utils/StorageKeys";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -38,7 +39,7 @@ i18next.init({
 });
 
 
-get("lang").then((val: string) => {
+get(StorageKeys.LANGUAGE).then((val: string) => {
   i18next.changeLanguage(val);
 })
 

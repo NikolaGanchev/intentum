@@ -8,7 +8,7 @@ import StudyUnit from './utils/StudyUnit';
 import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
-import { theme, darkTheme, themes } from './utils/Theme';
+import {theme, darkTheme, Themes} from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
@@ -20,6 +20,7 @@ import { TagsContext } from './components/TagsContext';
 import {registry} from "./utils/UnitRegistry";
 import {UNITS} from "./utils/UnitImports";
 import Result from "./utils/Result";
+import StorageKeys from "./utils/StorageKeys";
 
 const StyledCarousel = styled(CardCarousel)`
     position: relative;
@@ -95,7 +96,6 @@ const Footer = styled.div`
         justify-content: center;
     }
 `
-const activeIndexKey = "activeIndex";
 
 function App() {
     const [currentTheme, setTheme] = useState(theme);
@@ -125,8 +125,8 @@ function App() {
         }, 500);
     }
 
-    get("theme").then((val: string) => {
-        if (val === "dark") {
+    get(StorageKeys.THEME).then((val: string) => {
+        if (val === Themes.darkTheme) {
             setTheme(darkTheme);
         }
         else {
@@ -137,11 +137,11 @@ function App() {
     const changeTheme = (isDark: boolean) => {
         if (isDark) {
             setTheme(darkTheme);
-            set("theme", themes.darkTheme);
+            set(StorageKeys.THEME, Themes.darkTheme);
         }
         else {
             setTheme(theme);
-            set("theme", themes.theme);
+            set(StorageKeys.THEME, Themes.theme);
         }
     }
 
@@ -155,7 +155,7 @@ function App() {
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].id.toLowerCase() === normalized) {
                 setActiveIndex(i);
-                set(activeIndexKey, i);
+                set(StorageKeys.SELECTED_CARD, i);
                 break;
             }
         }
@@ -168,7 +168,7 @@ function App() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const loadActiveIndexFromStorage = async () => {
-        let val: number | undefined = await get(activeIndexKey);
+        let val: number | undefined = await get(StorageKeys.SELECTED_CARD);
         if (val) {
             setActiveIndex(val);
         }
@@ -200,7 +200,7 @@ function App() {
                 setIsTransition(false);
                 setTransX(transitionToNew);
                 setActiveIndex(newActiveIndex);
-                set(activeIndexKey, newActiveIndex);
+                set(StorageKeys.SELECTED_CARD, newActiveIndex);
                 history.replace(cards[newActiveIndex].id);
 
                 requestAnimationFrame(() => {
@@ -304,7 +304,7 @@ function App() {
                     ok={t("app.ok")}
                     hide={() => { setShowIndexedDBNotSupportedWarning(false) }}
                     isShowing={showIndexedDBNotSupportedWarning} />
-                <SettingsDisplay theme={currentTheme === darkTheme ? themes.darkTheme : themes.theme}
+                <SettingsDisplay theme={currentTheme === darkTheme ? Themes.darkTheme : Themes.theme}
                     changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
                 <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />
                 {(currentStudyUnit) ?
