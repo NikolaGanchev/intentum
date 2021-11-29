@@ -3,14 +3,13 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import StudyUnit from "../utils/StudyUnit";
-import { generateAndGetStudyUnits, getAllStudyUnitsArray } from "../utils/StudyUnitUtils";
 import { themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
 import { TagsContext } from "./TagsContext";
 import { TagSet } from "../utils/TagLoader";
+import {UNITS} from "../utils/UnitImports";
 
 const Setting = styled.div`
     display: flex;
@@ -117,21 +116,13 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         i18nt.changeLanguage(lang);
         setValue(t(`app.${lang}`));
         set("lang", lang);
-        const callback = async (units: StudyUnit[] | null) => {
-            if (units == null) {
-                generateAndGetStudyUnits(callback);
-            }
-            else {
-                tags.current.load(getTags(units));
-            }
-        };
-        getAllStudyUnitsArray(callback);
+        tags.current.load(getTagSets(Array.from(UNITS.keys())));
     }
 
-    const getTags = (units: StudyUnit[]) => {
+    const getTagSets = (unitIds: string[]) => {
         const tags: TagSet[] = [];
-        for (let unit of units) {
-            tags.push(new TagSet(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+        for (let unitId of unitIds) {
+            tags.push(new TagSet(unitId, tt(`tags.${unitId}`, { returnObjects: true })))
         }
 
         return tags;

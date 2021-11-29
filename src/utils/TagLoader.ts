@@ -6,8 +6,8 @@ export default class Tags {
         this.tags = new Map<string, string[]>();
     }
 
-    addTagsWithStudyUnitId(tags: TagSet) {
-        this.tags.set(tags.studyUnit.id, tags.tags);
+    addTagSet(tagSet: TagSet) {
+        this.tags.set(tagSet.id, tagSet.tags);
     }
 
     getTags(id: string) {
@@ -41,19 +41,19 @@ export default class Tags {
         return results;
     }
 
-    load(tags: TagSet[]) {
-        for (let tag of tags) {
-            this.addTagsWithStudyUnitId(tag);
+    load(tagSets: TagSet[]) {
+        for (let tagSet of tagSets) {
+            this.addTagSet(tagSet);
         }
     }
 }
 
 export class TagSet {
-    studyUnit: StudyUnit;
+    id: string;
     tags: string[];
 
-    constructor(studyUnit: StudyUnit, tags: string[]) {
-        this.studyUnit = studyUnit;
+    constructor(id: string, tags: string[]) {
+        this.id = id;
         this.tags = tags;
     }
 }

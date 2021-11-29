@@ -5,19 +5,21 @@ import CardCarousel, { animationLength } from './components/CardCarousel';
 import Loader from './components/Loader';
 import Unit from './components/Unit';
 import StudyUnit from './utils/StudyUnit';
-import { changeStudyUnit, generateAndGetStudyUnits, generateStudyUnitsIfNeeded, getAllStudyUnitsArray } from './utils/StudyUnitUtils';
+import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
 import { theme, darkTheme, themes } from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
-import TagLoader, { TagSet } from './utils/TagLoader';
+import { TagSet } from './utils/TagLoader';
 import SearchBar from './components/SearchBar';
 import { useHistory, useParams } from 'react-router-dom';
 import Alert from './components/Alert';
-import registerAll from './utils/UnitImports';
 import { TagsContext } from './components/TagsContext';
+import {registry} from "./utils/UnitRegistry";
+import {UNITS} from "./utils/UnitImports";
+import Result from "./utils/Result";
 
 const StyledCarousel = styled(CardCarousel)`
     position: relative;
@@ -246,48 +248,50 @@ function App() {
 
     const job = async () => {
 
-        const func = async (success: boolean) => {
-            const onError = () => {
+        const func = (result: Result<StudyUnit[]>) => {
+            const onError = (result: Result<StudyUnit[]>) => {
                 setShowIndexedDBNotSupportedWarning(true);
-                generateAndGetStudyUnits((units: StudyUnit[]) => {
-                    onLoad(units);
-                });
+                if (result.result != null) {
+                    onLoad(result.result);
+                }
+                else {
+                    generateStudyUnits(Array.from(UNITS.keys()))
+                        .then((units: StudyUnit[]) => {
+                            onLoad(units);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
             }
 
             const onLoad = async (units: StudyUnit[]) => {
-                tags.current.load(getTags(units));
+                tags.current.load(getTagSets(Array.from(UNITS.keys())));
                 setCards(units);
                 await loadActiveIndexFromStorage();
                 switchToUrlUnitIfPossible(unitId, units);
-                registerAll();
+                registry.registerAll(UNITS);
             }
 
-            const getTags = (units: StudyUnit[]) => {
+            const getTagSets = (unitIds: string[]) => {
                 const tags: TagSet[] = [];
-                for (let unit of units) {
-                    tags.push(new TagSet(unit, tt(`tags.${unit.id}`, { returnObjects: true })))
+                for (let unitId of unitIds) {
+                    tags.push(new TagSet(unitId, tt(`tags.${unitId}`, { returnObjects: true })))
                 }
 
                 return tags;
             }
 
-            if (success) {
-                const callback = async (units: StudyUnit[] | null) => {
-                    if (units == null) {
-                        await onError();
-                    }
-                    else {
-                        await onLoad(units);
-                    }
-                };
-                await getAllStudyUnitsArray(callback);
+            if (result.success && result.result != null) {
+                onLoad(result.result);
             }
             else {
-                onError();
+                onError(result);
             }
         }
 
-        await generateStudyUnitsIfNeeded(func);
+        await generateAndGetStudyUnitsIfNeeded(Array.from(UNITS.keys()))
+            .then(func);
     }
 
     return (

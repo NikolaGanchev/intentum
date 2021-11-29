@@ -1,10 +1,6 @@
-// importing all units at the start and registering them
+// importing all units at the start
 // This is done so webpack can actually decode the paths
-// It would be about the same thing if I imported all the units
-// Then stored them in a map with their respective id and looped over the map to register them
 // If anyone can think of a better way to do this, try it
-
-import { registry } from "./UnitRegistry";
 
 import L0 from "../components/units/L0";
 import L1 from "../components/units/L1";
@@ -58,56 +54,56 @@ import L41 from "../components/units/L41";
 import T8 from "../components/units/T8";
 import L42 from "../components/units/L42";
 
-export default function registerAll() {
-    registry.register("l0", L0);
-    registry.register("l1", L1);
-    registry.register("l2", L2);
-    registry.register("l3", L3);
-    registry.register("l4", L4);
-    registry.register("l5", L5);
-    registry.register("l6", L6);
-    registry.register("l7", L7);
-    registry.register("t1", T1);
-    registry.register("l8", L8);
-    registry.register("l9", L9);
-    registry.register("l10", L10);
-    registry.register("l11", L11);
-    registry.register("l12", L12);
-    registry.register("l13", L13);
-    registry.register("l14", L14);
-    registry.register("l15", L15);
-    registry.register("t2", T2);
-    registry.register("l16", L16);
-    registry.register("l17", L17);
-    registry.register("l18", L18);
-    registry.register("l19", L19);
-    registry.register("t3", T3);
-    registry.register("l20", L20);
-    registry.register("l21", L21);
-    registry.register("t4", T4);
-    registry.register("l22", L22);
-    registry.register("l23", L23);
-    registry.register("l24", L24);
-    registry.register("l25", L25);
-    registry.register("t5", T5);
-    registry.register("l26", L26);
-    registry.register("l27", L27);
-    registry.register("l28", L28);
-    registry.register("t6", T6);
-    registry.register("l29", L29);
-    registry.register("l30", L30);
-    registry.register("l31", L31);
-    registry.register("l32", L32);
-    registry.register("l33", L33);
-    registry.register("l34", L34);
-    registry.register("l35", L35);
-    registry.register("t7", T7);
-    registry.register("l36", L36);
-    registry.register("l37", L37);
-    registry.register("l38", L38);
-    registry.register("l39", L39);
-    registry.register("l40", L40);
-    registry.register("l41", L41);
-    registry.register("t8", T8);
-    registry.register("l42", L42);
-}
+export const UNITS = new Map<string, (props: any) => JSX.Element>([
+    ["l0", L0],
+    ["l1", L1],
+    ["l2", L2],
+    ["l3", L3],
+    ["l4", L4],
+    ["l5", L5],
+    ["l6", L6],
+    ["l7", L7],
+    ["t1", T1],
+    ["l8", L8],
+    ["l9", L9],
+    ["l10", L10],
+    ["l11", L11],
+    ["l12", L12],
+    ["l13", L13],
+    ["l14", L14],
+    ["l15", L15],
+    ["t2", T2],
+    ["l16", L16],
+    ["l17", L17],
+    ["l18", L18],
+    ["l19", L19],
+    ["t3", T3],
+    ["l20", L20],
+    ["l21", L21],
+    ["t4", T4],
+    ["l22", L22],
+    ["l23", L23],
+    ["l24", L24],
+    ["l25", L25],
+    ["t5", T5],
+    ["l26", L26],
+    ["l27", L27],
+    ["l28", L28],
+    ["t6", T6],
+    ["l29", L29],
+    ["l30", L30],
+    ["l31", L31],
+    ["l32", L32],
+    ["l33", L33],
+    ["l34", L34],
+    ["l35", L35],
+    ["t7", T7],
+    ["l36", L36],
+    ["l37", L37],
+    ["l38", L38],
+    ["l39", L39],
+    ["l40", L40],
+    ["l41", L41],
+    ["t8", T8],
+    ["l42", L42]
+]);

@@ -1,6 +1,7 @@
 import { StudyUnitType } from "./StudyUnitType";
 import StudyUnit from "./StudyUnit";
 import { get, getMany, set, setMany, update } from 'idb-keyval/dist/esm-compat';
+import Result from "./Result";
 
 const HAS_ENTERED_KEY = "hasEntered";
 
@@ -9,27 +10,6 @@ const TEST = "t";
 
 const TEST_POSITIONS = [8, 18, 24, 28, 34, 39, 48, 56];
 const LESSON_AMOUNT = 42;
-
-export async function generateAndGetStudyUnits(callback: Function) {
-    let valuesToStore: StudyUnit[] = [];
-
-    valuesToStore.push(new StudyUnit(StudyUnitType.Lesson, 0, true, LESSON + "0"));
-
-    for (let i = 1; i <= LESSON_AMOUNT; i++) {
-        valuesToStore.push(new StudyUnit(StudyUnitType.Lesson, i, false, LESSON + i));
-    }
-
-    let tests = [];
-    for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-        tests.push(new StudyUnit(StudyUnitType.Test, i, false, TEST + i));
-    }
-
-    for (let i = 0; i < TEST_POSITIONS.length; i++) {
-        valuesToStore.splice(TEST_POSITIONS[i] - i, 0, tests[i]);
-    }
-
-    callback(valuesToStore);
-}
 
 export async function getStudyUnit(type: StudyUnitType, number: number, callback: Function) {
 
@@ -61,8 +41,8 @@ export async function getStudyUnit(type: StudyUnitType, number: number, callback
     callback(unit);
 }
 
-export async function getAllStudyUnitsArray(callback: Function) {
-    let lessonsToGet: any[] = [];
+export async function getAllStudyUnitsArray(unitIds: string[]) {
+    /*let lessonsToGet: any[] = [];
     let studyUnits: StudyUnit[] = [];
 
     lessonsToGet.push(LESSON + "0");
@@ -106,72 +86,112 @@ export async function getAllStudyUnitsArray(callback: Function) {
         .catch((err) => {
             callback(null);
             throw err;
-        });
+        });*/
 
+    try {
+        const result = await getMany(unitIds);
 
+        return new Result<StudyUnit[]>(true, result, null);
+    } catch (error) {
+        return new Result<StudyUnit[]>(false, null, error);
+    }
 }
 
 export async function changeStudyUnit(unit: StudyUnit) {
     let key = unit.id;
 
-    get(key).then((value) => {
+    try {
+        const value = get(key);
+
         if (value === undefined) {
-            return false;
+            return new Result(false, null, new Error("Value not found"));
+        } else {
+            try {
+                await update(key, (val) => {
+                    val.unlocked = unit.unlocked;
+                    val.id = unit.id;
+                    return val;
+                });
+                // Successful update
+                return new Result(true, unit, null);;
+            } catch (error) {
+                return new Result(false, null, error);
+            }
         }
-        else {
-            update(key, (val) => {
-                val.unlocked = unit.unlocked;
-                val.id = unit.id;
-                return val;
-            }).then(() => {
-                return true;
-            }).catch((err) => {
-                console.log(err);
-                return false;
-            });
-        }
-    });
+    } catch (error) {
+        return new Result(false, null, error);
+    }
 }
 
-export async function generateStudyUnitsIfNeeded(callback: Function) {
+export async function generateAndGetStudyUnitsIfNeeded(unitIds: string[]) {
 
-    get(HAS_ENTERED_KEY).then((value) => {
+    try {
+        const value = await get(HAS_ENTERED_KEY);
+
         if (value === undefined) {
-            set(HAS_ENTERED_KEY, { HAS_ENTERED_KEY: true }).then(() => {
-                generateStudyUnits(callback);
-            }).catch((err) => {
-                callback(false);
-            });
+            const result = await generateAndStoreStudyUnits(unitIds);
+            // If the result isn't a success, return early
+            if (!result.success) {
+                return result;
+            }
 
+            try {
+                await set(HAS_ENTERED_KEY, {HAS_ENTERED_KEY: true});
+                return result;
+            } catch (error) {
+                return new Result<StudyUnit[]>(false, result.result, error);
+            }
+        } else {
+            return await getAllStudyUnitsArray(unitIds);
         }
-        else {
-            callback(true);
-        }
-    }).catch((err) => {
-        callback(false);
-    });
+    } catch (error) {
+        return new Result<StudyUnit[]>(false, await generateStudyUnits(unitIds), error);
+    }
 }
 
-export async function generateStudyUnits(callback: Function) {
+export async function generateAndStoreStudyUnits(unitIds: string[]) {
 
     let valuesToStore: any[] = [];
+    let result: StudyUnit[] = await generateStudyUnits(unitIds);
 
-    valuesToStore.push([LESSON + "0", new StudyUnit(StudyUnitType.Lesson, 0, true, LESSON + "0")]);
+    for (let i = 0; i < result.length; i++) {
+        valuesToStore.push([result[i].id, result[i]]);
+    }
+    try {
+        await setMany(valuesToStore);
 
-    for (let i = 1; i <= LESSON_AMOUNT; i++) {
-        valuesToStore.push([LESSON + i, new StudyUnit(StudyUnitType.Lesson, i, false, LESSON + i)]);
+        return new Result<StudyUnit[]>(true, result, null);
+    } catch (error: any) {
+        console.log(error);
+        return new Result<StudyUnit[]>(false, result, error);
+    }
+}
+
+export async function generateStudyUnits(unitIds: string[]) {
+    let result: StudyUnit[] = [];
+
+    for (let i = 0; i < unitIds.length; i++) {
+        const id = unitIds[i];
+        const studyUnitType = getStudyUnitTypeById(id);
+        const studyUnitNumber = getStudyUnitNumberFromId(id);
+        const shouldBeUnlocked = i === 0;
+        const unit = new StudyUnit(studyUnitType, studyUnitNumber, shouldBeUnlocked, id);
+        result.push(unit);
     }
 
-    for (let i = 1; i <= TEST_POSITIONS.length; i++) {
-        valuesToStore.push([TEST + i, new StudyUnit(StudyUnitType.Test, i, false, TEST + i)]);
-    }
+    return result;
+}
 
-    setMany(valuesToStore)
-        .then(() => {
-            callback(true);
-        })
-        .catch((err) => {
-            console.log(err);
-            callback(false);
-        });
+
+
+export function getStudyUnitTypeById(id: string) {
+    /* We assume all unit types exist in the StudyUnitType enum and they are all 1 char which is at the first position
+    of the id*/
+    return id.charAt(0) as StudyUnitType;
+}
+
+export function getStudyUnitNumberFromId(id: string) {
+    const idWithoutUnitType = id.substring(1);
+
+    return Number(idWithoutUnitType);
 }

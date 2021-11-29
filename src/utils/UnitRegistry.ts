@@ -9,6 +9,12 @@ class UnitRegistry {
         this.map.set(id.toLowerCase(), element);
     }
 
+    registerAll(units: Map<string, (props: any) => JSX.Element>) {
+        for (let entry of Array.from(units.entries())) {
+            this.map.set(entry[0], entry[1]);
+        }
+    }
+
     get(id: string): (props: any) => JSX.Element {
         if (this.map.has(id)) {
             return this.map.get(id.toLowerCase())!;
