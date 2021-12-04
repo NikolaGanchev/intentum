@@ -33,7 +33,7 @@ export default function Switch(props: SwitchProps) {
         <ButtonContainer>
             {
                 props.children.map((obj: any, i: number) => {
-                    return <Button text={obj.props["data-switch"]} isActive={i === activeIndex} key={i} onClick={() => setActiveIndex(i)} />
+                    return <Button text={obj.props["data-switch"]} isInverted={i !== activeIndex} key={i} onClick={() => setActiveIndex(i)} />
                 })
             }
         </ButtonContainer>
