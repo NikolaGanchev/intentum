@@ -145,20 +145,20 @@ function App() {
         }
     }
 
-    const switchToUrlUnitIfPossible = (unitId: string, cards: StudyUnit[]) => {
-        if (!unitId || unitId.trim() === "") {
-            return;
+    const getUnitNumberFromId = (unitId: string, cards: StudyUnit[] | null) => {
+        if (!cards || !unitId || unitId.trim() === "") {
+            return undefined;
         }
 
         const normalized = unitId.trim().toLowerCase();
 
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].id.toLowerCase() === normalized) {
-                setActiveIndex(i);
-                set(StorageKeys.SELECTED_CARD, i);
-                break;
+                return i;
             }
         }
+
+        return undefined;
     }
 
     // Carousel controller
@@ -168,9 +168,19 @@ function App() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const loadActiveIndexFromStorage = async () => {
-        let val: number | undefined = await get(StorageKeys.SELECTED_CARD);
-        if (val) {
-            setActiveIndex(val);
+        return await get(StorageKeys.SELECTED_CARD);
+    }
+
+    const resolveSelectedUnit = async (urlUnitId: string, cards: StudyUnit[] | null) => {
+        const unitFromMemory: number | undefined = await loadActiveIndexFromStorage();
+        const unitFromUrl = getUnitNumberFromId(urlUnitId, cards);
+        if (unitFromUrl) {
+            setActiveIndex(unitFromUrl);
+            set(StorageKeys.SELECTED_CARD, unitFromUrl);
+            return;
+        } else if (unitFromMemory) {
+            setActiveIndex(unitFromMemory);
+            return;
         }
     }
 
@@ -250,14 +260,15 @@ function App() {
 
         const func = (result: Result<StudyUnit[]>) => {
             const onError = (result: Result<StudyUnit[]>) => {
-                setShowIndexedDBNotSupportedWarning(true);
                 if (result.result != null) {
                     onLoad(result.result);
+                    setShowIndexedDBNotSupportedWarning(true);
                 }
                 else {
                     generateStudyUnits(Array.from(UNITS.keys()))
                         .then((units: StudyUnit[]) => {
                             onLoad(units);
+                            setShowIndexedDBNotSupportedWarning(true);
                         })
                         .catch((error) => {
                             console.log(error);
@@ -268,9 +279,8 @@ function App() {
             const onLoad = async (units: StudyUnit[]) => {
                 tags.current.load(getTagSets(Array.from(UNITS.keys())));
                 setCards(units);
-                await loadActiveIndexFromStorage();
-                switchToUrlUnitIfPossible(unitId, units);
                 registry.registerAll(UNITS);
+                await resolveSelectedUnit(unitId, units);
             }
 
             const getTagSets = (unitIds: string[]) => {
@@ -302,7 +312,7 @@ function App() {
                     heading={t("app.warning")}
                     warning={t("app.indexedDBNotSupportedWarning")}
                     ok={t("app.ok")}
-                    hide={() => { setShowIndexedDBNotSupportedWarning(false) }}
+                    hide={() => { setShowIndexedDBNotSupportedWarning(false); }}
                     isShowing={showIndexedDBNotSupportedWarning} />
                 <SettingsDisplay theme={currentTheme === darkTheme ? Themes.darkTheme : Themes.theme}
                     changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />

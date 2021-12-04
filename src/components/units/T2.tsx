@@ -21,7 +21,7 @@ export default function T2(props: any) {
         <TestQuestion answers={[tl("t2.p7a1"), tl("t2.p7a2"), tl("t2.p7a3"), tl("t2.p7a4")]} rightAnswer={1} isShowing={isShowing}>{tl("t2.p7tqc")}</TestQuestion>
         <TestQuestion answers={[tl("t2.p8a1"), tl("t2.p8a2"), tl("t2.p8a3"), tl("t2.p8a4")]} rightAnswer={0} isShowing={isShowing}>{tl("t2.p8tqc")}</TestQuestion>
         <TestQuestion answers={[tl("t2.p9a1"), tl("t2.p9a2"), tl("t2.p9a3"), tl("t2.p9a4")]} rightAnswer={0} isShowing={isShowing}>{tl("t2.p9tqc")}</TestQuestion>
-        <TestQuestion answers={[tl("t2.p10a1"), tl("t2.p10a2"), tl("t2.p10a3"), tl("t2.p10a4")]} rightAnswer={2} isShowing={isShowing}>{tl("t2.p10tqc")}</TestQuestion>
+        <TestQuestion answers={[tl("t2.p10a1"), tl("t2.p10a2"), tl("t2.p10a3"), tl("t2.p10a4")]} rightAnswer={1} isShowing={isShowing}>{tl("t2.p10tqc")}</TestQuestion>
         <TestQuestion answers={[tl("t2.p11a1"), tl("t2.p11a2"), tl("t2.p11a3"), tl("t2.p11a4")]} rightAnswer={0} isShowing={isShowing}>{tl("t2.p11tqc")}</TestQuestion>
         <Code language="python" showNumbers="true">{tl("t2.p12pc")}</Code>
         <TestQuestion answers={[tl("t2.p13a1"), tl("t2.p13a2"), tl("t2.p13a3"), tl("t2.p13a4")]} rightAnswer={1} isShowing={isShowing}>{tl("t2.p13tqc")}</TestQuestion>
