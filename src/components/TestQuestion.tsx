@@ -168,7 +168,7 @@ export default function TestQuestion(props: TestQuestionProps) {
         <AnswerContainer>
             {props.answers.map((value: string, i: number) => {
 
-                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(isShowing || props.isShowing) && value === rightAnswer} key={i}>
+                return <RadioContainer isCorrect={value === rightAnswer} isShowing={(isShowing || props.isShowing) && (value === rightAnswer || value === checked)} key={i}>
                     <StyledLabel>
                         <StyledRadioButton type="radio" name={id} value={value} checked={checked === value} onChange={handleCheck} disabled={isDisabled || props.isDisabled || props.isShowing} />
                         {value}
