@@ -35,6 +35,7 @@ const Title = styled.h1`
     letter-spacing: 0.10em;
     font-weight: normal;
     margin: 1rem;
+    text-align: center;
 `
 
 const StyledSpinner = styled(SpinningLogo)`

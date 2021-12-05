@@ -61,13 +61,13 @@ const UnitContainer = styled.div`
 `
 
 const Back = styled(ArrowBack)`
-    width: auto;
+    width: 4rem;
     height: 50%;
     fill: ${props => props.theme.secondary};
 `
 
 const StyledButton = styled.button`
-    width: auto;
+    width: 4rem;
     height: 100%;
     border: none;
     background-color: ${props => props.theme.main};

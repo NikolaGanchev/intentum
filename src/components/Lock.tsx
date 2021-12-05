@@ -24,6 +24,7 @@ const Container = styled.div<PadlockProps>`
     height: ${props => props.isUnlocking ? "auto" : "12rem"};
     margin-top: -0.5rem;
     overflow: hidden;
+    margin-bottom: 0.5rem;
 `
 
 const LockContainer = styled.div<PadlockProps>`

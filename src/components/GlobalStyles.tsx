@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-    html {
+  html {
     font-size: 100%; /*16px by default*/
   }
 
@@ -68,5 +68,11 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
+    max-width: 100%;
+  }
+  
+  html {
+    overflow: hidden;
+    max-width: 100%;
   }
 `;
