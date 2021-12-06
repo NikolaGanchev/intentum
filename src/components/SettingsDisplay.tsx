@@ -105,6 +105,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [themeValue, setThemeValue] = useState(props.theme === Themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
     const tags = useContext(TagsContext);
+    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
     useEffect(() => {
         setThemeValue(props.theme === Themes.darkTheme);
@@ -144,6 +145,38 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         });
     };
 
+    useEffect(() => {
+        const isPWAStartingInstalled = () => {
+            const isStartingInstalled = window.matchMedia('(display-mode: standalone)').matches;
+            if (document.referrer.startsWith('android-app://')) {
+                return true;
+            } //@ts-ignore
+            else if (navigator.standalone || isStartingInstalled) {
+                // .standalone doesn't exist in the navigator type definition
+                return true;
+            }
+            return false;
+        }
+
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            if (isPWAStartingInstalled()) {
+                return;
+            }
+            setDeferredPrompt(event);
+        });
+
+        window.addEventListener('appinstalled', () => {
+            setDeferredPrompt(null);
+        });
+    }, [])
+
+    const install = async () => {
+        deferredPrompt.prompt();
+
+        setDeferredPrompt(null);
+    }
+
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
         <Setting>
             <SettingName>
@@ -174,6 +207,16 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                 </Toggle>
             </SettingActionContainer>
         </Setting>
+        {deferredPrompt &&
+            <Setting>
+                <SettingName>
+                    {t("app.installation")}
+                </SettingName>
+                <SettingActionContainer>
+                    <Button text={t("app.install")} onClick={() => {install()}}></Button>
+                </SettingActionContainer>
+            </Setting>
+        }
         <Setting>
             <WarningModal
                 heading={t("app.warning")}
