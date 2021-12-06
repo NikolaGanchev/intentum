@@ -106,6 +106,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
     const tags = useContext(TagsContext);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [isInstallDisabled, setIsInstallDisabled] = useState(false);
 
     useEffect(() => {
         setThemeValue(props.theme === Themes.darkTheme);
@@ -163,6 +164,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
             if (isPWAStartingInstalled()) {
                 return;
             }
+            setIsInstallDisabled(false);
             setDeferredPrompt(event);
         });
 
@@ -174,7 +176,9 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const install = async () => {
         deferredPrompt.prompt();
 
-        setDeferredPrompt(null);
+        setIsInstallDisabled(true);
+
+        const {outcome} = await deferredPrompt.userChoice;
     }
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
@@ -213,7 +217,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                     {t("app.installation")}
                 </SettingName>
                 <SettingActionContainer>
-                    <Button text={t("app.install")} onClick={() => {install()}}></Button>
+                    <Button text={t("app.install")} isDisabled={isInstallDisabled} onClick={() => {install()}}></Button>
                 </SettingActionContainer>
             </Setting>
         }
