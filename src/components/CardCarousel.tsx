@@ -3,6 +3,7 @@ import Card from "./Card";
 import ArrowLeft from "../resources/ArrowLeft";
 import ArrowRight from "../resources/ArrowRight";
 import { useTranslation } from "react-i18next";
+import {useEffect, useRef} from "react";
 
 const animationLength = 0.25;
 
@@ -122,13 +123,11 @@ interface CardCarouselProps {
 export default function CardCarousel(props: CardCarouselProps) {
     const [t] = useTranslation("common");
     const [tl] = useTranslation("lessons");
+    const containerRef = useRef<any>();
 
     const onClick = () => {
         if (props.cards[props.activeIndex].unlocked) {
             props.setStudyUnit(props.cards[props.activeIndex]);
-        }
-        else {
-
         }
     }
 
@@ -187,9 +186,32 @@ export default function CardCarousel(props: CardCarouselProps) {
         }
     };
 
+    useEffect(() => {
+        // Arrow control code
+        const onKeyDown = (event: KeyboardEvent) => {
+            switch (event.key) {
+                case "ArrowRight": {
+                    props.changeToNext();
+                    break;
+                }
+                case "ArrowLeft": {
+                    props.changeToPrevious();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', onKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+        }
+    }, [props.changeToNext, props.changeToPrevious])
+
+
+
     return <div>
         {(props.cards) &&
-            <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any}>
+            <Container className={props.className} onTouchStart={touchStart as any} onTouchMove={touchMove as any} ref={containerRef}>
                 <CardContainer transX={props.transX} transition={props.isTransition} opacity={props.opacity}>
                     <Card title={tl(`${props.cards[props.activeIndex].id}.title`)}
                         text={tl(`${props.cards[props.activeIndex].id}.text`)} unit={props.cards[props.activeIndex]}
