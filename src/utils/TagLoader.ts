@@ -6,7 +6,10 @@ export default class Tags {
     }
 
     addTagSet(tagSet: TagSet) {
-        this.tags.set(tagSet.id, tagSet.tags);
+        const normalisedTags = tagSet.tags.map((value: string) => {
+            return this.normalise(value);
+        });
+        this.tags.set(tagSet.id, normalisedTags);
     }
 
     getTags(id: string) {
@@ -19,20 +22,17 @@ export default class Tags {
             return [];
         }
 
-        const normalised: string[] = stringToSearch.toLowerCase().trim().split(" ");
+        const normalised: string = this.normalise(stringToSearch);
         const results: string[] = [];
 
         this.tags.forEach((value: string[], key: string) => {
             if (results.length + 1 >= maxResults) {
                 return;
             }
-
-            for (let token of normalised) {
-                for (let val of value) {
-                    if (val.indexOf(token) !== -1) {
-                        results.push(key);
-                        return;
-                    }
+            for (let val of value) {
+                if (val.indexOf(normalised) !== -1) {
+                    results.push(key);
+                    return;
                 }
             }
         });
@@ -48,6 +48,10 @@ export default class Tags {
 
     clear() {
         this.tags.clear();
+    }
+
+    private normalise(stringToNormalise: string) {
+        return stringToNormalise.toLowerCase().trim();
     }
 }
 
