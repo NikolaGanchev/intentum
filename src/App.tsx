@@ -8,7 +8,7 @@ import StudyUnit from './utils/StudyUnit';
 import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
-import {theme, darkTheme, Themes} from './utils/Theme';
+import {lightThemeObject, darkThemeObject, Themes} from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
@@ -98,7 +98,7 @@ const Footer = styled.div`
 `
 
 function App() {
-    const [currentTheme, setTheme] = useState(theme);
+    const [currentTheme, setTheme] = useState(lightThemeObject);
     const [t] = useTranslation("common");
     const [tt] = useTranslation("tags");
     const [showLoader, setShowLoader] = useState(true);
@@ -125,23 +125,28 @@ function App() {
         }, 500);
     }
 
-    get(StorageKeys.THEME).then((val: string) => {
-        if (val === Themes.darkTheme) {
-            setTheme(darkTheme);
-        }
-        else {
-            setTheme(theme);
-        }
-    });
+    const resolveTheme = () => {
+        get(StorageKeys.THEME).then((val: string | undefined) => {
+            // val was undefined
+            if (val === undefined) {
+                // get browser preferences theme
+                const isDarkModeOnByDefault = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                // storage keys shouldn't be set if relying on the browser theme, in case the user changes it
+                setTheme(isDarkModeOnByDefault? darkThemeObject: lightThemeObject);
+                return;
+            }
+            changeTheme(val === Themes.darkTheme);
+        });
+    }
 
     const changeTheme = (isDark: boolean) => {
         if (isDark) {
-            setTheme(darkTheme);
+            setTheme(darkThemeObject);
             set(StorageKeys.THEME, Themes.darkTheme);
         }
         else {
-            setTheme(theme);
-            set(StorageKeys.THEME, Themes.theme);
+            setTheme(lightThemeObject);
+            set(StorageKeys.THEME, Themes.lightTheme);
         }
     }
 
@@ -202,27 +207,19 @@ function App() {
         const transitionToNew = (newActiveIndex > activeIndex) ? 300 : -300;
         setTransX(-transitionToNew);
         setOpacity(0);
-
         setTimeout(() => {
-
             requestAnimationFrame(() => {
-
                 setIsTransition(false);
                 setTransX(transitionToNew);
                 setActiveIndex(newActiveIndex);
                 set(StorageKeys.SELECTED_CARD, newActiveIndex);
                 history.replace(cards[newActiveIndex].id);
-
                 requestAnimationFrame(() => {
-
                     setIsTransition(true);
                     setOpacity(100);
                     setTransX(0);
-
                     if (unlockNew && cards !== null) {
-
                         setTimeout(() => {
-
                             requestAnimationFrame(() => {
                                 let copy: any = [];
                                 Object.assign(copy, cards);
@@ -231,9 +228,7 @@ function App() {
                                 changeStudyUnit(cards[newActiveIndex]);
                             })
                         }, animationLength * 1000)
-
                     }
-
                     callback();
                 })
             })
@@ -299,7 +294,7 @@ function App() {
                 onError(result);
             }
         }
-
+        resolveTheme();
         await generateAndGetStudyUnitsIfNeeded(Array.from(UNITS.keys()))
             .then(func);
     }
@@ -314,7 +309,7 @@ function App() {
                     ok={t("app.ok")}
                     hide={() => { setShowIndexedDBNotSupportedWarning(false); }}
                     isShowing={showIndexedDBNotSupportedWarning} />
-                <SettingsDisplay theme={currentTheme === darkTheme ? Themes.darkTheme : Themes.theme}
+                <SettingsDisplay theme={currentTheme === darkThemeObject ? Themes.darkTheme : Themes.lightTheme}
                     changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
                 <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />
                 {(currentStudyUnit) ?

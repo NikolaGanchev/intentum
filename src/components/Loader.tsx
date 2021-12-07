@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import SpinningLogo from '../resources/LogoSvg'
 import { useEffect, useState } from 'react';
 
-const disappearLength = 1.5;
+const disappearLength = 1;
 
 interface BackgroundProps {
     readonly visible: boolean;
@@ -83,7 +83,7 @@ export default function Loader(props: LoaderProps) {
             setTimeout(() => {
                 props.hide();
             }, disappearLength * 1000);
-        }, 1000)
+        }, 500)
     }
 
     useEffect(() => {

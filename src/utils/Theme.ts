@@ -1,4 +1,4 @@
-const theme = {
+const lightThemeObject = {
     main: "#efefef",
     secondary: "#000000",
     text: "#000000",
@@ -20,7 +20,7 @@ const theme = {
     transparent: "rgba(0, 0, 0, 0)"
 };
 
-const darkTheme = {
+const darkThemeObject = {
     main: "#000000",
     secondary: "#efefef",
     text: "#FFFFFF",
@@ -44,7 +44,7 @@ const darkTheme = {
 
 const Themes = {
     darkTheme: "dark",
-    theme: "light"
+    lightTheme: "light"
 }
 
-export { theme, darkTheme, Themes };
+export { lightThemeObject, darkThemeObject, Themes };
