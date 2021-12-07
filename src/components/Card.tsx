@@ -69,7 +69,7 @@ interface PadlockProps {
 const ContainerLock = styled.div<PadlockProps>`
     width: 100%;
     position: absolute;
-    bottom: 1%;
+    bottom: 0px;
     height: 8rem;
     cursor: pointer;
     pointer-events: ${props => props.isUnlocking ? `none` : 'all'};
@@ -84,8 +84,8 @@ const LockContainer = styled.div<PadlockProps>`
     height: 6rem;
     display: flex;
     place-content: center;
-    background: ${props => props.theme.main};
-    box-shadow: 0px -50px 80px ${props => props.theme.main};
+    background: ${props => props.theme.pure};
+    box-shadow: 0px -50px 80px ${props => props.theme.pure};
     transition: ${props => props.isUnlocking ? `all ${unlockDuration}s ease` : 'none'}; 
     opacity: ${props => props.isUnlocking ? '0%' : '100%'}; 
 `
@@ -162,14 +162,14 @@ export default function Card(props: CardProps) {
             yes={t("app.yes")}
             no={t("app.no")}
             answer={answer} isShowing={warningIsShown} />
+        <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link>
         {(isUnlocked) ?
-            <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link> :
+            null :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>
                 <LockContainer isUnlocking={isUnlocking}>
                     <StyledPadlock isUnlocking={isUnlocking}>
                     </StyledPadlock>
                 </LockContainer>
-                <StyledButton text={t("app.begin")} onClick={props.onClick} />
             </ContainerLock>
         }
 
