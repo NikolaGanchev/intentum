@@ -187,6 +187,10 @@ function App() {
             setActiveIndex(unitFromMemory);
             return;
         }
+        else {
+            setActiveIndex(0);
+            return;
+        }
     }
 
     const changeToNext = (unlockNext = false) => {
@@ -213,11 +217,11 @@ function App() {
                 setTransX(transitionToNew);
                 setActiveIndex(newActiveIndex);
                 set(StorageKeys.SELECTED_CARD, newActiveIndex);
-                history.replace(cards[newActiveIndex].id);
                 requestAnimationFrame(() => {
                     setIsTransition(true);
                     setOpacity(100);
                     setTransX(0);
+                    history.replace(cards[newActiveIndex].id);
                     if (unlockNew && cards !== null) {
                         setTimeout(() => {
                             requestAnimationFrame(() => {

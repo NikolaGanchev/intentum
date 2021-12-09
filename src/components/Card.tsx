@@ -152,7 +152,15 @@ export default function Card(props: CardProps) {
 
         setWarningIsShown(false);
     }
-
+    
+    /*
+    Currently, there is a very strange bug that causes the react-router-dom Link component to trigger a replace
+    instead of a push if a replace was used earlier from the history object
+    For that reason, I have removed the Link component from the button here and I am imitating its functionality by
+    calling push in Unit.tsx
+    The protection leave in units also needs a push, so I'm using two pushes in Unit.tsx
+    Do not re-add the Link component until you can verify the bug has been fixed
+     */
     return <Container>
         <Title>{props.title}</Title>
         <Text>{props.text}</Text>
@@ -162,7 +170,7 @@ export default function Card(props: CardProps) {
             yes={t("app.yes")}
             no={t("app.no")}
             answer={answer} isShowing={warningIsShown} />
-        <Link to={`/${props.unit.id}`}><StyledButton text={t("app.begin")} onClick={props.onClick} /></Link>
+        <StyledButton text={t("app.begin")} onClick={props.onClick} />
         {(isUnlocked) ?
             null :
             <ContainerLock onClick={() => { setWarningIsShown(true) }} isUnlocking={isUnlocking}>

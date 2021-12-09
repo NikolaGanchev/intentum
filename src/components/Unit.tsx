@@ -131,6 +131,13 @@ export default function Unit(props: UnitProps) {
     }
 
     useEffect(() => {
+        /*
+        Currently, there is a very strange bug that causes the react-router-dom Link component to trigger a replace
+        instead of a push if a replace was used earlier from the history object
+        For that reason, I have removed the Link component from Card and I am imitating its functionality by calling push
+        The protection leave in units also needs a push, so I'm using two pushes here
+         */
+        history.push(`/${props.unit.id}`);
         history.push(`/${props.unit.id}`);
 
         return () => {
