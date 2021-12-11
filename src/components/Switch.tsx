@@ -6,7 +6,7 @@ const Container = styled.div`
     display: block;
     width: 100%;
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 `
 
 const ButtonContainer = styled.div`
