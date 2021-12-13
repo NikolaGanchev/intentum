@@ -92,6 +92,12 @@ export default function Modal(props: ModalProps) {
         if (!container) return;
 
         if (!container.contains(e.target) && modalStack.current.peek() === id.current) {
+            // Don't close on outside of modal click on mobile
+            if (document) {
+                if ('ontouchstart' in document.documentElement) {
+                    return;
+                }
+            }
             props.close();
         }
     }
