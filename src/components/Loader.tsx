@@ -9,15 +9,15 @@ interface BackgroundProps {
 };
 
 const Background = styled.div<BackgroundProps>`
-        z-index: 9999;
-        background-color: ${props => props.theme.main};
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        opacity: ${props => props.visible ? '100%' : '0'};
-        transition: ${disappearLength}s; 
-        pointer-events: ${props => props.visible ? 'all' : 'none'};
-    `
+    z-index: 9999;
+    background-color: ${props => props.theme.main};
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: ${props => props.visible ? '100%' : '0'};
+    transition: ${disappearLength}s;
+    pointer-events: ${props => props.visible ? 'all' : 'none'};
+`
 
 const Container = styled.div`
     position: fixed;

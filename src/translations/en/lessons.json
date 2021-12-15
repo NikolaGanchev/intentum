@@ -614,7 +614,7 @@
     "p16p": "The last thing I need to explain to you in this lesson is \"else if\" - but it seems I've already done half the work. Let's go back to the first example. There we have a general case if a number is negative and equal to zero. We can fix that with an \"else if\".  \"else if\" just a concatenated \"if\" next to the \"else\" of another if written, but on the same line - as in the example above:",
     "p17pc": "int num = 0;\nif (num > 0) {\n\tprint(\"The number is positive\");\n}\nelse if (num < 0) {\n\tprint(\"The number is negative\");\n}\n// This is the same as writing\n// else {\n// \tif() {}\n// }\nelse {\n\tprint(\"The number is 0\");\n}",
     "p18p": "Result:",
-    "p19con": "The numbe is 0",
+    "p19con": "The number is 0",
     "p1p": "In the previous lesson, you learned about the boolean type and comparisons. In this lesson you will learn about the bigger (and more useful) brother of the ternary.",
     "p20p": "The first check is whether the number is greater than 0. It is not, so we skip this block. We go to the second check - else if. The number is not less than 0 either, so we skip that block. We go to else, in which \"The number is 0\" is printed to the console.",
     "p21p": "As you noticed, there were no questions in this lesson either, and you may have already guessed that I'm going to give you an exercise. You are right:",

@@ -126,9 +126,7 @@ export default function CardCarousel(props: CardCarouselProps) {
     const containerRef = useRef<any>();
 
     const onClick = () => {
-        if (props.cards[props.activeIndex].unlocked) {
-            props.setStudyUnit(props.cards[props.activeIndex]);
-        }
+        props.setStudyUnit(props.cards[props.activeIndex]);
     }
 
     // Gestures code for mobile

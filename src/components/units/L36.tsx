@@ -21,9 +21,9 @@ export default function L36(props: any) {
             </div>
             <div data-switch={tl("l36.s7ds2")}>
                 <Code language="csharp" showNumbers="true">{tl("l36.s8cc")}</Code>
+                <TextBlock>{tl("l36.p9p")}</TextBlock>
             </div>
         </Switch>
-        <TextBlock>{tl("l36.p9p")}</TextBlock>
         <TextBlock>{tl("l36.p10p")}</TextBlock>
         <TextBlock>{tl("l36.p11p")}</TextBlock>
         <TextBlock>{tl("l36.p12p")}</TextBlock>

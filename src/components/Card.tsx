@@ -5,7 +5,6 @@ import Padlock from "../resources/Padlock"
 import { changeStudyUnit } from "../utils/StudyUnitUtils"
 import Button from "./Button"
 import WarningModal from "./WarningModal"
-import { Link } from "react-router-dom"
 import StudyUnit from "../utils/StudyUnit";
 
 const Container = styled.div`

@@ -15,7 +15,7 @@ export default function L40(props: any) {
         <Heading>{tl("l40.p6h")}</Heading>
         <TextBlock>{tl("l40.p7p")}</TextBlock>
         <TextBlock>{tl("l40.p8p")}</TextBlock>
-        <TextBlock>{tl("l40.p8p")}</TextBlock>
+        <TextBlock>{tl("l40.p9p")}</TextBlock>
         <Heading>{tl("l40.p10h")}</Heading>
         <TextBlock>{tl("l40.p11p")}</TextBlock>
         <Heading>{tl("l40.p12h")}</Heading>
