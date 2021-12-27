@@ -9,7 +9,7 @@ import Button from "./Button";
 import WarningModal from "./WarningModal";
 import { TagsContext } from "./TagsContext";
 import { TagSet } from "../utils/TagLoader";
-import {UNITS} from "../utils/UnitImports";
+import { UNITS } from "../utils/UnitImports";
 import StorageKeys from "../utils/StorageKeys";
 
 const Setting = styled.div`
@@ -112,6 +112,10 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         setThemeValue(props.theme === Themes.darkTheme);
     }, [props.theme])
 
+    useEffect(() => {
+        setValue(t(`app.${i18n.language}`).toString());
+    }, [i18n, t])
+
     const onLanguageChange = (e: any) => {
         const lang = languages[e.target.selectedIndex];
         i18n.changeLanguage(lang);
@@ -178,7 +182,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
 
         setIsInstallDisabled(true);
 
-        const {outcome} = await deferredPrompt.userChoice;
+        const { outcome } = await deferredPrompt.userChoice;
     }
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
@@ -217,7 +221,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                     {t("app.installation")}
                 </SettingName>
                 <SettingActionContainer>
-                    <Button text={t("app.install")} isDisabled={isInstallDisabled} onClick={() => {install()}}></Button>
+                    <Button text={t("app.install")} isDisabled={isInstallDisabled} onClick={() => { install() }}></Button>
                 </SettingActionContainer>
             </Setting>
         }
