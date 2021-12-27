@@ -2,14 +2,187 @@
     "tags": {
         "l0": [
             "meet",
-            "beginning"
+            "beginning",
+            "Lesson 0"
         ],
         "l1": [
             "numerical",
             "number",
             "system",
             "binary",
-            "base"
+            "base",
+            "Lesson 1"
+        ],
+        "l2": [
+            "Lesson 2",
+            "sum",
+            "addition",
+            "subtraction",
+            "change",
+            "numbers",
+            "operations"
+        ],
+        "l3": [
+            "Lesson 3",
+            "ASCII",
+            "Unicode",
+            "encodings",
+            "characters"
+        ],
+        "l4": [
+            "Lesson 4",
+            "file",
+            "system",
+            "extension",
+            "folder",
+            "JSON",
+            "XML"
+        ],
+        "l5": [
+            "Lesson 5",
+            "console"
+        ],
+        "l6": [
+            "Lesson 6",
+            "algorithm",
+            "action"
+        ],
+        "l7": [
+            "Lesson 7",
+            "RAM",
+            "ROM",
+            "heap",
+            "stack",
+            "memory"
+        ],
+        "t1": [
+            "Test 1"
+        ],
+        "l8": [
+            "Lesson 8"
+        ],
+        "l9": [
+            "Lesson 9"
+        ],
+        "l10": [
+            "Lesson 10"
+        ],
+        "l11": [
+            "Lesson 11"
+        ],
+        "l12": [
+            "Lesson 12"
+        ],
+        "l13": [
+            "Lesson 13"
+        ],
+        "l14": [
+            "Lesson 14"
+        ],
+        "l15": [
+            "Lesson 15"
+        ],
+        "t2": [
+            "Test 2"
+        ],
+        "l16": [
+            "Lesson 16"
+        ],
+        "l17": [
+            "Lesson 17"
+        ],
+        "l18": [
+            "Lesson 18"
+        ],
+        "l19": [
+            "Lesson 19"
+        ],
+        "t3": [
+            "Test 3"
+        ],
+        "l20": [
+            "Lesson 20"
+        ],
+        "l21": [
+            "Lesson 21"
+        ],
+        "t4": [
+            "Test 4"
+        ],
+        "l22": [
+            "Lesson 22"
+        ],
+        "l23": [
+            "Lesson 23"
+        ],
+        "l24": [
+            "Lesson 24"
+        ],
+        "l25": [
+            "Lesson 25"
+        ],
+        "t5": [
+            "Test 5"
+        ],
+        "l26": [
+            "Lesson 26"
+        ],
+        "l27": [
+            "Lesson 27"
+        ],
+        "l28": [
+            "Lesson 28"
+        ],
+        "t6": [
+            "Test 6"
+        ],
+        "l29": [
+            "Lesson 29"
+        ],
+        "l30": [
+            "Lesson 30"
+        ],
+        "l31": [
+            "Lesson 31"
+        ],
+        "l32": [
+            "Lesson 32"
+        ],
+        "l33": [
+            "Lesson 33"
+        ],
+        "l34": [
+            "Lesson 34"
+        ],
+        "l35": [
+            "Lesson 35"
+        ],
+        "t7": [
+            "Test 7"
+        ],
+        "l36": [
+            "Lesson 36"
+        ],
+        "l37": [
+            "Lesson 37"
+        ],
+        "l38": [
+            "Lesson 38"
+        ],
+        "l39": [
+            "Lesson 39"
+        ],
+        "l40": [
+            "Lesson 40"
+        ],
+        "l41": [
+            "Lesson 41"
+        ],
+        "t8": [
+            "Test 8"
+        ],
+        "l42": [
+            "Lesson 42"
         ]
     }
 }
