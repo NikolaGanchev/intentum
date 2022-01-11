@@ -35,13 +35,15 @@ export default function L33(props: any) {
         <Switch>
             <div data-switch={tl("l33.p15ds1")}>
                 <Code language="java" showNumbers="true">{tl("l33.s16cj")}</Code>
+                <TextBlock>{tl("l33.p17p")}</TextBlock>
+                <Console>{tl("l33.p17con")}</Console>
             </div>
             <div data-switch={tl("l33.s17ds2")}>
                 <Code language="csharp" showNumbers="true">{tl("l33.s18cc")}</Code>
+                <TextBlock>{tl("l33.p18p")}</TextBlock>
+                <Console>{tl("l33.p18con")}</Console>
             </div>
         </Switch>
-        <TextBlock>{tl("l33.p19p")}</TextBlock>
-        <Console>{tl("l33.p20con")}</Console>
         <ResearchQuestion>{tl("l33.p22rq")}</ResearchQuestion>
         <ResearchQuestion>{tl("l33.p23rq")}</ResearchQuestion>
         <EndButton onClick={() => { props.endUnit() }} />
