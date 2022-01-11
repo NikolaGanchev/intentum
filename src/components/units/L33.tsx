@@ -35,13 +35,13 @@ export default function L33(props: any) {
         <Switch>
             <div data-switch={tl("l33.p15ds1")}>
                 <Code language="java" showNumbers="true">{tl("l33.s16cj")}</Code>
-                <TextBlock>{tl("l33.p17p")}</TextBlock>
-                <Console>{tl("l33.p17con")}</Console>
+                <TextBlock>{tl("l33.s17p")}</TextBlock>
+                <Console>{tl("l33.s17con")}</Console>
             </div>
             <div data-switch={tl("l33.s17ds2")}>
                 <Code language="csharp" showNumbers="true">{tl("l33.s18cc")}</Code>
-                <TextBlock>{tl("l33.p18p")}</TextBlock>
-                <Console>{tl("l33.p18con")}</Console>
+                <TextBlock>{tl("l33.s18p")}</TextBlock>
+                <Console>{tl("l33.s18con")}</Console>
             </div>
         </Switch>
         <ResearchQuestion>{tl("l33.p22rq")}</ResearchQuestion>
