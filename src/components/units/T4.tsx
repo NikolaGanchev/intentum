@@ -30,44 +30,28 @@ export default function T4(props: any) {
         <ResearchQuestion>{tl("t4.p19rq")}</ResearchQuestion>
         <TextBlock>{tl("t4.p20p")}</TextBlock>
         <TextBlock>{tl("t4.p21p")}</TextBlock>
-        <TextBlock>{tl("t4.p22p")}</TextBlock>
-        <TextBlock>{tl("t4.p23p")}</TextBlock>
-        <Console>{tl("t4.p24con")}</Console>
+        <Heading>{tl("t4.p22h")}</Heading>
+        <ResearchQuestion>{tl("t4.p23rq")}</ResearchQuestion>
+        <TextBlock>{tl("t4.p24p")}</TextBlock>
         <TextBlock>{tl("t4.p25p")}</TextBlock>
         <Console>{tl("t4.p26con")}</Console>
         <TextBlock>{tl("t4.p27p")}</TextBlock>
         <Console>{tl("t4.p28con")}</Console>
         <TextBlock>{tl("t4.p29p")}</TextBlock>
-        <TextBlock>{tl("t4.p30p")}</TextBlock>
-        <TextBlock>{tl("t4.p31p")}</TextBlock>
-        <Console>{tl("t4.p32con")}</Console>
+        <Heading>{tl("t4.p30h")}</Heading>
+        <ResearchQuestion>{tl("t4.p31rq")}</ResearchQuestion>
+        <TextBlock>{tl("t4.p32p")}</TextBlock>
         <TextBlock>{tl("t4.p33p")}</TextBlock>
         <TextBlock>{tl("t4.p34p")}</TextBlock>
-        <Console>{tl("t4.p35con")}</Console>
+        <TextBlock>{tl("t4.p35p")}</TextBlock>
         <TextBlock>{tl("t4.p36p")}</TextBlock>
-        <Console>{tl("t4.p37con")}</Console>
-        <Heading>{tl("t4.p38h")}</Heading>
-        <ResearchQuestion>{tl("t4.p39rq")}</ResearchQuestion>
+        <TextBlock>{tl("t4.p37p")}</TextBlock>
+        <TextBlock>{tl("t4.p38p")}</TextBlock>
+        <TextBlock>{tl("t4.p39p")}</TextBlock>
         <TextBlock>{tl("t4.p40p")}</TextBlock>
-        <TextBlock>{tl("t4.p41p")}</TextBlock>
-        <Console>{tl("t4.p42con")}</Console>
+        <Console>{tl("t4.p41con")}</Console>
+        <TextBlock>{tl("t4.p42p")}</TextBlock>
         <TextBlock>{tl("t4.p43p")}</TextBlock>
-        <Console>{tl("t4.p44con")}</Console>
-        <TextBlock>{tl("t4.p45p")}</TextBlock>
-        <Heading>{tl("t4.p46h")}</Heading>
-        <ResearchQuestion>{tl("t4.p47rq")}</ResearchQuestion>
-        <TextBlock>{tl("t4.p48p")}</TextBlock>
-        <TextBlock>{tl("t4.p49p")}</TextBlock>
-        <TextBlock>{tl("t4.p50p")}</TextBlock>
-        <TextBlock>{tl("t4.p51p")}</TextBlock>
-        <TextBlock>{tl("t4.p52p")}</TextBlock>
-        <TextBlock>{tl("t4.p53p")}</TextBlock>
-        <TextBlock>{tl("t4.p54p")}</TextBlock>
-        <TextBlock>{tl("t4.p55p")}</TextBlock>
-        <TextBlock>{tl("t4.p56p")}</TextBlock>
-        <Console>{tl("t4.p57con")}</Console>
-        <TextBlock>{tl("t4.p58p")}</TextBlock>
-        <TextBlock>{tl("t4.p59p")}</TextBlock>
         <EndButton onClick={() => { props.endUnit() }} />
     </div>;
 }
