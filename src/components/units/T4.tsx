@@ -28,8 +28,6 @@ export default function T4(props: any) {
         <Console>{tl("t4.p17con")}</Console>
         <Heading>{tl("t4.p18h")}</Heading>
         <ResearchQuestion>{tl("t4.p19rq")}</ResearchQuestion>
-        <TextBlock>{tl("t4.p20p")}</TextBlock>
-        <TextBlock>{tl("t4.p21p")}</TextBlock>
         <Heading>{tl("t4.p22h")}</Heading>
         <ResearchQuestion>{tl("t4.p23rq")}</ResearchQuestion>
         <TextBlock>{tl("t4.p24p")}</TextBlock>
