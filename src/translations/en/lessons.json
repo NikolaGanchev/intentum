@@ -1610,7 +1610,7 @@
     "p17a4": "Subtract the sum of the numbers in the row from the result",
     "p17tq": "How to modify the above algorithm to find the smallest number in the series?",
     "p18p": "This is one of many algorithms you'll come across, but it's certainly one of the simplest and most commonly used.",
-    "p19t": "If you're going to use an algorithm enough, you'll learn it from repetition. If you don't use it enough to learn it, then you don't have to. You're only required to remember that it exists, just in case you need it so you can look it up. Unless you have the special task of memorizing an algorithm and I'm not going to give you any such tasks.",
+    "p19t": "Algorithms are not meant to be memorised. There are too many and you possibly can't remember them all. The important thing is to develop your thinking and to be able to see through a task so you can write your own algorithms.",
     "p1p": "Ahhh - an algorithm! One of the more misunderstood words in general. And now we're going to talk about it.",
     "p2p": "Let's first clarify what an algorithm is. An algorithm is a sequence of actions to achieve a result.",
     "p3p": "That's it. An algorithm is, for example, a morning routine:",
