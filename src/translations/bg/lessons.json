@@ -2124,7 +2124,7 @@
     "p6a3": "5",
     "p6a4": "6",
     "p6tqc": "След изпълнение на по-горния код, променливата result ще е равна на:",
-    "p7pc": "int num = 7;\nfloat num1 = 7.6f;\nstring result = \"\";\nif (num == num1) {\n\tresult = \"Равни\";\n}\nelse if (num < num1) {\nresult = \"Първото е по-малко\";\n}\nelse {\n\tresult = \"Второто е по-малко\";\n}",
+    "p7pc": "int num = 7;\nfloat num1 = 7.6f;\nstring result = \"\";\nif (num == num1) {\n\tresult = \"Равни\";\n}\nelse if (num < num1) {\n\tresult = \"Първото е по-малко\";\n}\nelse {\n\tresult = \"Второто е по-малко\";\n}",
     "p8a1": "Равни",
     "p8a2": "Първото е по-малко",
     "p8a3": "Второто е по-малко",
