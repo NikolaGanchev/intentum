@@ -56,133 +56,348 @@
             "memory"
         ],
         "t1": [
-            "Test 1"
+            "Test 1",
+            "computers",
+            "base"
         ],
         "l8": [
-            "Lesson 8"
+            "Lesson 8",
+            "programming",
+            "language",
+            "programming language",
+            "Java",
+            "C#",
+            "Eclipse",
+            "Idea",
+            "Visual Studio"
         ],
         "l9": [
-            "Lesson 9"
+            "Lesson 9",
+            "code",
+            "variable",
+            "int",
+            "short",
+            "long",
+            "unsigned"
         ],
         "l10": [
-            "Lesson 10"
+            "Lesson 10",
+            "real number",
+            "double",
+            "float"
         ],
         "l11": [
-            "Lesson 11"
+            "Lesson 11",
+            "arithmetic",
+            "addition",
+            "subtraction",
+            "multiplication",
+            "division",
+            "operations",
+            "modulo",
+            "bitwise",
+            "++"
         ],
         "l12": [
-            "Lesson 12"
+            "Lesson 12",
+            "character",
+            "char",
+            "encoding"
         ],
         "l13": [
-            "Lesson 13"
+            "Lesson 13",
+            "string",
+            "characters"
         ],
         "l14": [
-            "Lesson 14"
+            "Lesson 14",
+            "library",
+            "programming library",
+            "import"
         ],
         "l15": [
-            "Lesson 15"
+            "Lesson 15",
+            "scanner",
+            "console",
+            "reading",
+            "printing",
+            "input",
+            "output"
         ],
         "t2": [
-            "Test 2"
+            "Test 2",
+            "variables",
+            "store"
         ],
         "l16": [
-            "Lesson 16"
+            "Lesson 16",
+            "boolean",
+            "correct",
+            "wrong",
+            "truth",
+            "true",
+            "false",
+            "check",
+            "comparison"
         ],
         "l17": [
-            "Lesson 17"
+            "Lesson 17",
+            "logical",
+            "and",
+            "or",
+            "&",
+            "||",
+            "table",
+            "ternary"
         ],
         "l18": [
-            "Lesson 18"
+            "Lesson 18",
+            "if",
+            "else",
+            "else if",
+            "check",
+            "comparison"
         ],
         "l19": [
-            "Lesson 19"
+            "Lesson 19",
+            "nested",
+            "switch",
+            "case",
+            "if",
+            "else",
+            "else if",
+            "check",
+            "comparison"
         ],
         "t3": [
-            "Test 3"
+            "Test 3",
+            "if",
+            "else",
+            "else if",
+            "check",
+            "comparison"
         ],
         "l20": [
-            "Lesson 20"
+            "Lesson 20",
+            "loop",
+            "while",
+            "counter",
+            "iterator",
+            "i",
+            "do"
         ],
         "l21": [
-            "Lesson 21"
+            "Lesson 21",
+            "loop",
+            "i",
+            "for",
+            "foreach",
+            "for each"
         ],
         "t4": [
-            "Test 4"
+            "Test 4",
+            "loop",
+            "while",
+            "counter",
+            "iterator",
+            "i",
+            "do",
+            "for",
+            "foreach",
+            "for each"
         ],
         "l22": [
-            "Lesson 22"
+            "Lesson 22",
+            "array",
+            "list",
+            "[]"
         ],
         "l23": [
-            "Lesson 23"
+            "Lesson 23",
+            "list",
+            "array",
+            "[]",
+            "for",
+            "foreach",
+            "for each"
         ],
         "l24": [
-            "Lesson 24"
+            "Lesson 24",
+            "array",
+            "sorting",
+            "bubble sort",
+            "selection sort",
+            "nested",
+            "for",
+            "nested for",
+            "quicksort"
         ],
         "l25": [
-            "Lesson 25"
+            "Lesson 25",
+            "matrix",
+            "two dimensional array",
+            "many dimensional array",
+            "dimensions"
         ],
         "t5": [
-            "Test 5"
+            "Test 5",
+            "array",
+            "list",
+            "[]",
+            "matrix",
+            "two dimensional array",
+            "many dimensional array",
+            "dimensions"
         ],
         "l26": [
-            "Lesson 26"
+            "Lesson 26",
+            "method",
+            "function",
+            "return",
+            "argument",
+            "main"
         ],
         "l27": [
-            "Lesson 27"
+            "Lesson 27",
+            "method",
+            "function",
+            "return",
+            "recursion",
+            "recursive"
         ],
         "l28": [
-            "Lesson 28"
+            "Lesson 28",
+            "string",
+            "string methods",
+            "replace",
+            "indexof"
         ],
         "t6": [
-            "Test 6"
+            "Test 6",
+            "method",
+            "function",
+            "return",
+            "recursion",
+            "string methods"
         ],
         "l29": [
-            "Lesson 29"
+            "Lesson  29",
+            "class",
+            "constructor",
+            "variable",
+            "static",
+            "blueprint",
+            "object"
         ],
         "l30": [
-            "Lesson 30"
+            "Lesson  30",
+            "class",
+            "constructor",
+            "static",
+            "private",
+            "public",
+            "getter",
+            "setter"
         ],
         "l31": [
-            "Lesson 31"
+            "Lesson 31",
+            "class",
+            "static",
+            "const",
+            "final",
+            "readonly"
         ],
         "l32": [
-            "Lesson 32"
+            "Lesson 32",
+            "inheritance",
+            "abstract",
+            "override",
+            "annotation"
         ],
         "l33": [
-            "Lesson 33"
+            "Lesson 33",
+            "interface",
+            "inheritance"
         ],
         "l34": [
-            "Lesson 34"
+            "Lesson 34",
+            "generics",
+            "type argument",
+            "type",
+            "argument",
+            "<>"
         ],
         "l35": [
-            "Lesson 35"
+            "Lesson 35",
+            "enumeration",
+            "static",
+            "enum",
+            "public static"
         ],
         "t7": [
-            "Test 7"
+            "Test 7",
+            "class",
+            "architecture",
+            "inheritance",
+            "abstract",
+            "interface"
         ],
         "l36": [
-            "Lesson 36"
+            "Lesson 36",
+            "exception",
+            "try",
+            "catch",
+            "finally",
+            "debug",
+            "breakpoint"
         ],
         "l37": [
-            "Lesson 37"
+            "Lesson 37",
+            "thread",
+            "async",
+            "asynchronous",
+            "at the same time"
         ],
         "l38": [
-            "Lesson 38"
+            "Lesson 38",
+            "arraylist",
+            "list",
+            "map",
+            "dictionary",
+            "structures",
+            "data structures"
         ],
         "l39": [
-            "Lesson 39"
+            "Lesson 39",
+            "git",
+            "open source",
+            "license",
+            "MIT",
+            "commit",
+            "repository"
         ],
         "l40": [
-            "Lesson 40"
+            "Lesson 40",
+            "search",
+            "general",
+            "advice"
         ],
         "l41": [
-            "Lesson 41"
+            "Lesson 41",
+            "advice",
+            "developer",
+            "hobby",
+            "profession"
         ],
         "t8": [
-            "Test 8"
+            "Test 8",
+            "project",
+            "last"
         ],
         "l42": [
-            "Lesson 42"
+            "Lesson 42",
+            "end",
+            "send off"
         ]
     }
 }
