@@ -54,6 +54,7 @@ const RadioContainer = styled.div<StyledRadioContainerProps>`
         }
     }};
     transition: all 1s ease-in;
+    color: ${props => props.isShowing? props.theme.textWhite: 'none'};
 `
 
 const StyledRadioButton = styled.input`
