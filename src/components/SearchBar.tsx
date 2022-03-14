@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Search from "../resources/Search";
+import { TagMatch } from "../utils/TagLoader";
 import Button from "./Button";
 import { TagsContext } from "./TagsContext";
 
 const MAX_RESULTS = 5;
-const REM_RESULT_HEIGHT = 3;
 
 const StyledSearch = styled(Search)`
   width: 3rem;
@@ -37,6 +37,17 @@ const Container = styled.div`
     width: auto;
     z-index: 500;
     margin-top: 1rem;
+    --result-height: 5rem;
+    --container-width: 16rem;
+
+    @media only screen and (max-width: 500px) and (min-height: 400px) {
+        --result-height: 6rem;
+    }
+    
+    @media only screen and (min-width: 500px) {
+        --result-height: 5rem;
+        --container-width: 20rem;
+    }
 `
 
 interface StyledInputProps {
@@ -56,7 +67,7 @@ const StyledInput = styled.input<StyledInputProps>`
     display: flex;
     height: 3rem;
     font-size: 1rem;
-    width: ${props => props.isShown ? `15rem` : `0rem`};
+    width: ${props => props.isShown ? `calc(var(--container-width) - 1rem)` : `0rem`};
     transition: all ${animationDuration}s ease;
     padding: ${props => props.isShown ? `0rem 0.5rem` : `0px`};
     border: ${props => props.isShown ? `1px` : `0px`} solid ${props => props.theme.secondary};
@@ -73,11 +84,11 @@ const StyledQuestionContainer = styled.div`
 const StyledAnswerContainer = styled.div<StyledAnswerProps>`
     display: block;
     position: relative;
-    width: 16rem;
+    width: var(--container-width);
     margin-left: 5rem;
     background-color: ${props => props.theme.pure};
     transition: all ${animationDuration}s ease;
-    height: ${props => props.isShown ? `${props.results * REM_RESULT_HEIGHT}rem` : `0rem`};
+    height: ${props => props.isShown ? `calc(${props.results} * var(--result-height))` : `0rem`};
     overflow: hidden;
     border: ${props => props.isShown ? `1px` : `0px`} solid ${props => props.theme.secondary};
 `
@@ -90,14 +101,14 @@ const StyledList = styled.ul`
 
 const StyledListElement = styled.li`
     display: block;
-    height: ${REM_RESULT_HEIGHT}rem;
+    height: var(--result-height);
     font-size: 1rem;
 `
 
 const StyledListButton = styled(Button)`
-    height: 3rem;
+    height: var(--result-height);
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.95rem;
     padding: 0;
     margin: 0;
     border: 1px solid ${props => props.theme.pure};
@@ -105,6 +116,17 @@ const StyledListButton = styled(Button)`
     &:after {
         background: ${props => props.theme.secondary};
     }
+`
+
+const HighlightedCharacters = styled.span`
+    background-color: ${props => props.theme.warning};
+    font-size: 0.95rem;
+    letter-spacing: -1px;
+    color: ${props => props.theme.textBlack};
+`
+
+const NonHighlightedCharacters = styled.span`
+    font-size: 0.95rem;
 `
 
 interface SearchBarProps {
@@ -120,7 +142,7 @@ export default function SearchBar(props: SearchBarProps) {
     const [tl] = useTranslation("lessons");
     const [isHover, setIsHover] = useState(false);
     const [isClick, setIsClick] = useState(false);
-    const [results, setResults] = useState<string[]>([]);
+    const [results, setResults] = useState<TagMatch[]>([]);
     const tags = useContext(TagsContext);
     // isHiddenExplicitly is a toggle that is used to allow disabling the SearchBar without hovering for mobile use
     // it is only set true by clicking the SearchBar button to disable it
@@ -138,7 +160,12 @@ export default function SearchBar(props: SearchBarProps) {
         setValue(value);
 
         tags.current.search(value, MAX_RESULTS)
-            .then((results: string[]) => {
+            .then((results: TagMatch[]) => {
+                results.forEach(tagMatch => {
+                    tagMatch.html = <NonHighlightedCharacters> {tagMatch.tag.slice(0, tagMatch.matchIndex)}
+                                        <HighlightedCharacters> {tagMatch.tag.slice(tagMatch.matchIndex, tagMatch.matchIndex + tagMatch.matchLength)} </HighlightedCharacters>
+                                            {tagMatch.tag.slice(tagMatch.matchIndex + tagMatch.matchLength)} </NonHighlightedCharacters>;
+                });
                 setResults(results);
             });
     }
@@ -182,11 +209,12 @@ export default function SearchBar(props: SearchBarProps) {
             isShown={(isHover || isClick) && !isHiddenExplicitly && results.length > 0}
             results={results.length}>
             <StyledList>
-                {results.map((value: string, index: number) => {
+                {results.map((value: TagMatch, index: number) => {
                     return <StyledListElement key={index}>
-                        <StyledListButton isInverted={true}
-                            text={tl(`${value}.title`)}
-                            onClick={() => { onClickResult(value) }}>
+                        <StyledListButton isInverted={true} HTMLInjection={<div>{tl(`${value.id}.title`)} ({value.html})</div>}
+                            text=""
+                            onClick={() => { onClickResult(value.id) }}
+                            secondaryText={tl(`${value.id}.text`)}>
                         </StyledListButton>
                     </StyledListElement>;
                 })}

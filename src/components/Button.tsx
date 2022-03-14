@@ -45,10 +45,10 @@ const Container = styled.button<ContainerProps>`
     position: relative;
     transition: color 1s ease;
     cursor: pointer;
-    padding-left: 3vw;
-    padding-right: 3vw;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
+    padding-left: 2.9rem;
+    padding-right: 2.9rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     &:after {
         position: absolute;
         content: "";
@@ -77,6 +77,15 @@ const Text = styled.div`
   font-size: 1.5em;
 `
 
+const SecondaryText = styled.div`
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  font-size: 1em;
+`
+
 interface ButtonProps {
     onClick: any;
     text: string;
@@ -86,6 +95,8 @@ interface ButtonProps {
     isDisabled?: boolean;
     customBackgroundColor?: string;
     children?: any;
+    secondaryText?: string;
+    HTMLInjection?: any;
 }
 
 export default function Button(props: ButtonProps) {
@@ -98,6 +109,10 @@ export default function Button(props: ButtonProps) {
         onMouseLeave={() => { setIsHoverInternal(false) }}
         onClick={props.onClick} disabled={props.isDisabled}
         customBackgroundColor={props.customBackgroundColor}>
-        <Text>{props.text}</Text>
+        {props.HTMLInjection ?
+            <Text>{props.HTMLInjection}</Text>:
+            <Text>{props.text}</Text>
+        }
+        <SecondaryText>{props.secondaryText}</SecondaryText>
     </Container>
 }

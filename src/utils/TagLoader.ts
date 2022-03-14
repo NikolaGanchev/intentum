@@ -23,15 +23,16 @@ export default class Tags {
         }
 
         const normalised: string = this.normalise(stringToSearch);
-        const results: string[] = [];
+        const results: TagMatch[] = [];
 
         this.tags.forEach((value: string[], key: string) => {
-            if (results.length + 1 >= maxResults) {
+            if (results.length >= maxResults) {
                 return;
             }
             for (let val of value) {
-                if (val.indexOf(normalised) !== -1) {
-                    results.push(key);
+                const index = val.indexOf(normalised);
+                if (index !== -1) {
+                    results.push(new TagMatch(key, val, index, normalised.length));
                     return;
                 }
             }
@@ -52,6 +53,21 @@ export default class Tags {
 
     private normalise(stringToNormalise: string) {
         return stringToNormalise.toLowerCase().trim();
+    }
+}
+
+export class TagMatch {
+    id: string;
+    tag: string;
+    matchIndex: number;
+    matchLength: number;
+    html: any | null = null;
+
+    constructor(id: string, tag: string, matchIndex: number, matchLength: number) {
+        this.id = id;
+        this.tag= tag;
+        this.matchIndex = matchIndex;
+        this.matchLength = matchLength;
     }
 }
 
