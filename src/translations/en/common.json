@@ -33,6 +33,7 @@
         "continueNotice": "To continue, complete the task/s above",
         "check": "Провери",
         "installation": "Installation",
-        "install": "Install"
+        "install": "Install",
+        "contents": "Contents"
     }
 }

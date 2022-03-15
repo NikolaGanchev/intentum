@@ -4,7 +4,6 @@ import Heading from "./Heading";
 import Close from "../resources/Close";
 import { useHistory } from "react-router-dom";
 import ModalHelper from "./ModalHelper";
-import React from "react";
 import { ModalStackContext } from "./ModalStackContext";
 import { nanoid } from "nanoid";
 import { getModalPath } from "../utils/ModalStack";
@@ -26,7 +25,6 @@ const StyledContainer = styled.div`
     display: grid;
     width: 33%;
     height: auto;
-    grid-template-rows: auto 90%;
     background-color: ${props => props.theme.main};
     padding: 1rem;
     margin: auto;

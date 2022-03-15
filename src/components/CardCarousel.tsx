@@ -55,7 +55,6 @@ const LeftArrowButton = styled.button`
         transform: none;
         right: 0;
         top: 0;
-        
     }
 `
 

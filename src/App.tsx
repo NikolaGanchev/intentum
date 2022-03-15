@@ -21,6 +21,8 @@ import {registry} from "./utils/UnitRegistry";
 import {UNITS} from "./utils/UnitImports";
 import Result from "./utils/Result";
 import StorageKeys from "./utils/StorageKeys";
+import List from './resources/List';
+import Contents from './components/Contents';
 
 const StyledCarousel = styled(CardCarousel)`
     position: relative;
@@ -62,7 +64,16 @@ const StyledSettings = styled(Settings)`
     z-index: 400;
 `
 
-const StyledButton = styled.button`
+const StyledContents = styled(List)`
+    width: 3rem;
+    height: 3rem;
+    fill: ${props => props.theme.secondary};
+    cursor: pointer;
+    transition: all 1s ease;
+    z-index: 400;
+`
+
+const StyledContentsButton = styled.button`
         width: 4rem;
         height: 4rem;
         border: none;
@@ -70,6 +81,24 @@ const StyledButton = styled.button`
         z-index: 500;
         position: relative;
         margin-left: auto;
+        margin-top: 1rem;
+        display: inline-flex;
+        & svg:hover {
+            box-sizing: content-box;
+            transform-origin: center;
+            transform-box: fill-box;
+            height: 4.1rem;
+            transition: all 1s ease;
+        }
+`
+
+const StyledButton = styled.button`
+        width: 4rem;
+        height: 4rem;
+        border: none;
+        background-color: ${props => props.theme.transparent};
+        z-index: 500;
+        position: relative;
         margin-top: 1rem;
         margin-right: 1rem;
         display: inline-flex;
@@ -105,6 +134,7 @@ function App() {
     const [cards, setCards] = useState<StudyUnit[] | null>(null);
     const [currentStudyUnit, setCurrentStudyUnit] = useState<StudyUnit | null>(null);
     const [settingsOpen, setSettingsOpen] = useState(false);
+    const [contentsOpen, setContentsOpen] = useState(false);
     const { unitId }: any = useParams();
     const [showIndexedDBNotSupportedWarning, setShowIndexedDBNotSupportedWarning] = useState(false);
     const tags = useContext(TagsContext);
@@ -315,6 +345,7 @@ function App() {
                     isShowing={showIndexedDBNotSupportedWarning} />
                 <SettingsDisplay theme={currentTheme === darkThemeObject ? Themes.darkTheme : Themes.lightTheme}
                     changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
+                <Contents close={() => { setContentsOpen(false) }} isShowing={contentsOpen} units={cards} onSelect={onSelect}></Contents>
                 <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />
                 {(currentStudyUnit) ?
                     (<Unit unit={currentStudyUnit} back={() => { setCurrentStudyUnit(null) }} endUnit={endUnit} />) :
@@ -324,6 +355,10 @@ function App() {
                                 cards={cards}
                                 changeToArbitrary={changeToArbitrary}
                                 onSelect={onSelect} />
+                            <StyledContentsButton onClick={() => { setContentsOpen(true) }} aria-label={t("app.contents")}>
+                                <StyledContents>
+                                </StyledContents>
+                            </StyledContentsButton>
                             <StyledButton onClick={() => { setSettingsOpen(true) }} aria-label={t("app.settings")}>
                                 <StyledSettings>
                                 </StyledSettings>

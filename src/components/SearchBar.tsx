@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Search from "../resources/Search";
 import { TagMatch } from "../utils/TagLoader";
-import Button from "./Button";
+import { StyledList, StyledListButton, StyledListElement } from "./GlobalComponents";
 import { TagsContext } from "./TagsContext";
 
 const MAX_RESULTS = 5;
@@ -93,40 +93,15 @@ const StyledAnswerContainer = styled.div<StyledAnswerProps>`
     border: ${props => props.isShown ? `1px` : `0px`} solid ${props => props.theme.secondary};
 `
 
-const StyledList = styled.ul`
-    list-style-type: none;
-    margin: 0;
-    padding-left: 0px;
-`
-
-const StyledListElement = styled.li`
-    display: block;
-    height: var(--result-height);
-    font-size: 1rem;
-`
-
-const StyledListButton = styled(Button)`
-    height: var(--result-height);
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0;
-    margin: 0;
-    border: 1px solid ${props => props.theme.pure};
-    background-color: ${props => props.theme.pure};
-    &:after {
-        background: ${props => props.theme.secondary};
-    }
-`
-
 const HighlightedCharacters = styled.span`
-    background-color: ${props => props.theme.warning};
+    background-color: ${props => props.theme.secondary};
     font-size: 0.95rem;
-    letter-spacing: -1px;
     color: ${props => props.theme.textBlack};
 `
 
 const NonHighlightedCharacters = styled.span`
     font-size: 0.95rem;
+    letter-spacing: 0px;
 `
 
 interface SearchBarProps {
@@ -211,7 +186,9 @@ export default function SearchBar(props: SearchBarProps) {
             <StyledList>
                 {results.map((value: TagMatch, index: number) => {
                     return <StyledListElement key={index}>
-                        <StyledListButton isInverted={true} HTMLInjection={<div>{tl(`${value.id}.title`)} ({value.html})</div>}
+                        <StyledListButton isInverted={true}
+                            aria-label={tl(`${value.id}.title`) + ` (${value.tag})`}
+                            HTMLInjection={<div>{tl(`${value.id}.title`)} ({value.html})</div>}
                             text=""
                             onClick={() => { onClickResult(value.id) }}
                             secondaryText={tl(`${value.id}.text`)}>
