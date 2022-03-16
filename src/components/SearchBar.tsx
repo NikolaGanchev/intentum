@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Search from "../resources/Search";
 import { TagMatch } from "../utils/TagLoader";
+import { HiddenColors } from "../utils/Theme";
 import { StyledList, StyledListButton, StyledListElement } from "./GlobalComponents";
 import { TagsContext } from "./TagsContext";
 
@@ -20,7 +21,7 @@ const StyledButton = styled.button`
     width: 4rem;
     height: 3rem;
     border: none;
-    background-color: ${props => props.theme.transparent};
+    background-color: ${HiddenColors.transparent};
     margin-left: 1rem;
     display: inline-flex;
     position: relative;
@@ -96,7 +97,7 @@ const StyledAnswerContainer = styled.div<StyledAnswerProps>`
 const HighlightedCharacters = styled.span`
     background-color: ${props => props.theme.secondary};
     font-size: 0.95rem;
-    color: ${props => props.theme.textBlack};
+    color: ${props => props.theme.textSecondary};
 `
 
 const NonHighlightedCharacters = styled.span`

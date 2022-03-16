@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 import TextBlock from "./TextBlock"
 import Image from './Image';
 import { useTranslation } from "react-i18next";
+import { ColorType, determineColorBasedOnLuminosity } from "../utils/Theme";
 
 const Container = styled.div`
     display: block;
@@ -54,7 +55,22 @@ const RadioContainer = styled.div<StyledRadioContainerProps>`
         }
     }};
     transition: all 1s ease-in;
-    color: ${props => props.isShowing? props.theme.textWhite: 'none'};
+    color: ${props => {
+        if (props.isShowing) {
+            let color;
+
+            if (props.isCorrect) {
+                color = props.theme.correct;
+            } else {
+                color = props.theme.wrong;
+            }
+            
+            const colorType: ColorType = determineColorBasedOnLuminosity(color);
+            return colorType === ColorType.Dark ? props.theme.textOnDarkBackground: props.theme.textOnLightBackground;
+        } else {
+            return 'none';
+        }
+    }};
 `
 
 const StyledRadioButton = styled.input`
@@ -78,7 +94,10 @@ interface ExplanationProps {
 
 const Explanation = styled.div<ExplanationProps>`
     background-color: ${props => props.theme.tip};
-    color: ${props => props.theme.textWhite};
+    color: ${props => {
+        const colorType: ColorType = determineColorBasedOnLuminosity(props.theme.tip);
+        return colorType === ColorType.Dark ? props.theme.textOnDarkBackground: props.theme.textOnLightBackground;
+    }};
     transition: all 1s ease-in;
     visibility: ${props => props.isShown ? 'visible' : 'hidden'};
     display: ${props => props.isShown ? 'block' : 'none'};

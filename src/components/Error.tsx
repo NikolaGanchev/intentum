@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { ColorType, determineColorBasedOnLuminosity } from "../utils/Theme";
 import Circle from "./Circle"
 
 const Container = styled.div`
@@ -11,7 +12,10 @@ const Container = styled.div`
 
 const StyledCircle = styled(Circle)`
     background-color: ${props => props.theme.error};
-    color: ${props => props.theme.color};
+    color: ${props => {
+        const colorType: ColorType = determineColorBasedOnLuminosity(props.theme.error);
+        return colorType === ColorType.Dark ? props.theme.textOnDarkBackground: props.theme.textOnLightBackground;
+    }};
 `
 
 const Text = styled.div`

@@ -8,7 +8,7 @@ import StudyUnit from './utils/StudyUnit';
 import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
-import {lightThemeObject, darkThemeObject, Themes} from './utils/Theme';
+import {lightThemeObject, darkThemeObject, Themes, HiddenColors} from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
@@ -42,7 +42,7 @@ const Top = styled.div`
     position: relative;
     transition: all 1s ease;
     display: flex;
-    background-color: ${props => props.theme.transparent};
+    background-color: ${HiddenColors.transparent};
 `
 
 const animation = keyframes`
@@ -77,7 +77,7 @@ const StyledContentsButton = styled.button`
         width: 4rem;
         height: 4rem;
         border: none;
-        background-color: ${props => props.theme.transparent};
+        background-color: ${HiddenColors.transparent};
         z-index: 500;
         position: relative;
         margin-left: auto;
@@ -96,7 +96,7 @@ const StyledButton = styled.button`
         width: 4rem;
         height: 4rem;
         border: none;
-        background-color: ${props => props.theme.transparent};
+        background-color: ${HiddenColors.transparent};
         z-index: 500;
         position: relative;
         margin-top: 1rem;

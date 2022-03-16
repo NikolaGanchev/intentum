@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import { Themes } from "../utils/Theme";
+import { darkThemeObject, lightThemeObject, Themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
@@ -11,6 +11,7 @@ import { TagsContext } from "./TagsContext";
 import { TagSet } from "../utils/TagLoader";
 import { UNITS } from "../utils/UnitImports";
 import StorageKeys from "../utils/StorageKeys";
+import ThemeSelector from "./ThemeSelector";
 
 const Setting = styled.div`
     display: flex;
@@ -107,6 +108,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const tags = useContext(TagsContext);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
     const [isInstallDisabled, setIsInstallDisabled] = useState(false);
+    const [isThemeSelectorShown, setIsThemeSelectorShown] = useState(false);
 
     useEffect(() => {
         setThemeValue(props.theme === Themes.darkTheme);
@@ -213,6 +215,18 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                         }} />
                     <Slider></Slider>
                 </Toggle>
+            </SettingActionContainer>
+        </Setting>
+        <Setting>
+            <ThemeSelector 
+                isShowing={isThemeSelectorShown} 
+                close={() => { setIsThemeSelectorShown(false) }}
+                themes={[darkThemeObject, lightThemeObject]}></ThemeSelector>
+            <SettingName>
+                {t("app.colorTheme")}
+            </SettingName>
+            <SettingActionContainer>
+                <Button text={t("app.choose")} onClick={() => { setIsThemeSelectorShown(true) }}></Button>
             </SettingActionContainer>
         </Setting>
         {deferredPrompt &&

@@ -34,6 +34,10 @@
         "check": "Провери",
         "installation": "Installation",
         "install": "Install",
-        "contents": "Contents"
+        "contents": "Contents",
+        "colorTheme": "Color Theme",
+        "choose": "Choose",
+        "light": "Light",
+        "dark": "Dark"
     }
 }

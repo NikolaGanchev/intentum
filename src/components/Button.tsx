@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { ColorType, determineColorBasedOnLuminosity } from "../utils/Theme";
 
 interface ContainerProps {
     readonly isHover: boolean | undefined;
@@ -19,16 +20,8 @@ const Container = styled.button<ContainerProps>`
         else if (!props.isHover) {
             // Calculate custom text color if there is a custom background color
             if (props.customBackgroundColor) {
-                // convert hex to rgb
-                const hexWithoutFirstSymbol = props.customBackgroundColor.replace("#", "");
-                const int = parseInt(hexWithoutFirstSymbol, 16);
-                const red = (int >> 16) & 255;
-                const green = (int >> 8) & 255;
-                const blue = int & 255;
-                // calculate luminocity
-                const luminosity = 0.2126*red + 0.7152*green + 0.0722*blue;
-                // return color based on luminosity
-                return luminosity > 128 ? props.theme.textBlack: props.theme.textWhite;
+                const colorType: ColorType = determineColorBasedOnLuminosity(props.customBackgroundColor);
+                return colorType === ColorType.Dark ? props.theme.textOnDarkBackground: props.theme.textOnLightBackground;
             } else {
               return (props.isInverted ? props.theme.text : props.theme.textSecondary);
             }

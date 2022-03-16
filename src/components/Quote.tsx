@@ -9,7 +9,7 @@ const Container = styled.div`
     padding-bottom: 2rem;
     border-width: 1px;
     border-style: solid;
-    border-image: ${props => props.theme.borderGradient};
+    border-image: ${props => props.theme.secondary};
     position: relative;
 `
 

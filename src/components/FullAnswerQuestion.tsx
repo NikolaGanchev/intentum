@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components"
+import { ColorType, determineColorBasedOnLuminosity } from "../utils/Theme";
 import Button from "./Button";
 import Image from './Image';
 import TextBlock from "./TextBlock";
@@ -72,7 +73,10 @@ interface ExplanationProps {
 
 const Explanation = styled.div<ExplanationProps>`
     background-color: ${props => props.theme.tip};
-    color: ${props => props.theme.textWhite};
+    color: ${props => {
+        const colorType: ColorType = determineColorBasedOnLuminosity(props.theme.tip);
+        return colorType === ColorType.Dark ? props.theme.textOnDarkBackground: props.theme.textOnLightBackground;
+    }};
     transition: all 1s ease-in;
     visibility: ${props => props.isShown ? 'visible' : 'hidden'};
     display: ${props => props.isShown ? 'block' : 'none'};
