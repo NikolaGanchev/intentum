@@ -156,7 +156,7 @@ function App() {
     }
 
     const resolveTheme = () => {
-        get(StorageKeys.THEME).then((val: Map<ThemeColors, string>) => {
+        get(StorageKeys.THEME).then((val: any) => {
             // val was undefined
             if (val === undefined) {
                 // get browser preferences theme
@@ -166,8 +166,7 @@ function App() {
                 return;
             }
 
-            const theme: Theme = mapToTheme(val);
-            changeTheme(theme);
+            changeTheme(val);
         });
     }
 

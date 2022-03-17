@@ -36,8 +36,8 @@ export default function ThemePresenter(props: ThemePresenterProps) {
                         }
                         </Heading>
                         <Container>
-                            {Object.entries(theme).map((value: [string, string]) => {
-                                return <ColorSquare isHover={isHover} color={value[1]}></ColorSquare>
+                            {Object.entries(theme).map((value: [string, string], index: number) => {
+                                return <ColorSquare key={index} isHover={isHover} color={value[1]}></ColorSquare>
                             })}
                         </Container>
                     </div>}>
