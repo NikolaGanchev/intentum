@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import { darkThemeObject, lightThemeObject, Themes } from "../utils/Theme";
+import { darkThemeObject, lightThemeObject, Theme, Themes } from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
@@ -92,7 +92,7 @@ const StyledInput = styled.input`
 `
 
 interface SettingsDisplayProps {
-    theme: string;
+    theme: Theme;
     changeTheme: any;
     close: any;
     isShowing: boolean;
@@ -103,16 +103,11 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
     const [, i18nl] = useTranslation("lessons");
     const [tt, i18nt] = useTranslation("tags");
     const [value, setValue] = useState(t(`app.${i18n.language}`).toString());
-    const [themeValue, setThemeValue] = useState(props.theme === Themes.darkTheme);
     const [clearWarningIsShown, setClearWarningIsShown] = useState(false);
     const tags = useContext(TagsContext);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
     const [isInstallDisabled, setIsInstallDisabled] = useState(false);
     const [isThemeSelectorShown, setIsThemeSelectorShown] = useState(false);
-
-    useEffect(() => {
-        setThemeValue(props.theme === Themes.darkTheme);
-    }, [props.theme])
 
     useEffect(() => {
         setValue(t(`app.${i18n.language}`).toString());
@@ -203,22 +198,9 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
             </SettingActionContainer>
         </Setting>
         <Setting>
-            <SettingName>
-                {t("app.themeSetting")}
-            </SettingName>
-            <SettingActionContainer>
-                <Toggle>
-                    <StyledInput type="checkbox" checked={themeValue}
-                        onChange={(e: any) => {
-                            props.changeTheme(e.target.checked);
-                            setThemeValue(e.target.checked);
-                        }} />
-                    <Slider></Slider>
-                </Toggle>
-            </SettingActionContainer>
-        </Setting>
-        <Setting>
-            <ThemeSelector 
+            <ThemeSelector currentTheme={props.theme} onSelect={(theme: Theme) => {
+                props.changeTheme(theme);
+            }}
                 isShowing={isThemeSelectorShown} 
                 close={() => { setIsThemeSelectorShown(false) }}
                 themes={[darkThemeObject, lightThemeObject]}></ThemeSelector>

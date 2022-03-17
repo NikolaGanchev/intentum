@@ -59,6 +59,83 @@ export interface Theme {
     name?: string;
 }
 
+export enum ThemeColors {
+    Main = 1,
+    Secondary,
+    Text,
+    TextSecondary,
+    Shadow,
+    Pure,
+    Tip,
+    Warning,
+    Error,
+    Correct,
+    Wrong,
+    CorrectFull,
+    WrongFull,
+    Blur,
+    TextOnDarkBackground,
+    TextOnLightBackground,
+    ID,
+    Name
+}
+
+export const themeToMap = (theme: Theme) => {
+    const map = new Map<ThemeColors, string>(
+        [[ThemeColors.Main, theme.main],
+        [ThemeColors.Secondary, theme.secondary],
+        [ThemeColors.Text, theme.text],
+        [ThemeColors.TextSecondary, theme.textSecondary],
+        [ThemeColors.Shadow, theme.shadow],
+        [ThemeColors.Pure, theme.pure],
+        [ThemeColors.Tip, theme.tip],
+        [ThemeColors.Warning, theme.warning],
+        [ThemeColors.Error, theme.error],
+        [ThemeColors.Correct, theme.correct],
+        [ThemeColors.Wrong, theme.wrong],
+        [ThemeColors.CorrectFull, theme.correctFull],
+        [ThemeColors.WrongFull, theme.wrongFull],
+        [ThemeColors.Blur, theme.blur],
+        [ThemeColors.TextOnDarkBackground, theme.textOnDarkBackground],
+        [ThemeColors.TextOnLightBackground, theme.textOnLightBackground]]
+    )
+
+    if (theme.id) {
+        map.set(ThemeColors.ID, theme.id);
+    }
+
+    if (theme.name) {
+        map.set(ThemeColors.Name, theme.name);
+    }
+
+    return map;
+}
+
+export const mapToTheme = (map: Map<ThemeColors, string>) => {
+    const theme: Theme = {
+        main: map.get(ThemeColors.Main)!,
+        secondary: map.get(ThemeColors.Secondary)!,
+        text:  map.get(ThemeColors.Text)!,
+        textSecondary: map.get(ThemeColors.TextSecondary)!,
+        shadow: map.get(ThemeColors.Shadow)!,
+        pure: map.get(ThemeColors.Pure)!,
+        tip: map.get(ThemeColors.Tip)!,
+        warning: map.get(ThemeColors.Warning)!,
+        error: map.get(ThemeColors.Error)!,
+        correct: map.get(ThemeColors.Correct)!,
+        wrong: map.get(ThemeColors.Wrong)!,
+        correctFull: map.get(ThemeColors.CorrectFull)!,
+        wrongFull: map.get(ThemeColors.WrongFull)!,
+        blur: map.get(ThemeColors.Blur)!,
+        textOnDarkBackground: map.get(ThemeColors.TextOnDarkBackground)!,
+        textOnLightBackground: map.get(ThemeColors.TextOnLightBackground)!,
+        id: map.get(ThemeColors.ID),
+        name: map.get(ThemeColors.Name)
+    }
+
+    return theme;
+}
+
 export const HiddenColors = {
     transparent: "rgba(0, 0, 0, 0)"
 }

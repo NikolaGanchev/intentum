@@ -8,7 +8,7 @@ import StudyUnit from './utils/StudyUnit';
 import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
-import {lightThemeObject, darkThemeObject, Themes, HiddenColors} from './utils/Theme';
+import {lightThemeObject, darkThemeObject, Themes, HiddenColors, ThemeColors, mapToTheme, Theme} from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
@@ -156,7 +156,7 @@ function App() {
     }
 
     const resolveTheme = () => {
-        get(StorageKeys.THEME).then((val: string | undefined) => {
+        get(StorageKeys.THEME).then((val: Map<ThemeColors, string>) => {
             // val was undefined
             if (val === undefined) {
                 // get browser preferences theme
@@ -165,19 +165,15 @@ function App() {
                 setTheme(isDarkModeOnByDefault? darkThemeObject: lightThemeObject);
                 return;
             }
-            changeTheme(val === Themes.darkTheme);
+
+            const theme: Theme = mapToTheme(val);
+            changeTheme(theme);
         });
     }
 
-    const changeTheme = (isDark: boolean) => {
-        if (isDark) {
-            setTheme(darkThemeObject);
-            set(StorageKeys.THEME, Themes.darkTheme);
-        }
-        else {
-            setTheme(lightThemeObject);
-            set(StorageKeys.THEME, Themes.lightTheme);
-        }
+    const changeTheme = (theme: Theme) => {
+        setTheme(theme);
+        set(StorageKeys.THEME, theme);
     }
 
     const getUnitNumberFromId = (unitId: string, cards: StudyUnit[] | null) => {
@@ -343,7 +339,7 @@ function App() {
                     ok={t("app.ok")}
                     hide={() => { setShowIndexedDBNotSupportedWarning(false); }}
                     isShowing={showIndexedDBNotSupportedWarning} />
-                <SettingsDisplay theme={currentTheme === darkThemeObject ? Themes.darkTheme : Themes.lightTheme}
+                <SettingsDisplay theme={currentTheme}
                     changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
                 <Contents close={() => { setContentsOpen(false) }} isShowing={contentsOpen} units={cards} onSelect={onSelect}></Contents>
                 <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />

@@ -97,7 +97,7 @@ export default function Button(props: ButtonProps) {
 
     return <Container className={props.className}
         isInverted={props.isInverted}
-        isHover={isHoverInternal || props.isHover}
+        isHover={props.isHover? props.isHover: isHoverInternal}
         onMouseEnter={() => { setIsHoverInternal(true) }}
         onMouseLeave={() => { setIsHoverInternal(false) }}
         onClick={props.onClick} disabled={props.isDisabled}
