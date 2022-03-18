@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from 'styled-components';
 import CardCarousel, { animationLength } from './components/CardCarousel';
@@ -139,6 +139,7 @@ function App() {
     const [showIndexedDBNotSupportedWarning, setShowIndexedDBNotSupportedWarning] = useState(false);
     const tags = useContext(TagsContext);
     const history = useHistory();
+    const [themes, setThemes] = useState<Theme[]>([lightThemeObject]);
 
     useEffect(() => {
         document.title = t("app.name");
@@ -168,6 +169,17 @@ function App() {
 
             changeTheme(val);
         });
+    }
+
+    const getThemes = async () =>  {
+        const values: Theme[] | undefined = await get(StorageKeys.THEMES);
+        if (values === undefined) {
+            set(StorageKeys.THEMES, []);
+            setThemes([lightThemeObject, darkThemeObject]);
+            return;
+        }
+
+        setThemes([lightThemeObject, darkThemeObject, ...values]);
     }
 
     const changeTheme = (theme: Theme) => {
@@ -305,6 +317,7 @@ function App() {
                 setCards(units);
                 registry.registerAll(UNITS);
                 await resolveSelectedUnit(unitId, units);
+                await getThemes();
             }
 
             const getTagSets = (unitIds: string[]) => {
@@ -338,8 +351,13 @@ function App() {
                     ok={t("app.ok")}
                     hide={() => { setShowIndexedDBNotSupportedWarning(false); }}
                     isShowing={showIndexedDBNotSupportedWarning} />
-                <SettingsDisplay theme={currentTheme}
-                    changeTheme={changeTheme} close={() => { setSettingsOpen(false) }} isShowing={settingsOpen} />
+                <SettingsDisplay 
+                    setThemes={setThemes}
+                    theme={currentTheme}
+                    changeTheme={changeTheme} 
+                    close={() => { setSettingsOpen(false) }} 
+                    isShowing={settingsOpen} 
+                    themes={themes}/>
                 <Contents close={() => { setContentsOpen(false) }} isShowing={contentsOpen} units={cards} onSelect={onSelect}></Contents>
                 <Loader title={t("app.name")} motto={t("app.motto")} hide={hide} job={job} isShowing={showLoader} />
                 {(currentStudyUnit) ?

@@ -1,9 +1,9 @@
-import { set, clear } from "idb-keyval/dist/esm-compat";
+import { set, clear, update } from "idb-keyval/dist/esm-compat";
 import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import { darkThemeObject, lightThemeObject, Theme, Themes } from "../utils/Theme";
+import {areThemesEqual, Theme} from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
@@ -12,6 +12,7 @@ import { TagSet } from "../utils/TagLoader";
 import { UNITS } from "../utils/UnitImports";
 import StorageKeys from "../utils/StorageKeys";
 import ThemeSelector from "./ThemeSelector";
+import { nanoid } from "nanoid";
 
 const Setting = styled.div`
     display: flex;
@@ -96,6 +97,8 @@ interface SettingsDisplayProps {
     changeTheme: any;
     close: any;
     isShowing: boolean;
+    themes: Theme[];
+    setThemes: any;
 }
 
 export default function SettingsDisplay(props: SettingsDisplayProps) {
@@ -182,6 +185,44 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         const { outcome } = await deferredPrompt.userChoice;
     }
 
+    
+    const createTheme = () => {
+        const newTheme: Theme = Object.assign({}, props.theme);
+        if (newTheme.id) {
+            newTheme.id = undefined;
+        }
+        newTheme.name = nanoid();
+        update(StorageKeys.THEMES, (val: Theme[] | undefined) => {
+            if (val === undefined) {
+                return [];
+            }
+            val.push(newTheme)
+            return val;
+        })
+        props.setThemes([...props.themes, newTheme]);
+        
+    }
+
+    const deleteTheme = (theme: Theme) => {
+        let copy: Theme[] = [];
+        Object.assign(copy, props.themes);
+        copy = copy.filter((item: Theme) => !areThemesEqual(item, theme));
+
+        update(StorageKeys.THEMES, (val: Theme[] | undefined) => {
+            if (val === undefined) {
+                return [];
+            }
+            copy = copy.filter((item: Theme) => !item.id);
+            return copy;
+        })
+        
+        props.setThemes(copy);
+    }
+
+    const modifyTheme = () => {
+
+    }
+
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
         <Setting>
             <SettingName>
@@ -198,12 +239,15 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
             </SettingActionContainer>
         </Setting>
         <Setting>
-            <ThemeSelector currentTheme={props.theme} onSelect={(theme: Theme) => {
-                props.changeTheme(theme);
-            }}
+            <ThemeSelector currentTheme={props.theme} 
+                onSelect={(theme: Theme) => {
+                    props.changeTheme(theme);
+                }}
                 isShowing={isThemeSelectorShown} 
                 close={() => { setIsThemeSelectorShown(false) }}
-                themes={[darkThemeObject, lightThemeObject]}></ThemeSelector>
+                themes={props.themes}
+                createTheme={createTheme}
+                deleteTheme={deleteTheme}></ThemeSelector>
             <SettingName>
                 {t("app.colorTheme")}
             </SettingName>

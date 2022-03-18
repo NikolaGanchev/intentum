@@ -37,7 +37,11 @@
         "contents": "Contents",
         "colorTheme": "Color Theme",
         "choose": "Choose",
+        "themeSelected": "Selected",
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "createTheme": "Create theme",
+        "deleteTheme": "Delete color theme",
+        "delete": "Delete"
     }
 }

@@ -21,9 +21,13 @@ const StyledBackground = styled.div`
     place-content: center;
 `
 
-const StyledContainer = styled.div`
+interface StyledContainerProps {
+    customWidth?: number;
+}
+
+const StyledContainer = styled.div<StyledContainerProps>`
     display: grid;
-    width: 33%;
+    width: ${props => props.customWidth? props.customWidth: "33"}%;
     height: auto;
     background-color: ${props => props.theme.main};
     padding: 1rem;
@@ -41,11 +45,17 @@ const UpperContainer = styled.div`
     align-items: center;
 `
 
-const ContentContainer = styled.div`
+interface ContentContainerProps {
+    allowScroll?: boolean;
+}
+
+const ContentContainer = styled.div<ContentContainerProps>`
     display: block;
     width: 100%;
     height: 100%;
     grid-row: 2;
+    overflow-y: auto;
+    max-height: ${props => props.allowScroll ? "87vh": "auto"};
 `
 
 const StyledHeading = styled(Heading)`
@@ -76,6 +86,8 @@ interface ModalProps {
     heading: string;
     isShowing: boolean;
     close: any;
+    allowScroll?: boolean;
+    customWidth?: number;
 }
 
 export default function Modal(props: ModalProps) {
@@ -133,7 +145,7 @@ export default function Modal(props: ModalProps) {
             <div>
                 <ModalHelper id={id.current} />
                 <StyledBackground onClick={onClick} aria-hidden={false}>
-                    <StyledContainer ref={containerRef}>
+                    <StyledContainer ref={containerRef} customWidth={props.customWidth}>
                         <UpperContainer>
                             <StyledHeading>{props.heading}</StyledHeading>
                             <StyledButton onClick={() => {
@@ -143,7 +155,7 @@ export default function Modal(props: ModalProps) {
                                 </StyledClose>
                             </StyledButton>
                         </UpperContainer>
-                        <ContentContainer className={props.className}>
+                        <ContentContainer allowScroll={props.allowScroll} className={props.className}>
                             {props.children}
                         </ContentContainer>
                     </StyledContainer>

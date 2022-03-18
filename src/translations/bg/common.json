@@ -37,7 +37,11 @@
         "contents": "Съдържание",
         "colorTheme": "Цветова тема",
         "choose": "Избери",
+        "themeSelected": "Избрана",
         "light": "Светла",
-        "dark": "Тъмна"
+        "dark": "Тъмна",
+        "createTheme": "Създай цветова тема",
+        "deleteTheme": "Изтрий цветова тема",
+        "delete": "Изтрий"
     }
 }

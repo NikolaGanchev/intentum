@@ -136,6 +136,20 @@ export const mapToTheme = (map: Map<ThemeColors, string>) => {
     return theme;
 }
 
+export const areThemesEqual = (theme1: Theme, theme2: Theme) => {
+    if ((theme1.id && !theme2.id) || (!theme1.id && theme2.id)) {
+        return false;
+    }
+
+    if (theme1.id && theme2.id && theme1.id === theme2.id) {
+        return true;
+    } else if (theme1.name && theme2.name && theme1.name === theme2.name) {
+        return true;
+    }
+
+    return false;
+}
+
 export const HiddenColors = {
     transparent: "rgba(0, 0, 0, 0)"
 }
