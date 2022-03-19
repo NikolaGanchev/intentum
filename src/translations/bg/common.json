@@ -44,6 +44,12 @@
         "deleteTheme": "Изтрий цветова тема",
         "delete": "Изтрий",
         "chooseColor": "Избери цвят",
+        "editName": "Редактирай име",
+        "writeName": "Напиши име",
+        "themeNameNotSet": "Името не беше запазено",
+        "themeNameAlreadyExists": "Името вече съществува",
+        "themeNameTooLong": "Името е твърде дълго",
+        "themeNameNotLongEnough": "Името не е достатъчно дълго",
         "colors": {
             "main": "Главен",
             "secondary": "Вторичен",

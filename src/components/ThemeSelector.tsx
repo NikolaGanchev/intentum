@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import Result from "../utils/Result";
 import { areThemesEqual, Theme } from "../utils/Theme";
 import Button from "./Button";
 import Modal from "./Modal";
@@ -13,7 +14,8 @@ interface ThemeSelectorProps {
     currentTheme: Theme;
     createTheme: () => any;
     deleteTheme: (theme: Theme) => any;
-    colorChangeHandler: (newTheme: Theme) => void
+    modifyTheme: (newTheme: Theme) => void
+    changeName: (theme: Theme, newName: string) => Result<null>;
 }
 
 const ButtonsContainer = styled.div`
@@ -42,7 +44,8 @@ export default function ThemeSelector(props: ThemeSelectorProps) {
             </ButtonsContainer>
             {props.themes.map((theme: Theme) => {
                 return <ThemePresenter
-                    colorChangeHandler={props.colorChangeHandler}
+                    changeName={props.changeName}
+                    modifyTheme={props.modifyTheme}
                     deleteTheme={props.deleteTheme} 
                     isDisabled={areThemesEqual(theme, props.currentTheme)} 
                     onSelect={onSelect} 

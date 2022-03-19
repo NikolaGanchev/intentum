@@ -44,6 +44,12 @@
         "deleteTheme": "Delete color theme",
         "delete": "Delete",
         "chooseColor": "Choose color",
+        "editName": "Edit name",
+        "writeName": "Create name",
+        "themeNameNotSet": "The name wasn't saved",
+        "themeNameAlreadyExists": "The name already exists",
+        "themeNameTooLong": "The name is too long",
+        "themeNameNotLongEnough": "The name isn't long enough",
         "colors": {
             "main": "Main",
             "secondary": "Secondary",

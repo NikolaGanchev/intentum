@@ -14,6 +14,8 @@ import StorageKeys from "../utils/StorageKeys";
 import ThemeSelector from "./ThemeSelector";
 import { nanoid } from "nanoid";
 import { ColorChangeHandler, ColorResult } from "react-color";
+import Result, { ThemeNameError } from "../utils/Result";
+import { MAX_THEME_NAME_LENGTH, MIN_THEME_NAME_LENGTH } from "./ThemePresenter";
 
 const Setting = styled.div`
     display: flex;
@@ -185,14 +187,13 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
 
         const { outcome } = await deferredPrompt.userChoice;
     }
-
     
     const createTheme = () => {
         const newTheme: Theme = Object.assign({}, props.theme);
         if (newTheme.id) {
             newTheme.id = undefined;
         }
-        newTheme.name = nanoid();
+        newTheme.name = nanoid(12);
         update(StorageKeys.THEMES, (val: Theme[] | undefined) => {
             if (val === undefined) {
                 return [];
@@ -200,8 +201,8 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
             val.push(newTheme)
             return val;
         })
+
         props.setThemes([...props.themes, newTheme]);
-        
     }
 
     const deleteTheme = (theme: Theme) => {
@@ -224,7 +225,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         }
     }
 
-    const colorChangeHandler = (newTheme: Theme) => {
+    const modifyTheme = (newTheme: Theme) => {
         let copy: Theme[] = [];
         Object.assign(copy, props.themes);
         copy = copy.filter((item: Theme) => !areThemesEqual(item, newTheme));
@@ -245,6 +246,53 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         }
     }
 
+    const changeThemeName = (theme: Theme, newName: string) => {
+        const result: Result<null> = new Result(true, null, null);
+        let copy: Theme[] = [];
+        Object.assign(copy, props.themes);
+        
+        // Validate name
+        const themesWithSameName = copy.filter((item: Theme) => areThemesEqual(item, theme));
+        if (themesWithSameName.length > 1) {
+            result.success = false;
+            result.error = ThemeNameError.NameAlreadyExists;
+            return result;
+        }
+
+        if (newName.length > MAX_THEME_NAME_LENGTH) {
+            result.success = false;
+            result.error = ThemeNameError.TooLong;
+            return result;
+        }
+
+        if (newName.length < MIN_THEME_NAME_LENGTH) {
+            result.success = false;
+            result.error = ThemeNameError.NotLongEnough;
+            return result;
+        }
+ 
+        copy = copy.filter((item: Theme) => !areThemesEqual(item, theme));
+
+        theme.name = newName;
+        copy.push(theme);
+
+        update(StorageKeys.THEMES, (val: Theme[] | undefined) => {
+            if (val === undefined) {
+                return [];
+            }
+            copy = copy.filter((item: Theme) => !item.id);
+            return copy;
+        });
+
+        props.setThemes(copy);
+
+        if (theme.name && props.theme.name && theme.name === props.theme.name) {
+            props.changeTheme(theme);
+        }
+
+        return result;
+    }
+
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
         <Setting>
@@ -263,6 +311,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         </Setting>
         <Setting>
             <ThemeSelector currentTheme={props.theme} 
+                changeName={changeThemeName}
                 onSelect={(theme: Theme) => {
                     props.changeTheme(theme);
                 }}
@@ -271,7 +320,7 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                 themes={props.themes}
                 createTheme={createTheme}
                 deleteTheme={deleteTheme}
-                colorChangeHandler={colorChangeHandler}></ThemeSelector>
+                modifyTheme={modifyTheme}></ThemeSelector>
             <SettingName>
                 {t("app.colorTheme")}
             </SettingName>

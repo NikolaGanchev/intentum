@@ -9,3 +9,9 @@ export default class Result<T> {
         this.result = result;
     }
 }
+
+export enum ThemeNameError {
+    TooLong,
+    NotLongEnough,
+    NameAlreadyExists
+}
