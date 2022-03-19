@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next"
 import styled from "styled-components";
 import { languages } from "../utils/Languages";
-import {areThemesEqual, Theme} from "../utils/Theme";
+import {areThemesEqual, lightThemeObject, Theme} from "../utils/Theme";
 import Modal from "./Modal";
 import Button from "./Button";
 import WarningModal from "./WarningModal";
@@ -13,6 +13,7 @@ import { UNITS } from "../utils/UnitImports";
 import StorageKeys from "../utils/StorageKeys";
 import ThemeSelector from "./ThemeSelector";
 import { nanoid } from "nanoid";
+import { ColorChangeHandler, ColorResult } from "react-color";
 
 const Setting = styled.div`
     display: flex;
@@ -217,11 +218,33 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
         })
         
         props.setThemes(copy);
+
+        if (theme.name && props.theme.name && theme.name === props.theme.name) {
+            props.changeTheme(lightThemeObject);
+        }
     }
 
-    const modifyTheme = () => {
+    const colorChangeHandler = (newTheme: Theme) => {
+        let copy: Theme[] = [];
+        Object.assign(copy, props.themes);
+        copy = copy.filter((item: Theme) => !areThemesEqual(item, newTheme));
+        copy.push(newTheme);
 
+        update(StorageKeys.THEMES, (val: Theme[] | undefined) => {
+            if (val === undefined) {
+                return [];
+            }
+            copy = copy.filter((item: Theme) => !item.id);
+            return copy;
+        })
+        
+        props.setThemes(copy);
+
+        if (newTheme.name && props.theme.name && newTheme.name === props.theme.name) {
+            props.changeTheme(newTheme);
+        }
     }
+
 
     return <Modal heading={t("app.settings")} close={() => { props.close() }} isShowing={props.isShowing}>
         <Setting>
@@ -247,7 +270,8 @@ export default function SettingsDisplay(props: SettingsDisplayProps) {
                 close={() => { setIsThemeSelectorShown(false) }}
                 themes={props.themes}
                 createTheme={createTheme}
-                deleteTheme={deleteTheme}></ThemeSelector>
+                deleteTheme={deleteTheme}
+                colorChangeHandler={colorChangeHandler}></ThemeSelector>
             <SettingName>
                 {t("app.colorTheme")}
             </SettingName>

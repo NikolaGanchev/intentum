@@ -43,6 +43,7 @@
         "createTheme": "Create theme",
         "deleteTheme": "Delete color theme",
         "delete": "Delete",
+        "chooseColor": "Choose color",
         "colors": {
             "main": "Main",
             "secondary": "Secondary",

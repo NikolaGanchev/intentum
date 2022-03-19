@@ -1,3 +1,5 @@
+import { ColorResult } from "react-color";
+
 const lightThemeObject: Theme = {
     main: "#efefef",
     text: "#000000",
@@ -70,6 +72,17 @@ export enum ThemeColors {
     TextOnLightBackground,
     ID,
     Name
+}
+
+export const getColorString = (color: ColorResult) => {
+    let colorString;
+    if (color.rgb.a && color.rgb.a !== 1) {
+        colorString = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
+    } else {
+        colorString = color.hex;
+    }
+
+    return colorString;
 }
 
 export const themeToMap = (theme: Theme) => {

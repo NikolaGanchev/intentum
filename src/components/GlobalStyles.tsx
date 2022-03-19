@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 100%; /*16px by default*/
+    overflow-x: hidden;
   }
 
   @media only screen and (max-width: 768px) {

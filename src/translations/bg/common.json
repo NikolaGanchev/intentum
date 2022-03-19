@@ -43,6 +43,7 @@
         "createTheme": "Създай цветова тема",
         "deleteTheme": "Изтрий цветова тема",
         "delete": "Изтрий",
+        "chooseColor": "Избери цвят",
         "colors": {
             "main": "Главен",
             "secondary": "Вторичен",
