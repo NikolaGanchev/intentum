@@ -1,20 +1,34 @@
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import StudyUnit from "../utils/StudyUnit";
-import { StyledListButton, StyledListElement } from "./GlobalComponents";
+import Button from "./Button";
+import { StyledListElement } from "./GlobalComponents";
 import Modal from "./Modal"
 
 const StyledModal = styled(Modal)`
     --result-height: 6rem;
 `
 
-export const StyledList = styled.ul`
+const StyledList = styled.ul`
     list-style-type: none;
     margin: 0;
     padding-left: 0px;
     max-height:auto;
     overflow-y:auto;
     height: 80vh;
+`
+
+export const StyledListButton = styled(Button)`
+    height: var(--result-height);
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0;
+    margin: 0;
+    border: 1px solid ${props => props.theme.main};
+    background-color: ${props => props.theme.main};
+    &:after {
+        background: ${props => props.theme.secondary};
+    }
 `
 
 interface ContentsProps {

@@ -42,6 +42,22 @@
         "dark": "Тъмна",
         "createTheme": "Създай цветова тема",
         "deleteTheme": "Изтрий цветова тема",
-        "delete": "Изтрий"
+        "delete": "Изтрий",
+        "colors": {
+            "main": "Главен",
+            "secondary": "Вторичен",
+            "text": "Текст на главен",
+            "textSecondary": "Текст на вторичен",
+            "shadow": "Сенки",
+            "pure": "Главен ярък",
+            "tip": "Съвет",
+            "warning": "Предупреждение",
+            "error": "Внимание",
+            "correct": "Вярно",
+            "wrong": "Грешно",
+            "blur": "Размазване",
+            "textOnDarkBackground": "Текст на тъмен фон",
+            "textOnLightBackground": "Текст на светъл фон"
+        }
     }
 }

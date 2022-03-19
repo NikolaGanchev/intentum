@@ -42,6 +42,22 @@
         "dark": "Dark",
         "createTheme": "Create theme",
         "deleteTheme": "Delete color theme",
-        "delete": "Delete"
+        "delete": "Delete",
+        "colors": {
+            "main": "Main",
+            "secondary": "Secondary",
+            "text": "Text on main",
+            "textSecondary": "Text on secondary",
+            "shadow": "Shadows",
+            "pure": "Main vibrant",
+            "tip": "Tip",
+            "warning": "Caution",
+            "error": "Warning",
+            "correct": "Correct",
+            "wrong": "Wrong",
+            "blur": "Blur",
+            "textOnDarkBackground": "Text on dark background",
+            "textOnLightBackground": "Text on light background"
+        }
     }
 }

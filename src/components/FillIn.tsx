@@ -15,10 +15,10 @@ const StyledInput = styled.input<StyledInputProps>`
     border-left: none;
     border-color: ${props => {
         if (props.isShowing && props.isCorrect) {
-            return props.theme.correctFull;
+            return props.theme.correct;
         }
         else if (props.isShowing && !props.isCorrect) {
-            return props.theme.wrongFull;
+            return props.theme.wrong;
         }
         else {
             return props.theme.secondary;
@@ -26,10 +26,10 @@ const StyledInput = styled.input<StyledInputProps>`
     }};
     color: ${props => {
         if (props.isShowing && props.isCorrect) {
-            return props.theme.correctFull;
+            return props.theme.correct;
         }
         else if (props.isShowing && !props.isCorrect) {
-            return props.theme.wrongFull;
+            return props.theme.wrong;
         }
         else {
             return props.theme.text;

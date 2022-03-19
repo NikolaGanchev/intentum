@@ -1,11 +1,27 @@
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { ColorType, determineColorBasedOnLuminosity } from "../utils/Theme";
+import TextBlock from "./TextBlock";
 
-interface ColorSquareProps {
+interface SquareProps {
     color: string;
 }
 
-const Square = styled.div<ColorSquareProps>`
+interface ColorSquareProps {
+    color: string;
+    id: string;
+}
+
+const Container = styled.div`
+    display: inline-flex;
+    width: 5.4rem;
+    margin: 0.5rem;
+    text-align: center;
+    place-items: center;
+    flex-direction: column;
+`
+
+const Square = styled.div<SquareProps>`
     border: 2px solid;
     border-color: ${props => {
         const colorType: ColorType = determineColorBasedOnLuminosity(props.theme.main);
@@ -14,10 +30,24 @@ const Square = styled.div<ColorSquareProps>`
     width: 3rem;
     height: 3rem;
     background-color: ${props => props.color};
-    margin: 0.5rem;
     transition: all 1s ease;
 `
 
+const StyledTextBlock = styled(TextBlock)`
+    height: auto;
+    word-wrap: break-word;
+    text-indent: 0rem;
+    font-size: 1rem;
+    width: 5.4rem;
+`
+
 export default function ColorSquare(props: ColorSquareProps) {
-    return <Square color={props.color}></Square>
+    const [t, _] = useTranslation("common");
+
+    return <Container>
+        <Square color={props.color}></Square>
+        <StyledTextBlock>
+            {t(`app.colors.${props.id}`)}
+        </StyledTextBlock>
+    </Container>
 }

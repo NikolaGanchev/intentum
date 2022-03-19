@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import Delete from "../resources/Delete";
-import { HiddenColors, Theme } from "../utils/Theme";
+import { Theme } from "../utils/Theme";
 import Button from "./Button";
 import ColorSquare from "./ColorSquare";
 import Heading from "./Heading";
@@ -17,7 +16,9 @@ interface ThemePresenterProps {
 const Container = styled.div`
     display: flex;
     width: 100%;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    height: auto;
+    overflow-y: hidden;
 `
 
 const ButtonsContainer = styled.div`
@@ -40,7 +41,8 @@ export default function ThemePresenter(props: ThemePresenterProps) {
                 </Heading>
                 <Container>
                     {Object.entries(theme).map((value: [string, string], index: number) => {
-                        return <ColorSquare key={index} color={value[1]}></ColorSquare>
+                        if (value[0] === "id" || value[0] === "name") return;
+                        return <ColorSquare key={index} color={value[1]} id={value[0]}></ColorSquare>
                     })}
                 </Container>
                 <ButtonsContainer>

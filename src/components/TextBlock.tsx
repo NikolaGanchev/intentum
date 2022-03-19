@@ -11,8 +11,9 @@ const StyledParagraph = styled.p`
 
 interface TextBlockProps {
     children: any;
+    className?: any;
 }
 
 export default function TextBlock(props: TextBlockProps) {
-    return <StyledParagraph>{props.children}</StyledParagraph>
+    return <StyledParagraph className={props.className}>{props.children}</StyledParagraph>
 }

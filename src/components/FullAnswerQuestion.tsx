@@ -38,10 +38,10 @@ const StyledInput = styled.input<StyledInputProps>`
     display: block;
     border: 1px solid ${props => {
         if (props.isShowing && props.isCorrect) {
-            return props.theme.correctFull;
+            return props.theme.correct;
         }
         else if (props.isShowing && !props.isCorrect) {
-            return props.theme.wrongFull;
+            return props.theme.wrong;
         }
         else {
             return props.theme.secondary;
@@ -49,10 +49,10 @@ const StyledInput = styled.input<StyledInputProps>`
     }};
     color: ${props => {
         if (props.isShowing && props.isCorrect) {
-            return props.theme.correctFull;
+            return props.theme.correct;
         }
         else if (props.isShowing && !props.isCorrect) {
-            return props.theme.wrongFull;
+            return props.theme.wrong;
         }
         else {
             return props.theme.text;
