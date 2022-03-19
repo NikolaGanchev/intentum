@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ColorChangeHandler, ColorResult } from "react-color";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import Edit from "../resources/Edit";
 import Result, { ThemeNameError } from "../utils/Result";
 import { getColorString, HiddenColors, Theme } from "../utils/Theme";
@@ -81,6 +81,7 @@ export const MAX_THEME_NAME_LENGTH = 15;
 export const MIN_THEME_NAME_LENGTH = 1;
 
 export default function ThemePresenter(props: ThemePresenterProps) {
+    const theme: any = useTheme();
     const [t, _] = useTranslation("common");
     const containerRef = useRef<any>();
     const [currentName, setCurrentName] = useState<string | undefined>("");
@@ -212,7 +213,7 @@ export default function ThemePresenter(props: ThemePresenterProps) {
                         <Button text={t("app.delete")} onClick={() => {
                             props.deleteTheme(props.theme);
                         }} 
-                        customBackgroundColor={props.theme.error}></Button>
+                        customBackgroundColor={theme.error}></Button>
                     }
                 </ButtonsContainer>
         </div>
