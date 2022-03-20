@@ -8,7 +8,7 @@ import StudyUnit from './utils/StudyUnit';
 import {changeStudyUnit, generateAndGetStudyUnitsIfNeeded, generateStudyUnits} from './utils/StudyUnitUtils';
 import { ThemeProvider } from 'styled-components';
 import Settings from './resources/Settings';
-import {lightThemeObject, darkThemeObject, Themes, HiddenColors, ThemeColors, mapToTheme, Theme} from './utils/Theme';
+import {lightThemeObject, darkThemeObject, HiddenColors, Theme} from './utils/Theme';
 import SettingsDisplay from './components/SettingsDisplay';
 import { get, set } from 'idb-keyval/dist/esm-compat';
 import { GlobalStyle } from './components/GlobalStyles';
@@ -47,12 +47,12 @@ const Top = styled.div`
 
 const animation = keyframes`
     0% {
-                transform: rotate(0deg);
-        }
+        transform: rotate(0deg);
+    }
 
-        100% {
-                transform: rotate(360deg);
-        }
+    100% {
+        transform: rotate(360deg);
+    }
 `
 
 const StyledSettings = styled(Settings)`
@@ -74,41 +74,41 @@ const StyledContents = styled(List)`
 `
 
 const StyledContentsButton = styled.button`
-        width: 4rem;
-        height: 4rem;
-        border: none;
-        background-color: ${HiddenColors.transparent};
-        z-index: 500;
-        position: relative;
-        margin-left: auto;
-        margin-top: 1rem;
-        display: inline-flex;
-        & svg:hover {
-            box-sizing: content-box;
-            transform-origin: center;
-            transform-box: fill-box;
-            height: 4.1rem;
-            transition: all 1s ease;
-        }
+    width: 4rem;
+    height: 4rem;
+    border: none;
+    background-color: ${HiddenColors.transparent};
+    z-index: 500;
+    position: relative;
+    margin-left: auto;
+    margin-top: 1rem;
+    display: inline-flex;
+    & svg:hover {
+        box-sizing: content-box;
+        transform-origin: center;
+        transform-box: fill-box;
+        height: 4.1rem;
+        transition: all 1s ease;
+    }
 `
 
 const StyledButton = styled.button`
-        width: 4rem;
-        height: 4rem;
-        border: none;
-        background-color: ${HiddenColors.transparent};
-        z-index: 500;
-        position: relative;
-        margin-top: 1rem;
-        margin-right: 1rem;
-        display: inline-flex;
-        & svg:hover {
-            box-sizing: content-box;
-            transform-origin: center;
-            transform-box: fill-box;
-            animation: ${animation} 5s infinite forwards linear;
-            transition: all 1s ease;
-        }
+    width: 4rem;
+    height: 4rem;
+    border: none;
+    background-color: ${HiddenColors.transparent};
+    z-index: 500;
+    position: relative;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    display: inline-flex;
+    & svg:hover {
+        box-sizing: content-box;
+        transform-origin: center;
+        transform-box: fill-box;
+        animation: ${animation} 5s infinite forwards linear;
+        transition: all 1s ease;
+    }
 `
 
 const Footer = styled.div`

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ColorChangeHandler, ColorResult } from "react-color";
+import { useEffect, useRef, useState } from "react";
+import { ColorResult } from "react-color";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
 import Edit from "../resources/Edit";
@@ -152,10 +152,11 @@ export default function ThemePresenter(props: ThemePresenterProps) {
     }
 
     useEffect(() => {
-        containerRef.current.addEventListener("wheel", onWheel);
+        const instance = containerRef.current;
+        instance.addEventListener("wheel", onWheel, false);
         
         return () => {
-            containerRef.current.removeEventListener("wheel", onWheel);
+            instance.removeEventListener("wheel", onWheel, false);
         }
       }, [containerRef]);
 
