@@ -172,14 +172,19 @@ function App() {
     }
 
     const getThemes = async () =>  {
-        const values: Theme[] | undefined = await get(StorageKeys.THEMES);
-        if (values === undefined) {
-            set(StorageKeys.THEMES, []);
+        try {
+            const values: Theme[] | undefined = await get(StorageKeys.THEMES);
+            if (values === undefined) {
+                set(StorageKeys.THEMES, []);
+                setThemes([lightThemeObject, darkThemeObject]);
+                return;
+            }
+    
+            setThemes([lightThemeObject, darkThemeObject, ...values]);
+        } catch (e) {
             setThemes([lightThemeObject, darkThemeObject]);
-            return;
         }
-
-        setThemes([lightThemeObject, darkThemeObject, ...values]);
+        
     }
 
     const changeTheme = (theme: Theme) => {
@@ -214,19 +219,24 @@ function App() {
     }
 
     const resolveSelectedUnit = async (urlUnitId: string, cards: StudyUnit[] | null) => {
-        const unitFromMemory: number | undefined = await loadActiveIndexFromStorage();
-        const unitFromUrl = getUnitNumberFromId(urlUnitId, cards);
-        if (unitFromUrl) {
-            setActiveIndex(unitFromUrl);
-            set(StorageKeys.SELECTED_CARD, unitFromUrl);
-            return;
-        } else if (unitFromMemory) {
-            setActiveIndex(unitFromMemory);
-            return;
+        try {
+            const unitFromMemory: number | undefined = await loadActiveIndexFromStorage();
+            const unitFromUrl = getUnitNumberFromId(urlUnitId, cards);
+            if (unitFromUrl) {
+                setActiveIndex(unitFromUrl);
+                set(StorageKeys.SELECTED_CARD, unitFromUrl);
+                return;
+            } else if (unitFromMemory) {
+                setActiveIndex(unitFromMemory);
+                return;
+            }
+            else {
+                setActiveIndex(0);
+                return;
+            }
         }
-        else {
+        catch (e) {
             setActiveIndex(0);
-            return;
         }
     }
 
